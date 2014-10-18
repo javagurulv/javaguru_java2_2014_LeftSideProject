@@ -11,9 +11,9 @@ public interface FileExtensionDAO {
 
     void create(FileExtension user) throws DBException;
 
-    FileExtension getById(Byte id) throws DBException;
+    FileExtension getById(byte id) throws DBException;
 
-    void delete(Byte id) throws DBException;
+    void delete(byte id) throws DBException;
 
     void update(FileExtension user) throws DBException;
 

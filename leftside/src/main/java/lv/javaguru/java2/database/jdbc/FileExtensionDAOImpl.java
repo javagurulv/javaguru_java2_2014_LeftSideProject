@@ -45,7 +45,7 @@ public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
     }
 
     @Override
-    public FileExtension getById(Byte id) throws DBException {
+    public FileExtension getById(byte id) throws DBException {
         Connection connection = null;
 
         try {
@@ -95,7 +95,7 @@ public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
     }
 
     @Override
-    public void delete(Byte id) throws DBException {
+    public void delete(byte id) throws DBException {
         Connection connection = null;
         try {
             connection = getConnection();

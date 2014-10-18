@@ -29,7 +29,11 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
                     connection.prepareStatement("insert into FILES values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setLong(1, file.getParentFolderId());
             preparedStatement.setString(2, file.getFileName());
-            preparedStatement.setByte(3, file.getExtensionId());
+            if (null != file.getExtensionId()) {
+                preparedStatement.setByte(3, file.getExtensionId());
+            } else {
+                preparedStatement.setString(3, null);
+            }
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -62,7 +66,10 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
                 file.setFileId(resultSet.getLong("FileID"));
                 file.setParentFolderId(resultSet.getLong("ParentFolderID"));
                 file.setFileName(resultSet.getString("FileName"));
-                file.setExtensionId(resultSet.getByte("ExtensionID"));
+                Object obj = resultSet.getObject("ExtensionID");
+                if (null != obj) {
+                    file.setExtensionId(((Integer) obj).byteValue());
+                }
             }
             return file;
         } catch (Throwable e) {
@@ -87,7 +94,10 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
                 file.setFileId(resultSet.getLong("FileID"));
                 file.setParentFolderId(resultSet.getLong("ParentFolderID"));
                 file.setFileName(resultSet.getString("FileName"));
-                file.setExtensionId(resultSet.getByte("ExtensionID"));
+                Object obj = resultSet.getObject("ExtensionID");
+                if (null != obj) {
+                    file.setExtensionId(((Integer) obj).byteValue());
+                }
                 files.add(file);
             }
         } catch (Throwable e) {
@@ -132,7 +142,11 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
                             "where FileID = ?");
             preparedStatement.setLong(1, file.getParentFolderId());
             preparedStatement.setString(2, file.getFileName());
-            preparedStatement.setByte(3, file.getExtensionId());
+            if (null != file.getExtensionId()) {
+                preparedStatement.setByte(3, file.getExtensionId());
+            } else {
+                preparedStatement.setString(3, null);
+            }
             preparedStatement.setLong(4, file.getFileId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {

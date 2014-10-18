@@ -37,7 +37,7 @@ public class FileDAOImplTest {
         this.rootFolder = folder;
 
         FileExtension fileExtension = new FileExtension();
-        fileExtension.setExtension("none");
+        fileExtension.setExtension("test");
         fileExtensionDAO.create(fileExtension);
         this.generalFileExtension = fileExtension;
     }
@@ -95,6 +95,20 @@ public class FileDAOImplTest {
         fileDAO.create(file2);
         List<File> files = fileDAO.getAll();
         assertEquals(2, files.size());
+    }
+
+    @Test
+    public void testEmptyExtensionFileCreation() throws DBException {
+        File file = createFile("F1");
+        file.setExtensionId(null);
+        fileDAO.create(file);
+
+        File fileFromDB = fileDAO.getById(file.getFileId());
+        assertNotNull(fileFromDB);
+        assertEquals(file.getFileId(), fileFromDB.getFileId());
+        assertEquals(file.getFileName(), fileFromDB.getFileName());
+        assertEquals(file.getParentFolderId(), fileFromDB.getParentFolderId());
+        assertEquals(file.getExtensionId(), fileFromDB.getExtensionId());
     }
 
     private File createFile(String fileName) {

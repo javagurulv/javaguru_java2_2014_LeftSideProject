@@ -7,7 +7,7 @@ public class File {
     private long fileId;
     private long parentFolderId;
     private String fileName;
-    private byte extensionId;
+    private Byte extensionId;
 
     public long getFileId() {
         return fileId;
@@ -33,11 +33,11 @@ public class File {
         this.fileName = fileName;
     }
 
-    public byte getExtensionId() {
+    public Byte getExtensionId() {
         return extensionId;
     }
 
-    public void setExtensionId(byte extensionId) {
+    public void setExtensionId(Byte extensionId) {
         this.extensionId = extensionId;
     }
 }

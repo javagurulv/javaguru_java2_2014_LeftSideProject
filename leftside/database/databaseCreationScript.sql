@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`files` (
   `FileID` INT(11) NOT NULL AUTO_INCREMENT,
   `ParentFolderID`  INT(11)  NOT NULL,
   `FileName` VARCHAR(40) NOT NULL,
-  `ExtensionID` TINYINT NOT NULL,
+  `ExtensionID` TINYINT NULL,
   PRIMARY KEY (`FileID`),
   FOREIGN KEY (ParentFolderID)
   REFERENCES folders(FolderID),
