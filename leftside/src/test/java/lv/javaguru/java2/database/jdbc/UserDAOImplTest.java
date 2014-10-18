@@ -18,11 +18,46 @@ public class UserDAOImplTest {
 
     private UserDAO userDAO = new UserDAOImpl();
 
-
     @Before
     public void init() throws DBException {
         databaseCleaner.cleanDatabase();
     }
+
+    @Test
+    public void testNonExistingUserDoesNotExist() throws Exception {
+
+        User user = userDAO.getById(123L);
+        assertEquals(user, null);
+    }
+
+    @Test
+    public void testDelete() throws Exception {
+
+        User user = createUser("Test", "Test");
+        userDAO.create(user);
+
+        List<User> allUsers = userDAO.getAll();
+        assertEquals(allUsers.size(), 1);
+
+        userDAO.delete(user.getUserId());
+        allUsers = userDAO.getAll();
+        assertEquals(allUsers.size(), 0);
+    }
+
+    @Test
+    public void testUpdate() throws DBException {
+
+        User expected = createUser("QQQ", "AAA");
+        userDAO.create(expected);
+
+        expected.setFirstName("ZZZ");
+        userDAO.update(expected);
+
+        User actual = userDAO.getById(expected.getUserId());
+        assertEquals(expected.getFirstName(), actual.getFirstName());
+    }
+
+
 
     @Test
     public void testCreate() throws DBException {

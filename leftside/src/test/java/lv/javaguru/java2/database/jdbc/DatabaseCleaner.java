@@ -15,6 +15,9 @@ public class DatabaseCleaner extends DAOImpl {
     private List<String> getTableNames() {
         List<String> tableNames = new ArrayList<String>();
         tableNames.add("USERS");
+        tableNames.add("FILES");
+        tableNames.add("FOLDERS");
+        tableNames.add("FILEEXTENSIONS");
         return tableNames;
     }
 
