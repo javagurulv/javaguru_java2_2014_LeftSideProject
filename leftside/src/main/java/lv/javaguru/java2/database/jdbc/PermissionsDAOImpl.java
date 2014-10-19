@@ -148,6 +148,7 @@ public class PermissionsDAOImpl extends DAOImpl implements PermissionsDAO {
             preparedStatement.setBoolean(4, permissions.isAllowedWriting());
             preparedStatement.setBoolean(5, permissions.isAllowedDeleting());
             preparedStatement.setBoolean(6, permissions.isAllowedUpdating());
+            preparedStatement.setLong(7, permissions.getPermissionId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute PermissionsDAOImpl.update()");
