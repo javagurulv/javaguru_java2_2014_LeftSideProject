@@ -36,11 +36,10 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`folders` (
   `ParentFolderID`  INT(11) NULL,
   `FolderName` VARCHAR(40) NOT NULL,
   `Path` VARCHAR(500) NOT NULL,
-  PRIMARY KEY (`FolderID`),
-  FOREIGN KEY (ParentFolderID)
-  REFERENCES folders(FolderID)
+  PRIMARY KEY (`FolderID`)
 )
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 10;
 
 -- -----------------------------------------------------
 -- Table `Java2_LeftSide`.`fileExtensions`
@@ -52,7 +51,8 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`fileExtensions` (
   `Extension` VARCHAR(4) NOT NULL,
   PRIMARY KEY (`ExtensionID`)
 )
-  ENGINE = InnoDB;
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 10;
 -- -----------------------------------------------------
 -- Table `Java2_LeftSide`.`files`
 -- -----------------------------------------------------
@@ -63,13 +63,10 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`files` (
   `ParentFolderID`  INT(11)  NOT NULL,
   `FileName` VARCHAR(40) NOT NULL,
   `ExtensionID` TINYINT NULL,
-  PRIMARY KEY (`FileID`),
-  FOREIGN KEY (ParentFolderID)
-  REFERENCES folders(FolderID),
-  FOREIGN KEY (ExtensionID)
-  REFERENCES fileExtensions(ExtensionID)
+  PRIMARY KEY (`FileID`)
 )
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 10;
 
 -- -----------------------------------------------------
 -- Table `Java2_LeftSide`.`permissions`
@@ -86,7 +83,8 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`permissions` (
   `AllowedUpdating` BOOLEAN  NOT NULL,
   PRIMARY KEY (PermissionID)
 )
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 10;
 
 -- -----------------------------------------------------
 -- Table `Java2_LeftSide`.`accessGroups`
@@ -98,11 +96,8 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`accessGroups` (
   `AccessGroupName` VARCHAR(40) NOT NULL,
   `UserID` INT(11) NOT NULL,
   `PermissionID` INT(11) NOT NULL,
-  PRIMARY KEY (AccessGroupID),
-  FOREIGN KEY (UserID)
-  REFERENCES users(UserID),
-  FOREIGN KEY (PermissionID)
-  REFERENCES permissions(PermissionID)
+  PRIMARY KEY (AccessGroupID)
 )
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 10;
 

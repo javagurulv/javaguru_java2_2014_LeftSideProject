@@ -36,21 +36,21 @@ public class AccessGroupDAOImplTest {
 
     @Test
     public void testDelete() throws Exception {
+        List<AccessGroup> accessGroupsBefore = accessGroupDAO.getAll();
 
         AccessGroup accessGroup = createAccessGroup("AAA", 99L, 22L);
         accessGroupDAO.create(accessGroup);
 
         List<AccessGroup> allAccessGroups = accessGroupDAO.getAll();
-        assertEquals(allAccessGroups.size(), 1);
+        assertEquals(allAccessGroups.size(), 1 + accessGroupsBefore.size());
 
         accessGroupDAO.delete(accessGroup.getAccessGroupId());
         allAccessGroups = accessGroupDAO.getAll();
-        assertEquals(allAccessGroups.size(), 0);
+        assertEquals(allAccessGroups.size(), accessGroupsBefore.size());
     }
 
     @Test
     public void testUpdate() throws DBException {
-
         AccessGroup expected = createAccessGroup("BBB", 222L, 554L);
         accessGroupDAO.create(expected);
 
@@ -77,13 +77,14 @@ public class AccessGroupDAOImplTest {
     }
 
     @Test
-    public void testMultipleUserCreation() throws DBException {
+    public void testMultipleAccessGroupCreation() throws DBException {
+        List<AccessGroup> accessGroupsBefore = accessGroupDAO.getAll();
         AccessGroup accessGroup1 = createAccessGroup("PPPP", 212322L, 55433L);
         AccessGroup accessGroup2 = createAccessGroup("TTTT", 222111L, 554112L);
         accessGroupDAO.create(accessGroup1);
         accessGroupDAO.create(accessGroup2);
-        List<AccessGroup> accessGroup = accessGroupDAO.getAll();
-        assertEquals(2, accessGroup.size());
+        List<AccessGroup> accessGroups = accessGroupDAO.getAll();
+        assertEquals(2 + accessGroupsBefore.size(), accessGroups.size());
     }
 
 

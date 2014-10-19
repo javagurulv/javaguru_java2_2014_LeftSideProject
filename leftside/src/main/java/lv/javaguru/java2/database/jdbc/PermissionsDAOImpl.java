@@ -2,7 +2,7 @@ package lv.javaguru.java2.database.jdbc;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.PermissionsDAO;
-import lv.javaguru.java2.domain.Permissions;
+import lv.javaguru.java2.domain.Permission;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,8 +16,8 @@ import java.util.List;
 public class PermissionsDAOImpl extends DAOImpl implements PermissionsDAO {
 
     @Override
-    public void create(Permissions permissions) throws DBException {
-        if (permissions == null) {
+    public void create(Permission permission) throws DBException {
+        if (permission == null) {
             return;
         }
 
@@ -28,18 +28,18 @@ public class PermissionsDAOImpl extends DAOImpl implements PermissionsDAO {
             PreparedStatement preparedStatement =
                     connection.prepareStatement("insert into PERMISSIONS values (default, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 
-            preparedStatement.setLong(1, permissions.getItemId());
-            preparedStatement.setByte(2, permissions.getItemType());
-            preparedStatement.setBoolean(3, permissions.isAllowedReading());
-            preparedStatement.setBoolean(4, permissions.isAllowedWriting());
-            preparedStatement.setBoolean(5, permissions.isAllowedDeleting());
-            preparedStatement.setBoolean(6, permissions.isAllowedUpdating());
+            preparedStatement.setLong(1, permission.getItemId());
+            preparedStatement.setByte(2, permission.getItemType());
+            preparedStatement.setBoolean(3, permission.isAllowedReading());
+            preparedStatement.setBoolean(4, permission.isAllowedWriting());
+            preparedStatement.setBoolean(5, permission.isAllowedDeleting());
+            preparedStatement.setBoolean(6, permission.isAllowedUpdating());
 
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
-                permissions.setPermissionId(rs.getLong(1));
+                permission.setPermissionId(rs.getLong(1));
             }
         } catch (Throwable e) {
             System.out.println("Exception while execute PermissionsDAOImpl.create()");
@@ -52,7 +52,7 @@ public class PermissionsDAOImpl extends DAOImpl implements PermissionsDAO {
     }
 
     @Override
-    public Permissions getById(Long id) throws DBException {
+    public Permission getById(Long id) throws DBException {
         Connection connection = null;
 
         try {
@@ -61,18 +61,18 @@ public class PermissionsDAOImpl extends DAOImpl implements PermissionsDAO {
                     .prepareStatement("select * from PERMISSIONS where PermissionID = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            Permissions permissions = null;
+            Permission permission = null;
             if (resultSet.next()) {
-                permissions = new Permissions();
-                permissions.setPermissionId(resultSet.getLong("PermissionID"));
-                permissions.setItemId(resultSet.getLong("ItemID"));
-                permissions.setItemType(resultSet.getByte("ItemType"));
-                permissions.setAllowedReading(resultSet.getBoolean("AllowedReading"));
-                permissions.setAllowedWriting(resultSet.getBoolean("AllowedWriting"));
-                permissions.setAllowedDeleting(resultSet.getBoolean("AllowedDeleting"));
-                permissions.setAllowedUpdating(resultSet.getBoolean("AllowedUpdating"));
+                permission = new Permission();
+                permission.setPermissionId(resultSet.getLong("PermissionID"));
+                permission.setItemId(resultSet.getLong("ItemID"));
+                permission.setItemType(resultSet.getByte("ItemType"));
+                permission.setAllowedReading(resultSet.getBoolean("AllowedReading"));
+                permission.setAllowedWriting(resultSet.getBoolean("AllowedWriting"));
+                permission.setAllowedDeleting(resultSet.getBoolean("AllowedDeleting"));
+                permission.setAllowedUpdating(resultSet.getBoolean("AllowedUpdating"));
             }
-            return permissions;
+            return permission;
         } catch (Throwable e) {
             System.out.println("Exception while execute PermissionsDAOImpl.getById()");
             e.printStackTrace();
@@ -82,8 +82,8 @@ public class PermissionsDAOImpl extends DAOImpl implements PermissionsDAO {
         }
     }
 
-    public List<Permissions> getAll() throws DBException {
-        List<Permissions> permissionsList = new ArrayList<Permissions>();
+    public List<Permission> getAll() throws DBException {
+        List<Permission> permissionsList = new ArrayList<Permission>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -91,15 +91,15 @@ public class PermissionsDAOImpl extends DAOImpl implements PermissionsDAO {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Permissions permissions = new Permissions();
-                permissions.setPermissionId(resultSet.getLong("PermissionID"));
-                permissions.setItemId(resultSet.getLong("ItemID"));
-                permissions.setItemType(resultSet.getByte("ItemType"));
-                permissions.setAllowedReading(resultSet.getBoolean("AllowedReading"));
-                permissions.setAllowedWriting(resultSet.getBoolean("AllowedWriting"));
-                permissions.setAllowedDeleting(resultSet.getBoolean("AllowedDeleting"));
-                permissions.setAllowedUpdating(resultSet.getBoolean("AllowedUpdating"));
-                permissionsList.add(permissions);
+                Permission permission = new Permission();
+                permission.setPermissionId(resultSet.getLong("PermissionID"));
+                permission.setItemId(resultSet.getLong("ItemID"));
+                permission.setItemType(resultSet.getByte("ItemType"));
+                permission.setAllowedReading(resultSet.getBoolean("AllowedReading"));
+                permission.setAllowedWriting(resultSet.getBoolean("AllowedWriting"));
+                permission.setAllowedDeleting(resultSet.getBoolean("AllowedDeleting"));
+                permission.setAllowedUpdating(resultSet.getBoolean("AllowedUpdating"));
+                permissionsList.add(permission);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list PermissionsDAOImpl.getList()");
@@ -130,8 +130,8 @@ public class PermissionsDAOImpl extends DAOImpl implements PermissionsDAO {
     }
 
     @Override
-    public void update(Permissions permissions) throws DBException {
-        if (permissions == null) {
+    public void update(Permission permission) throws DBException {
+        if (permission == null) {
             return;
         }
 
@@ -142,13 +142,13 @@ public class PermissionsDAOImpl extends DAOImpl implements PermissionsDAO {
                     .prepareStatement("update PERMISSIONS set ItemID = ?, ItemType = ? , AllowedReading = ?, AllowedWriting = ?,  " +
                             "AllowedDeleting = ?, AllowedUpdating = ? " +
                             "where PermissionID = ?");
-            preparedStatement.setLong(1, permissions.getItemId());
-            preparedStatement.setByte(2, permissions.getItemType());
-            preparedStatement.setBoolean(3, permissions.isAllowedReading());
-            preparedStatement.setBoolean(4, permissions.isAllowedWriting());
-            preparedStatement.setBoolean(5, permissions.isAllowedDeleting());
-            preparedStatement.setBoolean(6, permissions.isAllowedUpdating());
-            preparedStatement.setLong(7, permissions.getPermissionId());
+            preparedStatement.setLong(1, permission.getItemId());
+            preparedStatement.setByte(2, permission.getItemType());
+            preparedStatement.setBoolean(3, permission.isAllowedReading());
+            preparedStatement.setBoolean(4, permission.isAllowedWriting());
+            preparedStatement.setBoolean(5, permission.isAllowedDeleting());
+            preparedStatement.setBoolean(6, permission.isAllowedUpdating());
+            preparedStatement.setLong(7, permission.getPermissionId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute PermissionsDAOImpl.update()");

@@ -12,27 +12,27 @@ import java.util.List;
  */
 public class DatabaseCleaner extends DAOImpl {
 
-    private List<String> getTableNames() {
-        List<String> tableNames = new ArrayList<String>();
-        tableNames.add("USERS");
-        tableNames.add("FILES");
-        tableNames.add("FOLDERS");
-        tableNames.add("FILEEXTENSIONS");
-        tableNames.add("PERMISSIONS");
-        tableNames.add("ACCESSGROUPS");
+    private List<Table> getTableNames() {
+        List<Table> tableNames = new ArrayList<Table>();
+        tableNames.add(new Table("USERS", "UserID", 1002));
+        tableNames.add(new Table("FILES", "FileID" , 10));
+        tableNames.add(new Table("FOLDERS","FolderID", 10));
+        tableNames.add(new Table("FILEEXTENSIONS", "ExtensionID", 10));
+        tableNames.add(new Table("PERMISSIONS", "PermissionID", 10));
+        tableNames.add(new Table("ACCESSGROUPS", "AccessGroupID", 10));
         return tableNames;
     }
 
     public void cleanDatabase() throws DBException {
-        for(String tableName : getTableNames()) {
+        for(Table table : getTableNames()) {
             Connection connection = getConnection();
             try {
                 connection = getConnection();
                 PreparedStatement preparedStatement = connection
-                        .prepareStatement("delete from " + tableName);
+                        .prepareStatement("delete from " + table.tableName + " where " + table.primaryKey + " > " + table.preFilledCount);
                 preparedStatement.executeUpdate();
             } catch (Throwable e) {
-                System.out.println("Exception while execute cleanDatabase() for table " + tableName);
+                System.out.println("Exception while execute cleanDatabase() for table " + table.tableName);
                 e.printStackTrace();
                 throw new DBException(e);
             } finally {
@@ -41,4 +41,15 @@ public class DatabaseCleaner extends DAOImpl {
         }
     }
 
+    private class Table {
+        public String tableName;
+        public String primaryKey;
+        public int preFilledCount;
+
+        private Table(String tableName, String primaryKey, int preFilledCount) {
+            this.tableName = tableName;
+            this.primaryKey = primaryKey;
+            this.preFilledCount = preFilledCount;
+        }
+    }
 }

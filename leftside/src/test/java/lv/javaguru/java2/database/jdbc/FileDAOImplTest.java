@@ -30,16 +30,9 @@ public class FileDAOImplTest {
 
         databaseCleaner.cleanDatabase();
 
-        Folder folder = new Folder();
-        folder.setFolderName("Test");
-        folder.setPath("c:/data");
-        folderDAO.create(folder);
-        this.rootFolder = folder;
+        this.rootFolder = folderDAO.getById(2l);
 
-        FileExtension fileExtension = new FileExtension();
-        fileExtension.setExtension("test");
-        fileExtensionDAO.create(fileExtension);
-        this.generalFileExtension = fileExtension;
+        this.generalFileExtension = fileExtensionDAO.getById((byte) 1);
     }
 
     @Test
@@ -58,15 +51,17 @@ public class FileDAOImplTest {
 
     @Test
     public void testDelete() throws Exception {
+        List<File> filesBefore = fileDAO.getAll();
+
         File file = createFile("Test0");
         fileDAO.create(file);
 
         List<File> allFiles = fileDAO.getAll();
-        assertEquals(allFiles.size(), 1);
+        assertEquals(allFiles.size(), 1 + filesBefore.size());
 
         fileDAO.delete(file.getFileId());
         allFiles = fileDAO.getAll();
-        assertEquals(allFiles.size(), 0);
+        assertEquals(allFiles.size(), filesBefore.size());
     }
 
     @Test
@@ -89,12 +84,13 @@ public class FileDAOImplTest {
 
     @Test
     public void testMultipleFileCreation() throws DBException {
+        List<File> filesBefore = fileDAO.getAll();
         File file1 = createFile("F1");
         File file2 = createFile("F2");
         fileDAO.create(file1);
         fileDAO.create(file2);
-        List<File> files = fileDAO.getAll();
-        assertEquals(2, files.size());
+        List<File> filesAfter = fileDAO.getAll();
+        assertEquals(2 + filesBefore.size(), filesAfter.size());
     }
 
     @Test

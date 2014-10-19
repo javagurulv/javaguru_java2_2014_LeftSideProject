@@ -129,11 +129,12 @@ public class AccessGroupDAOImpl extends DAOImpl implements AccessGroupDAO{
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update ACCESSGROUPS set accessGroupName = ?, userID = ?, permissionID = ?" +
+                    .prepareStatement("update ACCESSGROUPS set accessGroupName = ?, userID = ?, permissionID = ? " +
                             "where accessGroupID = ?");
             preparedStatement.setString(1, accessGroup.getAccessGroupName());
             preparedStatement.setLong(2, accessGroup.getUserId());
             preparedStatement.setLong(3, accessGroup.getPermissionId());
+            preparedStatement.setLong(4, accessGroup.getAccessGroupId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.update()");

@@ -37,15 +37,16 @@ public class FolderDAOImplTest {
 
     @Test
     public void testDelete() throws Exception {
+        List<Folder> foldersBefore = folderDAO.getAll();
         Folder folder = createFolder("Test", "Test");
         folderDAO.create(folder);
 
         List<Folder> allFolders = folderDAO.getAll();
-        assertEquals(allFolders.size(), 1);
+        assertEquals(allFolders.size(), 1 + foldersBefore.size());
 
         folderDAO.delete(folder.getFolderId());
         allFolders = folderDAO.getAll();
-        assertEquals(allFolders.size(), 0);
+        assertEquals(allFolders.size(), foldersBefore.size());
     }
 
     @Test
@@ -68,12 +69,13 @@ public class FolderDAOImplTest {
 
     @Test
     public void testMultipleFolderCreation() throws DBException {
+        List<Folder> foldersBefore = folderDAO.getAll();
         Folder folder1 = createFolder("F1", "P1");
         Folder folder2 = createFolder("F2", "P2");
         folderDAO.create(folder1);
         folderDAO.create(folder2);
         List<Folder> folders = folderDAO.getAll();
-        assertEquals(2, folders.size());
+        assertEquals(2 + foldersBefore.size(), folders.size());
     }
 
     private Folder createFolder(String folderName, String folderPath) {

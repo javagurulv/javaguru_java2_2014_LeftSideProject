@@ -32,16 +32,16 @@ public class UserDAOImplTest {
 
     @Test
     public void testDelete() throws Exception {
-
+        List<User> usersBefore = userDAO.getAll();
         User user = createUser("Test", "Test");
         userDAO.create(user);
 
         List<User> allUsers = userDAO.getAll();
-        assertEquals(allUsers.size(), 1);
+        assertEquals(allUsers.size(), 1 + usersBefore.size());
 
         userDAO.delete(user.getUserId());
         allUsers = userDAO.getAll();
-        assertEquals(allUsers.size(), 0);
+        assertEquals(allUsers.size(), usersBefore.size());
     }
 
     @Test
@@ -74,12 +74,13 @@ public class UserDAOImplTest {
 
     @Test
     public void testMultipleUserCreation() throws DBException {
+        List<User> usersBefore = userDAO.getAll();
         User user1 = createUser("F1", "L1");
         User user2 = createUser("F2", "L2");
         userDAO.create(user1);
         userDAO.create(user2);
         List<User> users = userDAO.getAll();
-        assertEquals(2, users.size());
+        assertEquals(2 + usersBefore.size(), users.size());
     }
 
 

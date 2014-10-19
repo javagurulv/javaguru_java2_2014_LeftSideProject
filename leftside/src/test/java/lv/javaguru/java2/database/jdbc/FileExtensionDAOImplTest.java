@@ -35,15 +35,16 @@ public class FileExtensionDAOImplTest {
 
     @Test
     public void testDelete() throws Exception {
+        List<FileExtension> fileExtensionsBefore = fileExtensionDAO.getAll();
         FileExtension fileExtension = createFileExtension("Test");
         fileExtensionDAO.create(fileExtension);
 
         List<FileExtension> allFileExtensions = fileExtensionDAO.getAll();
-        assertEquals(allFileExtensions.size(), 1);
+        assertEquals(allFileExtensions.size(), 1 + fileExtensionsBefore.size());
 
         fileExtensionDAO.delete(fileExtension.getExtensionId());
         allFileExtensions = fileExtensionDAO.getAll();
-        assertEquals(allFileExtensions.size(), 0);
+        assertEquals(allFileExtensions.size(), fileExtensionsBefore.size());
     }
 
     @Test
@@ -66,12 +67,13 @@ public class FileExtensionDAOImplTest {
 
     @Test
     public void testMultipleFileExtensionCreation() throws DBException {
+        List<FileExtension> fileExtensionsBefore = fileExtensionDAO.getAll();
         FileExtension fileExtension1 = createFileExtension("F1");
         FileExtension fileExtension2 = createFileExtension("F2");
         fileExtensionDAO.create(fileExtension1);
         fileExtensionDAO.create(fileExtension2);
         List<FileExtension> fileExtensions = fileExtensionDAO.getAll();
-        assertEquals(2, fileExtensions.size());
+        assertEquals(2 + fileExtensionsBefore.size(), fileExtensions.size());
     }
 
     private FileExtension createFileExtension(String extension) {

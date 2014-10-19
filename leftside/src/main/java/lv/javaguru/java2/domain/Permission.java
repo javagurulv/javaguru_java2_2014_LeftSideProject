@@ -3,7 +3,7 @@ package lv.javaguru.java2.domain;
 /**
  * Created by Sergey on 19.10.14.
  */
-public class Permissions {
+public class Permission {
     private long permissionId;
     private byte itemType;
     private long itemId;
