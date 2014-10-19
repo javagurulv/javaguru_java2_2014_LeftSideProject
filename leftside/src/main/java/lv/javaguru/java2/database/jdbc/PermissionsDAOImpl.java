@@ -140,7 +140,7 @@ public class PermissionsDAOImpl extends DAOImpl implements PermissionsDAO {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement("update PERMISSIONS set ItemID = ?, ItemType = ? , AllowedReading = ?, AllowedWriting = ?,  " +
-                            "AllowedDeleting = ?, AllowedUpdating = ?" +
+                            "AllowedDeleting = ?, AllowedUpdating = ? " +
                             "where PermissionID = ?");
             preparedStatement.setLong(1, permissions.getItemId());
             preparedStatement.setByte(2, permissions.getItemType());
