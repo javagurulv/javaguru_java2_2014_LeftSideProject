@@ -67,3 +67,43 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`files` (
   REFERENCES fileExtensions(ExtensionID)
 )
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`permissions`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `java2_leftside`.`permissions` ;
+
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`permissions` (
+  `PermissionID` INT(11) NOT NULL AUTO_INCREMENT,
+  `ItemID` INT(11) NOT NULL,
+  `ItemType` TINYINT  NOT NULL,
+  `AllowedReading` BOOLEAN  NOT NULL,
+  `AllowedWriting` BOOLEAN  NOT NULL,
+  `AllowedDeleting` BOOLEAN  NOT NULL,
+  `AllowedUpdating` BOOLEAN  NOT NULL,
+  PRIMARY KEY (PermissionID),
+  FOREIGN KEY (ItemID)
+  REFERENCES folders(FolderID),
+  FOREIGN KEY (ItemID)
+  REFERENCES files(FileID)
+)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`accessGroups`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `java2_leftside`.`accessGroups` ;
+
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`accessGroups` (
+  `AccessGroupID` INT(11) NOT NULL AUTO_INCREMENT,
+  `AccessGroupName` VARCHAR(40) NOT NULL,
+  `UserID` INT(11) NOT NULL,
+  `PermissionID` INT(11) NOT NULL,
+  PRIMARY KEY (AccessGroupID),
+  FOREIGN KEY (UserID)
+  REFERENCES users(UserID),
+  FOREIGN KEY (PermissionID)
+  REFERENCES permissions(PermissionID)
+)
+ENGINE = InnoDB;
+

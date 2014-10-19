@@ -18,6 +18,8 @@ public class DatabaseCleaner extends DAOImpl {
         tableNames.add("FILES");
         tableNames.add("FOLDERS");
         tableNames.add("FILEEXTENSIONS");
+        tableNames.add("PERMISSIONS");
+        tableNames.add("ACCESSGROUPS");
         return tableNames;
     }
 
