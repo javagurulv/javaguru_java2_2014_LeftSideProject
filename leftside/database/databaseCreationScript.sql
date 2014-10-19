@@ -84,11 +84,7 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`permissions` (
   `AllowedWriting` BOOLEAN  NOT NULL,
   `AllowedDeleting` BOOLEAN  NOT NULL,
   `AllowedUpdating` BOOLEAN  NOT NULL,
-  PRIMARY KEY (PermissionID),
-  FOREIGN KEY (ItemID)
-  REFERENCES folders(FolderID),
-  FOREIGN KEY (ItemID)
-  REFERENCES files(FileID)
+  PRIMARY KEY (PermissionID)
 )
 ENGINE = InnoDB;
 
