@@ -19,20 +19,10 @@ public class FileDAOImplTest {
 
     private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
     private FileDAO fileDAO = new FileDAOImpl();
-    private FileExtension generalFileExtension;
-    private Folder rootFolder;
-
 
     @Before
     public void setUp() throws Exception {
-        FileExtensionDAO fileExtensionDAO = new FileExtensionDAOImpl();
-        FolderDAO folderDAO = new FolderDAOImpl();
-
         databaseCleaner.cleanDatabase();
-
-        this.rootFolder = folderDAO.getById(2l);
-
-        this.generalFileExtension = fileExtensionDAO.getById((byte) 1);
     }
 
     @Test
@@ -109,8 +99,8 @@ public class FileDAOImplTest {
 
     private File createFile(String fileName) {
         File file = new File();
-        file.setParentFolderId(rootFolder.getFolderId());
-        file.setExtensionId(generalFileExtension.getExtensionId());
+        file.setParentFolderId(1L);
+        file.setExtensionId((byte) 1);
         file.setFileName(fileName);
         return file;
     }
