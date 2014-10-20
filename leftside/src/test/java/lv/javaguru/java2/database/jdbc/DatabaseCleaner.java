@@ -29,8 +29,13 @@ public class DatabaseCleaner extends DAOImpl {
             try {
                 connection = getConnection();
                 PreparedStatement preparedStatement = connection
-                        .prepareStatement("delete from " + table.tableName + " where " + table.primaryKey + " > " + table.preFilledCount);
+                        .prepareStatement("delete from " + table.tableName + " where " + table.primaryKey + " >= " + table.initialAutoIncrement);
                 preparedStatement.executeUpdate();
+
+                preparedStatement = connection
+                        .prepareStatement("ALTER TABLE " + table.tableName + " AUTO_INCREMENT = " + table.initialAutoIncrement);
+                preparedStatement.executeUpdate();
+
             } catch (Throwable e) {
                 System.out.println("Exception while execute cleanDatabase() for table " + table.tableName);
                 e.printStackTrace();
@@ -44,12 +49,12 @@ public class DatabaseCleaner extends DAOImpl {
     private class Table {
         public String tableName;
         public String primaryKey;
-        public int preFilledCount;
+        public int initialAutoIncrement;
 
-        private Table(String tableName, String primaryKey, int preFilledCount) {
+        private Table(String tableName, String primaryKey, int initialAutoIncrement) {
             this.tableName = tableName;
             this.primaryKey = primaryKey;
-            this.preFilledCount = preFilledCount;
+            this.initialAutoIncrement = initialAutoIncrement;
         }
     }
 }
