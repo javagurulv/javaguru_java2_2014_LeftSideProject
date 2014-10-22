@@ -50,7 +50,9 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`files` (
   `Path`        VARCHAR(500) NOT NULL,
   `FileName`    VARCHAR(40)  NOT NULL,
   `ExtensionID` TINYINT      NULL,
-  PRIMARY KEY (`FileID`)
+  PRIMARY KEY (`FileID`),
+  FOREIGN KEY (ExtensionID)
+  REFERENCES fileExtensions (ExtensionID)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 10;
