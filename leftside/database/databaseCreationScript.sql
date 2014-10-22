@@ -16,12 +16,17 @@ DROP TABLE IF EXISTS `java2_leftside`.`users`;
 
 CREATE TABLE IF NOT EXISTS `java2_leftside`.`users` (
   `UserID`   INT(11)  NOT NULL AUTO_INCREMENT,
+  `Login`    CHAR(32) NOT NULL,
+  `Password` CHAR(32) NOT NULL,
   `FirstName` CHAR(32) NOT NULL,
   `LastName` CHAR(32) NOT NULL,
   PRIMARY KEY (`UserID`)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 1002;
+
+ALTER TABLE `java2_leftside`.`users`
+ADD UNIQUE INDEX `ix_usersLogin` (`Login`);
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;

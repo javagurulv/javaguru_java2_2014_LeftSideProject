@@ -32,7 +32,7 @@ public class UserDAOImplTest {
     @Test
     public void testDelete() throws Exception {
         List<User> usersBefore = userDAO.getAll();
-        User user = createUser("Test", "Test");
+        User user = createUser("u", "p", "Test", "Test");
         userDAO.create(user);
 
         List<User> allUsers = userDAO.getAll();
@@ -46,7 +46,7 @@ public class UserDAOImplTest {
     @Test
     public void testUpdate() throws DBException {
 
-        User expected = createUser("QQQ", "AAA");
+        User expected = createUser("u", "p", "QQQ", "AAA");
         userDAO.create(expected);
 
         expected.setFirstName("ZZZ");
@@ -58,13 +58,15 @@ public class UserDAOImplTest {
 
     @Test
     public void testCreate() throws DBException {
-        User user = createUser("F", "L");
+        User user = createUser("u", "p", "F", "L");
 
         userDAO.create(user);
 
         User userFromDB = userDAO.getById(user.getUserId());
         assertNotNull(userFromDB);
         assertEquals(user.getUserId(), userFromDB.getUserId());
+        assertEquals(user.getLogin(), userFromDB.getLogin());
+        assertEquals(user.getPassword(), userFromDB.getPassword());
         assertEquals(user.getFirstName(), userFromDB.getFirstName());
         assertEquals(user.getLastName(), userFromDB.getLastName());
     }
@@ -72,8 +74,8 @@ public class UserDAOImplTest {
     @Test
     public void testMultipleUserCreation() throws DBException {
         List<User> usersBefore = userDAO.getAll();
-        User user1 = createUser("F1", "L1");
-        User user2 = createUser("F2", "L2");
+        User user1 = createUser("u1", "p1", "F1", "L1");
+        User user2 = createUser("u2", "p2", "F2", "L2");
         userDAO.create(user1);
         userDAO.create(user2);
         List<User> users = userDAO.getAll();
@@ -81,8 +83,10 @@ public class UserDAOImplTest {
     }
 
 
-    private User createUser(String firstName, String lastName) {
+    private User createUser(String login, String password, String firstName, String lastName) {
         User user = new User();
+        user.setLogin(login);
+        user.setPassword(password);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         return user;
