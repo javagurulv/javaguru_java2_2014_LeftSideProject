@@ -44,14 +44,14 @@ public class DAOImpl {
             userName = properties.getProperty("userName");
             password = properties.getProperty("password");
             driverClass = properties.getProperty("driverClass");
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Exciption while reading JDBC configuration from file = " + DB_CONFIG_FILE);
             e.printStackTrace();
         }
     }
 
     protected Connection getConnection() throws DBException {
-        try{
+        try {
             return DriverManager.getConnection(dbUrl, userName, password);
         } catch (SQLException e) {
             System.out.println("Exciption while getting connection to database");
@@ -62,7 +62,7 @@ public class DAOImpl {
 
     protected void closeConnection(Connection connection) throws DBException {
         try {
-            if(connection != null) {
+            if (connection != null) {
                 connection.close();
             }
         } catch (SQLException e) {

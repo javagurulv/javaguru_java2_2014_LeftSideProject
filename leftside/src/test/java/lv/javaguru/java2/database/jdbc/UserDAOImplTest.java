@@ -1,16 +1,15 @@
 package lv.javaguru.java2.database.jdbc;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
+import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.UserDAO;
+import lv.javaguru.java2.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.domain.User;
+import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class UserDAOImplTest {
 
@@ -57,8 +56,6 @@ public class UserDAOImplTest {
         assertEquals(expected.getFirstName(), actual.getFirstName());
     }
 
-
-
     @Test
     public void testCreate() throws DBException {
         User user = createUser("F", "L");
@@ -82,7 +79,6 @@ public class UserDAOImplTest {
         List<User> users = userDAO.getAll();
         assertEquals(2 + usersBefore.size(), users.size());
     }
-
 
 
     private User createUser(String firstName, String lastName) {

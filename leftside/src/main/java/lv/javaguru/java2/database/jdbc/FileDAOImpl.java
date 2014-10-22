@@ -27,7 +27,7 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
             connection = getConnection();
             PreparedStatement preparedStatement =
                     connection.prepareStatement("insert into FILES values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setLong(1, file.getParentFolderId());
+            preparedStatement.setString(1, file.getPath());
             preparedStatement.setString(2, file.getFileName());
             if (null != file.getExtensionId()) {
                 preparedStatement.setByte(3, file.getExtensionId());
@@ -64,7 +64,7 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
             if (resultSet.next()) {
                 file = new File();
                 file.setFileId(resultSet.getLong("FileID"));
-                file.setParentFolderId(resultSet.getLong("ParentFolderID"));
+                file.setPath(resultSet.getString("Path"));
                 file.setFileName(resultSet.getString("FileName"));
                 Object obj = resultSet.getObject("ExtensionID");
                 if (null != obj) {
@@ -92,7 +92,7 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
             while (resultSet.next()) {
                 File file = new File();
                 file.setFileId(resultSet.getLong("FileID"));
-                file.setParentFolderId(resultSet.getLong("ParentFolderID"));
+                file.setPath(resultSet.getString("Path"));
                 file.setFileName(resultSet.getString("FileName"));
                 Object obj = resultSet.getObject("ExtensionID");
                 if (null != obj) {
@@ -138,9 +138,9 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update FILES set ParentFolderID = ?, FileName = ?, ExtensionID = ? " +
+                    .prepareStatement("update FILES set Path = ?, FileName = ?, ExtensionID = ? " +
                             "where FileID = ?");
-            preparedStatement.setLong(1, file.getParentFolderId());
+            preparedStatement.setString(1, file.getPath());
             preparedStatement.setString(2, file.getFileName());
             if (null != file.getExtensionId()) {
                 preparedStatement.setByte(3, file.getExtensionId());

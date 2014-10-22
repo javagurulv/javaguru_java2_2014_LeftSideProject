@@ -32,7 +32,7 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()){
+            if (rs.next()) {
                 user.setUserId(rs.getLong(1));
             }
         } catch (Throwable e) {
