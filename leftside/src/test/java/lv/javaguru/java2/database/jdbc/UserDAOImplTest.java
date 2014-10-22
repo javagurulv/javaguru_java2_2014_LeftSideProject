@@ -8,8 +8,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class UserDAOImplTest {
 
@@ -82,6 +81,11 @@ public class UserDAOImplTest {
         assertEquals(2 + usersBefore.size(), users.size());
     }
 
+    @Test
+    public void testCreateFailsOnNonUniqueLogin() throws DBException {
+        //TODO: implement test
+        assertTrue(false);
+    }
 
     private User createUser(String login, String password, String firstName, String lastName) {
         User user = new User();
