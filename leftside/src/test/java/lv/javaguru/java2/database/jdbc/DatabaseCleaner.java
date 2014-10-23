@@ -17,6 +17,13 @@ public class DatabaseCleaner extends DAOImpl {
         tableNames.add(new Table("USERS", "UserID", 1002));
         tableNames.add(new Table("FILES", "FileID", 10));
         tableNames.add(new Table("FILEEXTENSIONS", "ExtensionID", 10));
+        tableNames.add(new Table("todoItemsToUsers", "ItemID", 10));
+        tableNames.add(new Table("todoItemsToUsers", "UserID", 10));
+        tableNames.add(new Table("todoItemsToGroups", "ItemID", 10));
+        tableNames.add(new Table("todoItemsToGroups", "GroupID", 10));
+        tableNames.add(new Table("todoItems", "ItemID", 10));
+        tableNames.add(new Table("todoStates", "StateID", 10));
+        tableNames.add(new Table("todoGroups", "GroupID", 10));
         return tableNames;
     }
 
