@@ -80,6 +80,16 @@ public class TodoItemDAOImplTest {
         assertEquals(2 + todoItemsBefore.size(), todoItems.size());
     }
 
+    @Test
+    public void testLinkageToUser() throws DBException {
+        throw new DBException("not implemented");
+    }
+
+    @Test
+    public void testLinkageToTodoGroups() throws DBException {
+        throw new DBException("not implemented");
+    }
+
     private TodoItem createTodoItem(String caption, String description) {
         return createTodoItem(TodoItem.State.CREATED.value, caption, description, DateTime.now().withTime(0, 0, 0, 0));
     }
