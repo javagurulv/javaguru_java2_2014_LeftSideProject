@@ -2,11 +2,7 @@ package lv.javaguru.java2.database.jdbc;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.FileDAO;
-import lv.javaguru.java2.database.FileExtensionDAO;
-import lv.javaguru.java2.database.FolderDAO;
 import lv.javaguru.java2.domain.File;
-import lv.javaguru.java2.domain.FileExtension;
-import lv.javaguru.java2.domain.Folder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +31,7 @@ public class FileDAOImplTest {
         assertNotNull(fileFromDB);
         assertEquals(file.getFileId(), fileFromDB.getFileId());
         assertEquals(file.getFileName(), fileFromDB.getFileName());
-        assertEquals(file.getParentFolderId(), fileFromDB.getParentFolderId());
+        assertEquals(file.getPath(), fileFromDB.getPath());
         assertEquals(file.getExtensionId(), fileFromDB.getExtensionId());
     }
 
@@ -93,13 +89,17 @@ public class FileDAOImplTest {
         assertNotNull(fileFromDB);
         assertEquals(file.getFileId(), fileFromDB.getFileId());
         assertEquals(file.getFileName(), fileFromDB.getFileName());
-        assertEquals(file.getParentFolderId(), fileFromDB.getParentFolderId());
+        assertEquals(file.getPath(), fileFromDB.getPath());
         assertEquals(file.getExtensionId(), fileFromDB.getExtensionId());
     }
 
     private File createFile(String fileName) {
+        return createFile(fileName, "C:\\Data\\" + fileName);
+    }
+
+    private File createFile(String fileName, String filePath) {
         File file = new File();
-        file.setParentFolderId(1L);
+        file.setPath(filePath);
         file.setExtensionId((byte) 1);
         file.setFileName(fileName);
         return file;

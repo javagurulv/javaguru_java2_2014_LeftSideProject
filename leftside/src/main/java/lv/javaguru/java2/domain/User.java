@@ -6,6 +6,8 @@ package lv.javaguru.java2.domain;
 public class User {
 
     private long userId;
+    private String login;
+    private String password;
     private String firstName;
     private String lastName;
 
@@ -16,6 +18,22 @@ public class User {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {

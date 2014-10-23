@@ -15,16 +15,20 @@ public class DatabaseCleaner extends DAOImpl {
     private List<Table> getTableNames() {
         List<Table> tableNames = new ArrayList<Table>();
         tableNames.add(new Table("USERS", "UserID", 1002));
-        tableNames.add(new Table("FILES", "FileID" , 10));
-        tableNames.add(new Table("FOLDERS","FolderID", 10));
+        tableNames.add(new Table("FILES", "FileID", 10));
         tableNames.add(new Table("FILEEXTENSIONS", "ExtensionID", 10));
-        tableNames.add(new Table("PERMISSIONS", "PermissionID", 10));
-        tableNames.add(new Table("ACCESSGROUPS", "AccessGroupID", 10));
+        tableNames.add(new Table("todoItemsToUsers", "ItemID", 10));
+        tableNames.add(new Table("todoItemsToUsers", "UserID", 10));
+        tableNames.add(new Table("todoItemsToGroups", "ItemID", 10));
+        tableNames.add(new Table("todoItemsToGroups", "GroupID", 10));
+        tableNames.add(new Table("todoItems", "ItemID", 10));
+        tableNames.add(new Table("todoStates", "StateID", 10));
+        tableNames.add(new Table("todoGroups", "GroupID", 10));
         return tableNames;
     }
 
     public void cleanDatabase() throws DBException {
-        for(Table table : getTableNames()) {
+        for (Table table : getTableNames()) {
             Connection connection = getConnection();
             try {
                 connection = getConnection();

@@ -5,7 +5,7 @@ package lv.javaguru.java2.domain;
  */
 public class File {
     private long fileId;
-    private long parentFolderId;
+    private String path;
     private String fileName;
     private Byte extensionId;
 
@@ -17,12 +17,12 @@ public class File {
         this.fileId = fileId;
     }
 
-    public long getParentFolderId() {
-        return parentFolderId;
+    public String getPath() {
+        return path;
     }
 
-    public void setParentFolderId(long parentFolderId) {
-        this.parentFolderId = parentFolderId;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getFileName() {

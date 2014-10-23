@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by User on 10/18/2014.
+ * Created by SM on 10/18/2014.
  */
 public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
 
