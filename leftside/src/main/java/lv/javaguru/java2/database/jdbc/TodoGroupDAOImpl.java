@@ -85,7 +85,7 @@ public class TodoGroupDAOImpl extends DAOImpl implements TodoGroupDAO {
                 todoGroups.add(todoGroup);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list TodoGroupDAOImpl.getList()");
+            System.out.println("Exception while getting customer list TodoGroupDAOImpl.getAll()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {

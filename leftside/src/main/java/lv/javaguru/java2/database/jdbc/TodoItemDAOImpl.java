@@ -53,7 +53,6 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         } finally {
             closeConnection(connection);
         }
-
     }
 
     @Override
@@ -109,7 +108,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
                 todoItems.add(todoItem);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list TodoItemDAOImpl.getList()");
+            System.out.println("Exception while getting customer list TodoItemDAOImpl.getAll()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -142,7 +141,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
                 todoItems.add(todoItem);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list TodoItemDAOImpl.getList()");
+            System.out.println("Exception while getting customer list TodoItemDAOImpl.getByUserId()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -178,13 +177,65 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
                 todoItems.add(todoItem);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list TodoItemDAOImpl.getList()");
+            System.out.println("Exception while getting customer list TodoItemDAOImpl.getByTodoUserAndGroupId()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
             closeConnection(connection);
         }
         return todoItems;
+    }
+
+    @Override
+    public void setTodoGroup(Long todoItemId, Long todoGroupId) throws DBException {
+        if (null == todoItemId) {
+            return;
+        }
+
+        Connection connection = null;
+
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("insert into todoItemsToGroups (ItemID, GroupID) values (?, ?) " +
+                            "on duplicate key update GroupID = ?", PreparedStatement.NO_GENERATED_KEYS);
+            preparedStatement.setLong(1, todoItemId);
+            preparedStatement.setLong(2, todoGroupId);
+            preparedStatement.setLong(3, todoGroupId);
+            preparedStatement.executeUpdate();
+        } catch (Throwable e) {
+            System.out.println("Exception while execute TodoItemDAOImpl.setTodoGroup()");
+            e.printStackTrace();
+            throw new DBException(e);
+        } finally {
+            closeConnection(connection);
+        }
+    }
+
+    @Override
+    public void setAuthor(Long todoItemId, Long userId) throws DBException {
+        if (todoItemId == null) {
+            return;
+        }
+
+        Connection connection = null;
+
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("insert into todoItemsToUsers (ItemID, UserID) values (?, ?) " +
+                            "on duplicate key update UserID = ?", PreparedStatement.NO_GENERATED_KEYS);
+            preparedStatement.setLong(1, todoItemId);
+            preparedStatement.setLong(2, userId);
+            preparedStatement.setLong(3, userId);
+            preparedStatement.executeUpdate();
+        } catch (Throwable e) {
+            System.out.println("Exception while execute TodoItemDAOImpl.setAuthor()");
+            e.printStackTrace();
+            throw new DBException(e);
+        } finally {
+            closeConnection(connection);
+        }
     }
 
     @Override
