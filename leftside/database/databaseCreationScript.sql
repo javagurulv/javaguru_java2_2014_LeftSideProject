@@ -56,9 +56,78 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`files` (
   `FileName`    VARCHAR(40)  NOT NULL,
   `ExtensionID` TINYINT      NULL,
   PRIMARY KEY (`FileID`),
-  FOREIGN KEY (ExtensionID)
-  REFERENCES fileExtensions (ExtensionID)
+  FOREIGN KEY (`ExtensionID`)
+  REFERENCES fileExtensions (`ExtensionID`)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 10;
 
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`todoGroups`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoGroups` (
+  `GroupID` INT(11)     NOT NULL AUTO_INCREMENT,
+  `Name`    VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`GroupID`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 10;
+
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`todoStates`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoStates` (
+  `StateID` INT(11)     NOT NULL AUTO_INCREMENT,
+  `State`   VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`StateID`)
+)
+  ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`todoItems`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItems` (
+  `ItemID`      INT(11)       NOT NULL AUTO_INCREMENT,
+  `StateID`     INT(11)       NOT NULL DEFAULT 0,
+  `Caption`     VARCHAR(100)  NOT NULL,
+  `Description` VARCHAR(2000) NOT NULL,
+  `DueDate`     DATE          NULL,
+  PRIMARY KEY (`ItemID`),
+  FOREIGN KEY (`StateID`)
+  REFERENCES todoStates (`StateID`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 10;
+
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`todoItemsToGroups`
+-- ManyToOne - ManyToMany can be switched by changing Primary Key
+-- example: PRIMARY KEY (`ItemID`, `GroupID`)
+-- result: todoItem can be assigned to multiple Groups
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemsToGroups` (
+  `ItemID`  INT(11) NOT NULL,
+  `GroupID` INT(11) NOT NULL,
+  PRIMARY KEY (`ItemID`),
+  FOREIGN KEY (`ItemID`)
+  REFERENCES todoItems (`ItemID`),
+  FOREIGN KEY (`GroupID`)
+  REFERENCES todoGroups (`GroupID`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 10;
+
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`todoItemsToUsers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemsToUsers` (
+  `ItemID` INT(11) NOT NULL,
+  `UserID` INT(11) NOT NULL,
+  PRIMARY KEY (`ItemID`),
+  FOREIGN KEY (`ItemID`)
+  REFERENCES todoItems (`ItemID`),
+  FOREIGN KEY (`UserID`)
+  REFERENCES users (`UserID`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 10;
