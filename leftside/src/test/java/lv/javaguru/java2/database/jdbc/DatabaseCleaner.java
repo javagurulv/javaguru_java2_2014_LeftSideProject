@@ -14,9 +14,9 @@ public class DatabaseCleaner extends DAOImpl {
 
     private List<Table> getTableNames() {
         List<Table> tableNames = new ArrayList<Table>();
-        tableNames.add(new Table("USERS", "UserID", 1002));
-        tableNames.add(new Table("FILES", "FileID", 10));
-        tableNames.add(new Table("FILEEXTENSIONS", "ExtensionID", 10));
+        tableNames.add(new Table("Users", "UserID", 1002));
+        tableNames.add(new Table("Files", "FileID", 10));
+        tableNames.add(new Table("fileExtensions", "ExtensionID", 10));
         tableNames.add(new Table("todoItemsToUsers", "ItemID", 10));
         tableNames.add(new Table("todoItemsToUsers", "UserID", 10));
         tableNames.add(new Table("todoItemsToGroups", "ItemID", 10));
@@ -28,10 +28,12 @@ public class DatabaseCleaner extends DAOImpl {
     }
 
     public void cleanDatabase() throws DBException {
-        for (Table table : getTableNames()) {
-            Connection connection = getConnection();
-            try {
-                connection = getConnection();
+        Connection connection = null;
+        Table processingTable = null;
+        try {
+            connection = getConnection();
+            for (Table table : getTableNames()) {
+                processingTable = table;
                 PreparedStatement preparedStatement = connection
                         .prepareStatement("delete from " + table.tableName + " where " + table.primaryKey + " >= " + table.initialAutoIncrement);
                 preparedStatement.executeUpdate();
@@ -39,14 +41,14 @@ public class DatabaseCleaner extends DAOImpl {
                 preparedStatement = connection
                         .prepareStatement("ALTER TABLE " + table.tableName + " AUTO_INCREMENT = " + table.initialAutoIncrement);
                 preparedStatement.executeUpdate();
-
-            } catch (Throwable e) {
-                System.out.println("Exception while execute cleanDatabase() for table " + table.tableName);
-                e.printStackTrace();
-                throw new DBException(e);
-            } finally {
-                closeConnection(connection);
             }
+        } catch (Throwable e) {
+            System.out.println("DatabaseCleaner: Exception while execute cleanDatabase()" +
+                    (null == processingTable ? "": " for table " + processingTable.tableName ));
+            e.printStackTrace();
+            throw new DBException(e);
+        } finally {
+            closeConnection(connection);
         }
     }
 

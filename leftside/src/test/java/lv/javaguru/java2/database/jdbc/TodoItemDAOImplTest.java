@@ -84,7 +84,7 @@ public class TodoItemDAOImplTest {
         return createTodoItem(TodoItem.State.CREATED.value, title, description, DateTime.now().withTime(0, 0, 0, 0));
     }
 
-    private TodoItem createTodoItem(Long stateId, String title, String description, DateTime dueDate) {
+    private TodoItem createTodoItem(Long stateId, String caption, String description, DateTime dueDate) {
         TodoItem todoItem = new TodoItem();
         todoItem.setStateId(stateId);
         todoItem.setTitle(title);
