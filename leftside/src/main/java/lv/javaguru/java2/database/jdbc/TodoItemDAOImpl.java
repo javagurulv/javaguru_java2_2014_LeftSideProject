@@ -33,7 +33,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
             PreparedStatement preparedStatement =
                     connection.prepareStatement("insert into TODOITEMS values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setLong(1, todoItem.getStateId());
-            preparedStatement.setString(2, todoItem.getCaption());
+            preparedStatement.setString(2, todoItem.getTitle());
             preparedStatement.setString(3, todoItem.getDescription());
             if (null != todoItem.getDueDate()) {
                 preparedStatement.setString(4, todoItem.getDueDate().toString(dateFormat));
@@ -70,7 +70,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
                 todoItem = new TodoItem();
                 todoItem.setItemId(resultSet.getLong("ItemID"));
                 todoItem.setStateId(resultSet.getLong("StateID"));
-                todoItem.setCaption(resultSet.getString("Caption"));
+                todoItem.setTitle(resultSet.getString("Title"));
                 todoItem.setDescription(resultSet.getString("Description"));
                 String dateString = resultSet.getString("DueDate");
                 if (null != dateString) {
@@ -99,7 +99,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
                 TodoItem todoItem = new TodoItem();
                 todoItem.setItemId(resultSet.getLong("ItemID"));
                 todoItem.setStateId(resultSet.getLong("StateID"));
-                todoItem.setCaption(resultSet.getString("Caption"));
+                todoItem.setTitle(resultSet.getString("Title"));
                 todoItem.setDescription(resultSet.getString("Description"));
                 String dateString = resultSet.getString("DueDate");
                 if (null != dateString) {
@@ -132,7 +132,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
                 TodoItem todoItem = new TodoItem();
                 todoItem.setItemId(resultSet.getLong("ItemID"));
                 todoItem.setStateId(resultSet.getLong("StateID"));
-                todoItem.setCaption(resultSet.getString("Caption"));
+                todoItem.setTitle(resultSet.getString("Title"));
                 todoItem.setDescription(resultSet.getString("Description"));
                 String dateString = resultSet.getString("DueDate");
                 if (null != dateString) {
@@ -168,7 +168,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
                 TodoItem todoItem = new TodoItem();
                 todoItem.setItemId(resultSet.getLong("ItemID"));
                 todoItem.setStateId(resultSet.getLong("StateID"));
-                todoItem.setCaption(resultSet.getString("Caption"));
+                todoItem.setTitle(resultSet.getString("Title"));
                 todoItem.setDescription(resultSet.getString("Description"));
                 String dateString = resultSet.getString("DueDate");
                 if (null != dateString) {
@@ -266,10 +266,10 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update TODOITEMS set StateID = ?, Caption = ?, Description = ?, DueDate = ? " +
+                    .prepareStatement("update TODOITEMS set StateID = ?, Title = ?, Description = ?, DueDate = ? " +
                             "where ItemID = ?");
             preparedStatement.setLong(1, todoItem.getStateId());
-            preparedStatement.setString(2, todoItem.getCaption());
+            preparedStatement.setString(2, todoItem.getTitle());
             preparedStatement.setString(3, todoItem.getDescription());
             if (null != todoItem.getDueDate()) {
                 preparedStatement.setString(4, todoItem.getDueDate().toString(dateFormat));

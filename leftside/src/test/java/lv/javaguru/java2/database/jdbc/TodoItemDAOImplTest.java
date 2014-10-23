@@ -32,7 +32,7 @@ public class TodoItemDAOImplTest {
         assertNotNull(todoItemFromDB);
         assertEquals(todoItem.getItemId(), todoItemFromDB.getItemId());
         assertEquals(todoItem.getStateId(), todoItemFromDB.getStateId());
-        assertEquals(todoItem.getCaption(), todoItemFromDB.getCaption());
+        assertEquals(todoItem.getTitle(), todoItemFromDB.getTitle());
         assertEquals(todoItem.getDescription(), todoItemFromDB.getDescription());
         assertEquals(todoItem.getDueDate(), todoItemFromDB.getDueDate());
     }
@@ -56,11 +56,11 @@ public class TodoItemDAOImplTest {
         TodoItem expected = createTodoItem("QQQ", "DDD");
         todoItemDAO.create(expected);
 
-        expected.setCaption("ZZZ");
+        expected.setTitle("ZZZ");
         todoItemDAO.update(expected);
 
         TodoItem actual = todoItemDAO.getById(expected.getItemId());
-        assertEquals(expected.getCaption(), actual.getCaption());
+        assertEquals(expected.getTitle(), actual.getTitle());
     }
 
     @Test
@@ -80,14 +80,14 @@ public class TodoItemDAOImplTest {
         assertEquals(2 + todoItemsBefore.size(), todoItems.size());
     }
 
-    private TodoItem createTodoItem(String caption, String description) {
-        return createTodoItem(TodoItem.State.CREATED.value, caption, description, DateTime.now().withTime(0, 0, 0, 0));
+    private TodoItem createTodoItem(String title, String description) {
+        return createTodoItem(TodoItem.State.CREATED.value, title, description, DateTime.now().withTime(0, 0, 0, 0));
     }
 
-    private TodoItem createTodoItem(Long stateId, String caption, String description, DateTime dueDate) {
+    private TodoItem createTodoItem(Long stateId, String title, String description, DateTime dueDate) {
         TodoItem todoItem = new TodoItem();
         todoItem.setStateId(stateId);
-        todoItem.setCaption(caption);
+        todoItem.setTitle(title);
         todoItem.setDescription(description);
         todoItem.setDueDate(dueDate);
         return todoItem;

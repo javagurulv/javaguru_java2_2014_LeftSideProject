@@ -8,7 +8,7 @@ import org.joda.time.DateTime;
 public class TodoItem {
     private long itemId;
     private long stateId;
-    private String caption;
+    private String title;
     private String description;
     private DateTime dueDate;
 
@@ -30,12 +30,12 @@ public class TodoItem {
         this.stateId = stateId;
     }
 
-    public String getCaption() {
-        return caption;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCaption(String caption) {
-        this.caption = caption;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
