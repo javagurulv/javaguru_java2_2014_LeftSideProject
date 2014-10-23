@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoStates` (
 CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItems` (
   `ItemID`      INT(11)       NOT NULL AUTO_INCREMENT,
   `StateID`     INT(11)       NOT NULL DEFAULT 0,
-  `Caption`     VARCHAR(100)  NOT NULL,
+  `Title`     VARCHAR(100)  NOT NULL,
   `Description` VARCHAR(2000) NOT NULL,
   `DueDate`     DATE          NULL,
   PRIMARY KEY (`ItemID`),
