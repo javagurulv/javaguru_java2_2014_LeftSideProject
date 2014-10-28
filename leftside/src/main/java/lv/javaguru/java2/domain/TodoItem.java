@@ -16,8 +16,6 @@ public class TodoItem {
         return itemId;
     }
 
-    ;
-
     public void setItemId(long itemId) {
         this.itemId = itemId;
     }

@@ -84,7 +84,17 @@ public class UserDAOImplTest {
 
     @Test
     public void testCreateFailsOnNonUniqueLogin() throws DBException {
-        throw new DBException("not implemented yet");
+        List<User> usersBefore = userDAO.getAll();
+        User user1 = createUser("u1", "p1", "F1", "L1");
+        User user2 = createUser("u1", "p2", "F2", "L2");
+        userDAO.create(user1);
+        try {
+            userDAO.create(user2);
+        } catch (Exception e) {
+            // IntegrityConstraintViolationException
+        }
+        List<User> users = userDAO.getAll();
+        assertEquals(1 + usersBefore.size(), users.size());
     }
 
     private User createUser(String login, String password, String firstName, String lastName) {

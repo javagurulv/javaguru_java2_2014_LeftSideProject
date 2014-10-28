@@ -4,7 +4,7 @@ package lv.javaguru.java2.domain;
  * Created by SM on 10/23/2014.
  */
 public class TodoGroup {
-    String name;
+    private String name;
     private long groupId;
 
     public long getGroupId() {
