@@ -104,7 +104,7 @@ public class FileDAOImplTest {
         file.setExtensionId((byte) 1);
         file.setFileName(fileName);
         file.setTodoItemID(1);
-        file.setUploadDate(DateTime.now());
+        file.setUploadDate(DateTime.now().withMillisOfSecond(0));
         return file;
     }
 }

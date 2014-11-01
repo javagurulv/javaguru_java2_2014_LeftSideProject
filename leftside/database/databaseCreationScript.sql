@@ -71,34 +71,23 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItems` (
   AUTO_INCREMENT = 10;
 
 -- -----------------------------------------------------
--- Table `Java2_LeftSide`.`todoItemsToGroups`
--- ManyToOne - ManyToMany can be switched by changing Primary Key
--- example: PRIMARY KEY (`ItemID`, `GroupID`)
--- result: todoItem can be assigned to multiple Groups
+-- Table `Java2_LeftSide`.`todoItemComment`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemsToGroups` (
-  `ItemID`  INT(11) NOT NULL,
-  `GroupID` INT(11) NOT NULL,
-  PRIMARY KEY (`ItemID`),
-  FOREIGN KEY (`ItemID`)
-  REFERENCES todoItems (`ItemID`),
-  FOREIGN KEY (`GroupID`)
-  REFERENCES todoGroups (`GroupID`)
-)
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 10;
-
--- -----------------------------------------------------
--- Table `Java2_LeftSide`.`todoItemsToUsers`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemsToUsers` (
-  `ItemID` INT(11) NOT NULL,
-  `UserID` INT(11) NOT NULL,
-  PRIMARY KEY (`ItemID`),
-  FOREIGN KEY (`ItemID`)
-  REFERENCES todoItems (`ItemID`),
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemComments` (
+  `CommentID` INT(11)       NOT NULL AUTO_INCREMENT,
+  `UserID`    INT(11)       NOT NULL,
+  `ItemID`    INT(11)       NOT NULL,
+  `ReplyToID` INT(11)       NULL,
+  `Date`      TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Title`     VARCHAR(100)  NOT NULL,
+  `Message`   VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (`CommentID`),
   FOREIGN KEY (`UserID`)
-  REFERENCES users (`UserID`)
+  REFERENCES users (`UserID`),
+  FOREIGN KEY (`ItemID`)
+  REFERENCES todoItems (`ItemID`),
+  FOREIGN KEY (`ReplyToID`)
+  REFERENCES todoItemComments (`CommentID`)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 10;
@@ -133,6 +122,39 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`files` (
   REFERENCES todoItems (`ItemID`),
   FOREIGN KEY (`ExtensionID`)
   REFERENCES fileExtensions (`ExtensionID`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 10;
+
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`todoItemsToGroups`
+-- ManyToOne - ManyToMany can be switched by changing Primary Key
+-- example: PRIMARY KEY (`ItemID`, `GroupID`)
+-- result: todoItem can be assigned to multiple Groups
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemsToGroups` (
+  `ItemID`  INT(11) NOT NULL,
+  `GroupID` INT(11) NOT NULL,
+  PRIMARY KEY (`ItemID`),
+  FOREIGN KEY (`ItemID`)
+  REFERENCES todoItems (`ItemID`),
+  FOREIGN KEY (`GroupID`)
+  REFERENCES todoGroups (`GroupID`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 10;
+
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`todoItemsToUsers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemsToUsers` (
+  `ItemID` INT(11) NOT NULL,
+  `UserID` INT(11) NOT NULL,
+  PRIMARY KEY (`ItemID`),
+  FOREIGN KEY (`ItemID`)
+  REFERENCES todoItems (`ItemID`),
+  FOREIGN KEY (`UserID`)
+  REFERENCES users (`UserID`)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 10;

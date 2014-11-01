@@ -76,7 +76,7 @@ public class UserDAOImplTest {
     public void testMultipleUserCreation() throws DBException {
         List<User> usersBefore = userDAO.getAll();
         User user1 = createUser("u1", "p1", "F1", "L1", "e1");
-        User user2 = createUser("u1", "p2", "F2", "L2", "e2");
+        User user2 = createUser("u2", "p2", "F2", "L2", "e2");
         userDAO.create(user1);
         userDAO.create(user2);
         List<User> users = userDAO.getAll();
