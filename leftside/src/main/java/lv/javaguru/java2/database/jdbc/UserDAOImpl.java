@@ -26,11 +26,12 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into USERS values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into USERS values (default, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getFirstName());
             preparedStatement.setString(4, user.getLastName());
+            preparedStatement.setString(5, user.getEmail());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -65,6 +66,7 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
                 user.setPassword(resultSet.getString("Password"));
                 user.setFirstName(resultSet.getString("FirstName"));
                 user.setLastName(resultSet.getString("LastName"));
+                user.setEmail(resultSet.getString("Email"));
             }
             return user;
         } catch (Throwable e) {
@@ -91,6 +93,7 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
                 user.setPassword(resultSet.getString("Password"));
                 user.setFirstName(resultSet.getString("FirstName"));
                 user.setLastName(resultSet.getString("LastName"));
+                user.setEmail(resultSet.getString("Email"));
                 users.add(user);
             }
         } catch (Throwable e) {
@@ -131,13 +134,14 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update USERS set Login = ?, Password = ?, FirstName = ?, LastName = ? " +
+                    .prepareStatement("update USERS set Login = ?, Password = ?, FirstName = ?, LastName = ?, Email = ? " +
                             "where UserID = ?");
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getFirstName());
             preparedStatement.setString(4, user.getLastName());
-            preparedStatement.setLong(5, user.getUserId());
+            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setLong(6, user.getUserId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.update()");

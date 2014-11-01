@@ -1,12 +1,12 @@
 -- -----------------------------------------------------
 -- Table `Java2_LeftSide`.`users`
 -- -----------------------------------------------------
-INSERT INTO `java2_leftside`.`users` (`UserID`, `Login`, `Password`, `FirstName`, `LastName`)
-VALUES (1, 'ainstain', 'a1l3.14', 'Albert', 'Ainstain');
-INSERT INTO `java2_leftside`.`users` (`UserID`, `Login`, `Password`, `FirstName`, `LastName`)
-VALUES (2, 'freddy', 'rock', 'Frederick', 'Mercury');
-INSERT INTO `java2_leftside`.`users` (`UserID`, `Login`, `Password`, `FirstName`, `LastName`)
-VALUES (3, 'testuser', 'password', 'Justin', 'Beiber');
+INSERT INTO `java2_leftside`.`users` (`UserID`, `Login`, `Password`, `FirstName`, `LastName`, `Email`)
+VALUES (1, 'ainstain', 'a1l3.14', 'Albert', 'Ainstain', 'ainstain.a@mailinator.com');
+INSERT INTO `java2_leftside`.`users` (`UserID`, `Login`, `Password`, `FirstName`, `LastName`, `Email`)
+VALUES (2, 'freddy', 'rock', 'Frederick', 'Mercury', 'mad_freddy@mailinator.com');
+INSERT INTO `java2_leftside`.`users` (`UserID`, `Login`, `Password`, `FirstName`, `LastName`, `Email`)
+VALUES (3, 'testuser', 'password', 'Justin', 'Beiber', 'imweird@mailinator.com');
 
 -- -----------------------------------------------------
 -- Table `Java2_LeftSide`.`fileExtensions`
