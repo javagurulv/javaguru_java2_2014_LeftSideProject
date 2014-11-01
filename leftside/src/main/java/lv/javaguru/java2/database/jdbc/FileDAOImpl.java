@@ -3,6 +3,9 @@ package lv.javaguru.java2.database.jdbc;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.FileDAO;
 import lv.javaguru.java2.domain.File;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +17,7 @@ import java.util.List;
  * Created by SM on 10/18/2014.
  */
 public class FileDAOImpl extends DAOImpl implements FileDAO {
+    private static DateTimeFormatter dateFormat = DateTimeFormat.forPattern("YYYY-MM-dd HH:mm:ss.0");
 
     @Override
     public void create(File file) throws DBException {
@@ -26,7 +30,7 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into FILES values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into FILES values (default, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, file.getPath());
             preparedStatement.setString(2, file.getFileName());
             if (null != file.getExtensionId()) {
@@ -34,6 +38,8 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
             } else {
                 preparedStatement.setString(3, null);
             }
+            preparedStatement.setLong(4, file.getTodoItemID());
+            preparedStatement.setString(5, file.getUploadDate().toString(dateFormat));
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -70,6 +76,11 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
                 if (null != obj) {
                     file.setExtensionId(((Integer) obj).byteValue());
                 }
+                file.setTodoItemID(resultSet.getLong("TodoItemID"));
+                String dateString = resultSet.getString("UploadDate");
+                if (null != dateString) {
+                    file.setUploadDate(DateTime.parse(dateString, dateFormat));
+                }
             }
             return file;
         } catch (Throwable e) {
@@ -97,6 +108,11 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
                 Object obj = resultSet.getObject("ExtensionID");
                 if (null != obj) {
                     file.setExtensionId(((Integer) obj).byteValue());
+                }
+                file.setTodoItemID(resultSet.getLong("TodoItemID"));
+                String dateString = resultSet.getString("UploadDate");
+                if (null != dateString) {
+                    file.setUploadDate(DateTime.parse(dateString, dateFormat));
                 }
                 files.add(file);
             }
@@ -138,7 +154,8 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update FILES set Path = ?, FileName = ?, ExtensionID = ? " +
+                    .prepareStatement("update FILES set Path = ?, FileName = ?, " +
+                            "ExtensionID = ?, TodoItemID = ?, UploadDate = ? " +
                             "where FileID = ?");
             preparedStatement.setString(1, file.getPath());
             preparedStatement.setString(2, file.getFileName());
@@ -147,7 +164,9 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
             } else {
                 preparedStatement.setString(3, null);
             }
-            preparedStatement.setLong(4, file.getFileId());
+            preparedStatement.setLong(4, file.getTodoItemID());
+            preparedStatement.setString(5, file.getUploadDate().toString(dateFormat));
+            preparedStatement.setLong(6, file.getFileId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute FileDAOImpl.update()");
