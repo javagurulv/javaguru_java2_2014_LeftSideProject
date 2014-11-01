@@ -10,6 +10,7 @@ import org.joda.time.format.DateTimeFormatter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,8 @@ import java.util.List;
  */
 public class FileDAOImpl extends DAOImpl implements FileDAO {
     private static DateTimeFormatter dateFormat = DateTimeFormat.forPattern("YYYY-MM-dd HH:mm:ss.0");
+    private static String tableName = "files";
+    private static String keyFieldName = "FileID";
 
     @Override
     public void create(File file) throws DBException {
@@ -30,7 +33,8 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into FILES values (default, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into " + tableName + " " +
+                            "values (default, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, file.getPath());
             preparedStatement.setString(2, file.getFileName());
             if (null != file.getExtensionId()) {
@@ -63,24 +67,12 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from FILES where FileID = ?");
+                    .prepareStatement("select * from " + tableName + " where " + keyFieldName + " = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             File file = null;
             if (resultSet.next()) {
-                file = new File();
-                file.setFileId(resultSet.getLong("FileID"));
-                file.setPath(resultSet.getString("Path"));
-                file.setFileName(resultSet.getString("FileName"));
-                Object obj = resultSet.getObject("ExtensionID");
-                if (null != obj) {
-                    file.setExtensionId(((Integer) obj).byteValue());
-                }
-                file.setTodoItemID(resultSet.getLong("TodoItemID"));
-                String dateString = resultSet.getString("UploadDate");
-                if (null != dateString) {
-                    file.setUploadDate(DateTime.parse(dateString, dateFormat));
-                }
+                file = parseResultSetRow(resultSet);
             }
             return file;
         } catch (Throwable e) {
@@ -97,23 +89,11 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from FILES");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                File file = new File();
-                file.setFileId(resultSet.getLong("FileID"));
-                file.setPath(resultSet.getString("Path"));
-                file.setFileName(resultSet.getString("FileName"));
-                Object obj = resultSet.getObject("ExtensionID");
-                if (null != obj) {
-                    file.setExtensionId(((Integer) obj).byteValue());
-                }
-                file.setTodoItemID(resultSet.getLong("TodoItemID"));
-                String dateString = resultSet.getString("UploadDate");
-                if (null != dateString) {
-                    file.setUploadDate(DateTime.parse(dateString, dateFormat));
-                }
+                File file = parseResultSetRow(resultSet);
                 files.add(file);
             }
         } catch (Throwable e) {
@@ -132,7 +112,7 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from FILES where FileID = ?");
+                    .prepareStatement("delete from " + tableName + " where " + keyFieldName + " = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
@@ -154,9 +134,9 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update FILES set Path = ?, FileName = ?, " +
+                    .prepareStatement("update " + tableName + " set Path = ?, FileName = ?, " +
                             "ExtensionID = ?, TodoItemID = ?, UploadDate = ? " +
-                            "where FileID = ?");
+                            "where " + keyFieldName + " = ?");
             preparedStatement.setString(1, file.getPath());
             preparedStatement.setString(2, file.getFileName());
             if (null != file.getExtensionId()) {
@@ -177,4 +157,20 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
         }
     }
 
+    private File parseResultSetRow(ResultSet resultSet) throws SQLException {
+        File file = new File();
+        file.setFileId(resultSet.getLong(keyFieldName));
+        file.setPath(resultSet.getString("Path"));
+        file.setFileName(resultSet.getString("FileName"));
+        Object obj = resultSet.getObject("ExtensionID");
+        if (null != obj) {
+            file.setExtensionId(((Integer) obj).byteValue());
+        }
+        file.setTodoItemID(resultSet.getLong("TodoItemID"));
+        String dateString = resultSet.getString("UploadDate");
+        if (null != dateString) {
+            file.setUploadDate(DateTime.parse(dateString, dateFormat));
+        }
+        return file;
+    }
 }

@@ -19,6 +19,8 @@ import java.util.List;
  */
 public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDAO {
     private static DateTimeFormatter dateFormat = DateTimeFormat.forPattern("YYYY-MM-dd HH:mm:ss.0");
+    private static String tableName = "todoItemComments";
+    private static String keyFieldName = "CommentID";
 
     @Override
     public void create(TodoItemComment itemComment) throws DBException {
@@ -31,7 +33,8 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into todoItemComments values (default, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into " + tableName + " " +
+                            "values (default, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setLong(1, itemComment.getUserId());
             preparedStatement.setLong(2, itemComment.getItemId());
             if (null != itemComment.getReplyToID()) {
@@ -68,7 +71,7 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from todoItemComments where CommentID = ?");
+                    .prepareStatement("select * from " + tableName + " where " + keyFieldName + " = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             TodoItemComment itemComment = null;
@@ -91,7 +94,7 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from todoItemComments where CommentID = ?");
+                    .prepareStatement("delete from " + tableName + " where " + keyFieldName + " = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
@@ -113,9 +116,9 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update todoItemComments set UserID = ?, ItemID = ?, ReplyToID = ?, " +
+                    .prepareStatement("update " + tableName + " set UserID = ?, ItemID = ?, ReplyToID = ?, " +
                             "Date = ?, Title = ?, Message = ? " +
-                            "where CommentID = ?");
+                            "where " + keyFieldName + " = ?");
             preparedStatement.setLong(1, itemComment.getUserId());
             preparedStatement.setLong(2, itemComment.getItemId());
             if (null != itemComment.getReplyToID()) {
@@ -147,7 +150,7 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from todoItemComments");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -170,7 +173,7 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from todoItemComments " +
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName + " " +
                     "where UserID = ?");
             preparedStatement.setLong(1, userId);
 
@@ -195,7 +198,7 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from todoItemComments " +
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName + " " +
                     "where ItemID = ?");
             preparedStatement.setLong(1, itemId);
 
@@ -217,7 +220,7 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
     private TodoItemComment parseResultSetRow(ResultSet resultSet) throws SQLException {
         TodoItemComment itemComment;
         itemComment = new TodoItemComment();
-        itemComment.setCommentId(resultSet.getLong("CommentID"));
+        itemComment.setCommentId(resultSet.getLong(keyFieldName));
         itemComment.setUserId(resultSet.getLong("UserID"));
         itemComment.setItemId(resultSet.getLong("ItemID"));
         Object obj = resultSet.getObject("ReplyToID");

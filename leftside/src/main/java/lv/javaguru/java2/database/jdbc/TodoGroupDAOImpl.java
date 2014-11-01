@@ -7,6 +7,7 @@ import lv.javaguru.java2.domain.TodoGroup;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
  * Created by SM on 10/18/2014.
  */
 public class TodoGroupDAOImpl extends DAOImpl implements TodoGroupDAO {
+    private static String tableName = "todoGroups";
+    private static String keyFieldName = "GroupID";
 
     @Override
     public void create(TodoGroup todoGroup) throws DBException {
@@ -26,7 +29,8 @@ public class TodoGroupDAOImpl extends DAOImpl implements TodoGroupDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into TODOGROUPS values (default, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into " + tableName + " " +
+                            "values (default, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, todoGroup.getName());
 
             preparedStatement.executeUpdate();
@@ -51,14 +55,12 @@ public class TodoGroupDAOImpl extends DAOImpl implements TodoGroupDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from TODOGROUPS where GroupID = ?");
+                    .prepareStatement("select * from " + tableName + " where " + keyFieldName + " = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             TodoGroup todoGroup = null;
             if (resultSet.next()) {
-                todoGroup = new TodoGroup();
-                todoGroup.setGroupId(resultSet.getLong("GroupID"));
-                todoGroup.setName(resultSet.getString("Name"));
+                todoGroup = parseResultSetRow(resultSet);
             }
             return todoGroup;
         } catch (Throwable e) {
@@ -75,13 +77,11 @@ public class TodoGroupDAOImpl extends DAOImpl implements TodoGroupDAO {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from TODOGROUPS");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                TodoGroup todoGroup = new TodoGroup();
-                todoGroup.setGroupId(resultSet.getLong("GroupID"));
-                todoGroup.setName(resultSet.getString("Name"));
+                TodoGroup todoGroup = parseResultSetRow(resultSet);
                 todoGroups.add(todoGroup);
             }
         } catch (Throwable e) {
@@ -100,7 +100,7 @@ public class TodoGroupDAOImpl extends DAOImpl implements TodoGroupDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from TODOGROUPS where GroupID = ?");
+                    .prepareStatement("delete from " + tableName + " where " + keyFieldName + " = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
@@ -122,8 +122,8 @@ public class TodoGroupDAOImpl extends DAOImpl implements TodoGroupDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update TODOGROUPS set Name = ? " +
-                            "where GroupID = ?");
+                    .prepareStatement("update " + tableName + " set Name = ? " +
+                            "where " + keyFieldName + " = ?");
             preparedStatement.setString(1, todoGroup.getName());
             preparedStatement.setLong(2, todoGroup.getGroupId());
             preparedStatement.executeUpdate();
@@ -136,4 +136,10 @@ public class TodoGroupDAOImpl extends DAOImpl implements TodoGroupDAO {
         }
     }
 
+    private TodoGroup parseResultSetRow(ResultSet resultSet) throws SQLException {
+        TodoGroup todoGroup = new TodoGroup();
+        todoGroup.setGroupId(resultSet.getLong(keyFieldName));
+        todoGroup.setName(resultSet.getString("Name"));
+        return todoGroup;
+    }
 }

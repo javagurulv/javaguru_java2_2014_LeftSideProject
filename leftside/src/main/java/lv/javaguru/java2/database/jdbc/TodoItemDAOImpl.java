@@ -10,6 +10,7 @@ import org.joda.time.format.DateTimeFormatter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,9 @@ import java.util.List;
  * Created by SM on 10/18/2014.
  */
 public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
-
     private static DateTimeFormatter dateFormat = DateTimeFormat.forPattern("YYYY-MM-dd");
+    private static String tableName = "todoItems";
+    private static String keyFieldName = "ItemID";
 
     @Override
     public void create(TodoItem todoItem) throws DBException {
@@ -31,7 +33,8 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into TODOITEMS values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into " + tableName + " " +
+                            "values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setLong(1, todoItem.getStateId());
             preparedStatement.setString(2, todoItem.getTitle());
             preparedStatement.setString(3, todoItem.getDescription());
@@ -62,20 +65,12 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from TODOITEMS where ItemID = ?");
+                    .prepareStatement("select * from " + tableName + " where " + keyFieldName + " = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             TodoItem todoItem = null;
             if (resultSet.next()) {
-                todoItem = new TodoItem();
-                todoItem.setItemId(resultSet.getLong("ItemID"));
-                todoItem.setStateId(resultSet.getLong("StateID"));
-                todoItem.setTitle(resultSet.getString("Title"));
-                todoItem.setDescription(resultSet.getString("Description"));
-                String dateString = resultSet.getString("DueDate");
-                if (null != dateString) {
-                    todoItem.setDueDate(DateTime.parse(dateString, dateFormat));
-                }
+                todoItem = parseResultSetRow(resultSet);
             }
             return todoItem;
         } catch (Throwable e) {
@@ -92,19 +87,11 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from TODOITEMS");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                TodoItem todoItem = new TodoItem();
-                todoItem.setItemId(resultSet.getLong("ItemID"));
-                todoItem.setStateId(resultSet.getLong("StateID"));
-                todoItem.setTitle(resultSet.getString("Title"));
-                todoItem.setDescription(resultSet.getString("Description"));
-                String dateString = resultSet.getString("DueDate");
-                if (null != dateString) {
-                    todoItem.setDueDate(DateTime.parse(dateString, dateFormat));
-                }
+                TodoItem todoItem = parseResultSetRow(resultSet);
                 todoItems.add(todoItem);
             }
         } catch (Throwable e) {
@@ -123,21 +110,13 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from todoItems " +
-                    "where ItemId in (select ItemId from todoItemsToUsers where UserId = ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName + " " +
+                    "where " + keyFieldName + " in (select ItemId from todoItemsToUsers where UserId = ?)");
             preparedStatement.setLong(1, userId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                TodoItem todoItem = new TodoItem();
-                todoItem.setItemId(resultSet.getLong("ItemID"));
-                todoItem.setStateId(resultSet.getLong("StateID"));
-                todoItem.setTitle(resultSet.getString("Title"));
-                todoItem.setDescription(resultSet.getString("Description"));
-                String dateString = resultSet.getString("DueDate");
-                if (null != dateString) {
-                    todoItem.setDueDate(DateTime.parse(dateString, dateFormat));
-                }
+                TodoItem todoItem = parseResultSetRow(resultSet);
                 todoItems.add(todoItem);
             }
         } catch (Throwable e) {
@@ -156,24 +135,16 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from todoItems " +
-                    "where ItemId in (select ItemId from todoItemsToUsers where UserId = ?)" +
-                    " and ItemId in (select ItemId from todoItemsToGroups where GroupId = ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName + " " +
+                    "where " + keyFieldName + " in (select ItemId from todoItemsToUsers where UserId = ?)" +
+                    " and " + keyFieldName + " in (select ItemId from todoItemsToGroups where GroupId = ?)");
             preparedStatement.setLong(1, userId);
             preparedStatement.setLong(2, groupId
             );
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                TodoItem todoItem = new TodoItem();
-                todoItem.setItemId(resultSet.getLong("ItemID"));
-                todoItem.setStateId(resultSet.getLong("StateID"));
-                todoItem.setTitle(resultSet.getString("Title"));
-                todoItem.setDescription(resultSet.getString("Description"));
-                String dateString = resultSet.getString("DueDate");
-                if (null != dateString) {
-                    todoItem.setDueDate(DateTime.parse(dateString, dateFormat));
-                }
+                TodoItem todoItem = parseResultSetRow(resultSet);
                 todoItems.add(todoItem);
             }
         } catch (Throwable e) {
@@ -244,7 +215,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from TODOITEMS where ItemID = ?");
+                    .prepareStatement("delete from " + tableName + " where " + keyFieldName + " = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
@@ -266,8 +237,8 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update TODOITEMS set StateID = ?, Title = ?, Description = ?, DueDate = ? " +
-                            "where ItemID = ?");
+                    .prepareStatement("update " + tableName + " set StateID = ?, Title = ?, Description = ?, DueDate = ? " +
+                            "where " + keyFieldName + " = ?");
             preparedStatement.setLong(1, todoItem.getStateId());
             preparedStatement.setString(2, todoItem.getTitle());
             preparedStatement.setString(3, todoItem.getDescription());
@@ -287,4 +258,16 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         }
     }
 
+    private TodoItem parseResultSetRow(ResultSet resultSet) throws SQLException {
+        TodoItem todoItem = new TodoItem();
+        todoItem.setItemId(resultSet.getLong(keyFieldName));
+        todoItem.setStateId(resultSet.getLong("StateID"));
+        todoItem.setTitle(resultSet.getString("Title"));
+        todoItem.setDescription(resultSet.getString("Description"));
+        String dateString = resultSet.getString("DueDate");
+        if (null != dateString) {
+            todoItem.setDueDate(DateTime.parse(dateString, dateFormat));
+        }
+        return todoItem;
+    }
 }
