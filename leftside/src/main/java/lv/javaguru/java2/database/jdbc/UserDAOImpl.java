@@ -76,6 +76,30 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
         }
     }
 
+    @Override
+    public User getByLogin(String login) throws DBException {
+        Connection connection = null;
+
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select * from " + tableName + " where Login = ?");
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            User user = null;
+            if (resultSet.next()) {
+                user = parseResultSetRow(resultSet);
+            }
+            return user;
+        } catch (Throwable e) {
+            System.out.println("Exception while execute UserDAOImpl.getByLogin()");
+            e.printStackTrace();
+            throw new DBException(e);
+        } finally {
+            closeConnection(connection);
+        }
+    }
+
     public List<User> getAll() throws DBException {
         List<User> users = new ArrayList<User>();
         Connection connection = null;
