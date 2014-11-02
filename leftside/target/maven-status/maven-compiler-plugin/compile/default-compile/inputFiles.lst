@@ -1,4 +1,7 @@
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\database\jdbc\DAOImpl.java
+Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\core\Authentication.java
+Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\database\TodoItemCommentDAO.java
+Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\domain\TodoItemComment.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\servlets\HelloWorldServlet.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\database\jdbc\TodoItemDAOImpl.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\servlets\TodoGroupServlet.java
@@ -11,9 +14,11 @@ Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\le
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\database\jdbc\TodoGroupDAOImpl.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\database\DBException.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\domain\File.java
+Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\servlets\LoginServlet.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\database\TodoGroupDAO.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\database\jdbc\UserDAOImpl.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\domain\User.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\domain\TodoGroup.java
+Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\database\jdbc\TodoItemCommentDAOImpl.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\database\jdbc\FileExtensionDAOImpl.java
 Z:\INTELLIJ IDEA PROJECTS\Java 2 LeftSide\javaguru_java2_2014_LeftSideProject\leftside\src\main\java\lv\javaguru\java2\database\jdbc\FileDAOImpl.java

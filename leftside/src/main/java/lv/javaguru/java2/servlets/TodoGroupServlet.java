@@ -160,6 +160,9 @@ public class TodoGroupServlet extends HttpServlet{
 
         }
 
+        int size = -1;
+
+        breakPoint:
         for(int i = 0; i < str.size(); i++){
             int nr = i+1;
 
@@ -192,9 +195,20 @@ public class TodoGroupServlet extends HttpServlet{
                     }
                     out.print(" --- Amount = " + list4.size() + "</h1>");
                     break;
+                default:
+                    size = i;
+                    break breakPoint;
             }
 
         }
+
+        if(size < str.size() && size != -1){
+            for(int i = size; i < str.size(); i++){
+                int nr = i + 1;
+                out.print("<h1>" + nr + ". "+ str.get(i) + " --- Amount = 0 </h1>");
+            }
+        }
+
         out.println("<body>\n" +
                 "<form action=\"todoGroup\" method=\"post\">\n" +
                 "Add: <input type=\"text\" name=\"add\"><br>\n" +
