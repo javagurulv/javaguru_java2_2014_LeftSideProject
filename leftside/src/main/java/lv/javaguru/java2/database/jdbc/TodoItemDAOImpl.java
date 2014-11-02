@@ -187,6 +187,39 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
     }
 
     @Override
+    public List<TodoItem> getByGroupId(Long groupId) throws DBException {
+        List<TodoItem> todoItems = new ArrayList<TodoItem>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from todoItems " +
+                    " where ItemId in (select ItemId from todoItemsToGroups where GroupId = ?)");
+            preparedStatement.setLong(1, groupId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                TodoItem todoItem = new TodoItem();
+                todoItem.setItemId(resultSet.getLong("ItemID"));
+                todoItem.setStateId(resultSet.getLong("StateID"));
+                todoItem.setTitle(resultSet.getString("Title"));
+                todoItem.setDescription(resultSet.getString("Description"));
+                String dateString = resultSet.getString("DueDate");
+                if (null != dateString) {
+                    todoItem.setDueDate(DateTime.parse(dateString, dateFormat));
+                }
+                todoItems.add(todoItem);
+            }
+        } catch (Throwable e) {
+            System.out.println("Exception while getting customer list TodoItemDAOImpl.getByTodoUserAndGroupId()");
+            e.printStackTrace();
+            throw new DBException(e);
+        } finally {
+            closeConnection(connection);
+        }
+        return todoItems;
+    }
+
+    @Override
     public void setTodoGroup(Long todoItemId, Long todoGroupId) throws DBException {
         if (null == todoItemId) {
             return;

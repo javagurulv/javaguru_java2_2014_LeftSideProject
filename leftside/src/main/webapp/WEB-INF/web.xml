@@ -15,4 +15,15 @@
         <url-pattern>/hello</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>TodoGroupServlet</servlet-name>
+        <servlet-class>lv.javaguru.java2.servlets.TodoGroupServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>TodoGroupServlet</servlet-name>
+        <url-pattern>/todoGroup</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
