@@ -24,7 +24,8 @@ public class LoginServlet extends HttpServlet {
             "<form method=\"post\">" +
             "Username: <input type=\"text\" name=\"" + paramUser + "\"><br>" +
             "Password: <input type=\"password\" name=\"" + paramPass + "\"><br>" +
-            "<input type=\"submit\" value=\"Login\">";
+            "<input type=\"submit\" value=\"Login\">" +
+            "<br><br><br>Hint: Easiest combination is freddy:rock";
 
     private static final UserDAO userDAO = new UserDAOImpl();
 
