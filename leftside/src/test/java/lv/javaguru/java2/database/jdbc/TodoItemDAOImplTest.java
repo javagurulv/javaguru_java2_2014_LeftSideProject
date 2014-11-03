@@ -35,6 +35,7 @@ public class TodoItemDAOImplTest {
         assertEquals(todoItem.getTitle(), todoItemFromDB.getTitle());
         assertEquals(todoItem.getDescription(), todoItemFromDB.getDescription());
         assertEquals(todoItem.getDueDate(), todoItemFromDB.getDueDate());
+
     }
 
     @Test
