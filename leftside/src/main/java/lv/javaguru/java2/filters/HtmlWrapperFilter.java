@@ -74,9 +74,9 @@ public class HtmlWrapperFilter implements Filter {
                     out.println("--- No attributes set ---<br>");
                 }
             }
-
-            out.println("</td></tr></table>");
         }
+        
+        out.println("</td></tr></table>");
     }
 
     @Override
