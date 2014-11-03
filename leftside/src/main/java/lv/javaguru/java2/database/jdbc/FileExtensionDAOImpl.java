@@ -7,6 +7,7 @@ import lv.javaguru.java2.domain.FileExtension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
  * Created by SM on 10/18/2014.
  */
 public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
+    private static String tableName = "fileExtensions";
+    private static String keyFieldName = "ExtensionID";
 
     @Override
     public void create(FileExtension fileExtension) throws DBException {
@@ -26,7 +29,8 @@ public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into FileExtensions values (default, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into " + tableName + " " +
+                            "values (default, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, fileExtension.getExtension());
 
             preparedStatement.executeUpdate();
@@ -51,14 +55,12 @@ public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from FileExtensions where ExtensionID = ?");
+                    .prepareStatement("select * from " + tableName + " where " + keyFieldName + " = ?");
             preparedStatement.setByte(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             FileExtension fileExtension = null;
             if (resultSet.next()) {
-                fileExtension = new FileExtension();
-                fileExtension.setExtensionId(resultSet.getByte("ExtensionID"));
-                fileExtension.setExtension(resultSet.getString("Extension"));
+                fileExtension = parseResultSetRow(resultSet);
             }
             return fileExtension;
         } catch (Throwable e) {
@@ -75,13 +77,11 @@ public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from FileExtensions");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                FileExtension fileExtension = new FileExtension();
-                fileExtension.setExtensionId(resultSet.getByte("ExtensionID"));
-                fileExtension.setExtension(resultSet.getString("Extension"));
+                FileExtension fileExtension = parseResultSetRow(resultSet);
                 fileExtensions.add(fileExtension);
             }
         } catch (Throwable e) {
@@ -100,7 +100,7 @@ public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from FileExtensions where ExtensionID = ?");
+                    .prepareStatement("delete from " + tableName + " where " + keyFieldName + " = ?");
             preparedStatement.setByte(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
@@ -122,8 +122,8 @@ public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update FileExtensions set Extension = ? " +
-                            "where ExtensionID = ?");
+                    .prepareStatement("update " + tableName + " set Extension = ? " +
+                            "where " + keyFieldName + " = ?");
             preparedStatement.setString(1, fileExtension.getExtension());
             preparedStatement.setLong(2, fileExtension.getExtensionId());
             preparedStatement.executeUpdate();
@@ -136,4 +136,10 @@ public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
         }
     }
 
+    private FileExtension parseResultSetRow(ResultSet resultSet) throws SQLException {
+        FileExtension fileExtension = new FileExtension();
+        fileExtension.setExtensionId(resultSet.getByte(keyFieldName));
+        fileExtension.setExtension(resultSet.getString("Extension"));
+        return fileExtension;
+    }
 }

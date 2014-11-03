@@ -35,7 +35,6 @@ public class TodoItemDAOImplTest {
         assertEquals(todoItem.getTitle(), todoItemFromDB.getTitle());
         assertEquals(todoItem.getDescription(), todoItemFromDB.getDescription());
         assertEquals(todoItem.getDueDate(), todoItemFromDB.getDueDate());
-
     }
 
     @Test
@@ -79,16 +78,6 @@ public class TodoItemDAOImplTest {
         todoItemDAO.create(todoItem2);
         List<TodoItem> todoItems = todoItemDAO.getAll();
         assertEquals(2 + todoItemsBefore.size(), todoItems.size());
-    }
-
-    @Test
-    public void testLinkageToUser() throws DBException {
-        throw new DBException("not implemented");
-    }
-
-    @Test
-    public void testLinkageToTodoGroups() throws DBException {
-        throw new DBException("not implemented");
     }
 
     private TodoItem createTodoItem(String title, String description) {

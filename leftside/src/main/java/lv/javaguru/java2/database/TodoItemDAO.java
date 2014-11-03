@@ -23,6 +23,8 @@ public interface TodoItemDAO {
 
     List<TodoItem> getByTodoUserAndGroupId(Long userId, Long groupId) throws DBException;
 
+    List<TodoItem> getByGroupId(Long groupId) throws DBException;
+
     void setTodoGroup(Long todoItemId, Long todoGroupId) throws DBException;
 
     void setAuthor(Long todoItemId, Long userId) throws DBException;

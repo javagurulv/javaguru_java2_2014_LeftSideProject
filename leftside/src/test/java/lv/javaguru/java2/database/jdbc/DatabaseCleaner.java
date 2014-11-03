@@ -24,6 +24,7 @@ public class DatabaseCleaner extends DAOImpl {
         tableNames.add(new Table("todoItems", "ItemID", 10));
         tableNames.add(new Table("todoStates", "StateID", 10));
         tableNames.add(new Table("todoGroups", "GroupID", 10));
+        tableNames.add(new Table("todoItemComments", "CommentID", 10));
         return tableNames;
     }
 

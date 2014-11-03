@@ -13,6 +13,8 @@ public interface UserDAO {
 
     User getById(Long id) throws DBException;
 
+    User getByLogin(String login) throws DBException;
+
     void delete(Long id) throws DBException;
 
     void update(User user) throws DBException;
