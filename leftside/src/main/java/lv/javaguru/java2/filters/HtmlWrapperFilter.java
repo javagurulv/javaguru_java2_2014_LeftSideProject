@@ -29,6 +29,7 @@ public class HtmlWrapperFilter implements Filter {
                 "<a href='/hello'>HelloWorld</a><br>" +
                 "<a href='/todoGroup'>ToDo Groups</a><br>" +
                 "<a href='/todoItem'>ToDo Items</a><br>" +
+                "<a href='/file'>Files</a><br>" +
                 "<a href='/login'>LoginServlet</a><br>" +
                 "<a href='/ErrorHandler'>ErrorHandler</a><br>" +
                 "</td><td width='*' valign='top' style='padding:10;'>");

@@ -40,6 +40,10 @@
         <servlet-class>lv.javaguru.java2.servlets.TodoItemServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>FileServlet</servlet-name>
+        <servlet-class>lv.javaguru.java2.servlets.FileServlet</servlet-class>
+    </servlet>
 
     <filter-mapping>
         <filter-name>HtmlWrapperFilter</filter-name>
@@ -54,6 +58,11 @@
     <servlet-mapping>
         <servlet-name>TodoItemServlet</servlet-name>
         <url-pattern>/todoItem</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FileServlet</servlet-name>
+        <url-pattern>/file</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
