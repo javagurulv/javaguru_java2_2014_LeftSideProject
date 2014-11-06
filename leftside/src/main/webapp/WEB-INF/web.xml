@@ -35,6 +35,11 @@
         <servlet-class>lv.javaguru.java2.servlets.TodoGroupServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>TodoItemServlet</servlet-name>
+        <servlet-class>lv.javaguru.java2.servlets.TodoItemServlet</servlet-class>
+    </servlet>
+
 
     <filter-mapping>
         <filter-name>HtmlWrapperFilter</filter-name>
@@ -44,6 +49,11 @@
     <servlet-mapping>
         <servlet-name>TodoGroupServlet</servlet-name>
         <url-pattern>/todoGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>TodoItemServlet</servlet-name>
+        <url-pattern>/todoItem</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
