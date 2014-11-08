@@ -42,9 +42,7 @@ public class TodoGroupServlet extends HttpServlet{
         List<String> str = new ArrayList<String>();
         PrintWriter out = resp.getWriter();
 
-        for(int i = 0; i < todo.size(); i++){
-            str.add(todo.get(i).getName());
-        }
+        addGroupNamesToArray(todo, str);
         write(str, out, req, tdi);
 
 
@@ -72,52 +70,66 @@ public class TodoGroupServlet extends HttpServlet{
             throw new ServletException(e);
         }
 
-        List<String> str = new ArrayList<String>();
+        List<String> groupNames = new ArrayList<String>();
         PrintWriter out = resp.getWriter();
 
 
 
         if(deletedValue != null){
             long deletedLong = -1;
-            for(int i = 0; i < todo.size(); i++){
-                if(todo.get(i).getName().equals(deletedValue)){
-                    deletedLong = todo.get(i).getGroupId();
-                    todo.remove(i);
-                    break;
-                }
-            }
-            if(deletedLong != -1) {
-                try {
-                    td.delete(deletedLong);
-                } catch (DBException e) {
-                    throw new ServletException(e);
-                }
-            }
-
-            for (int i = 0; i < todo.size(); i++) {
-                str.add(todo.get(i).getName());
-            }
-            write(str, out, req, tdi);
+            deletedLong = removeGroup(deletedValue, todo, deletedLong);
+            deleteGroupIdFromArray(td, deletedLong);
+            addGroupNamesToArray(todo, groupNames);
+            write(groupNames, out, req, tdi);
         }else if(addedValue != null) {
 
-            for (int i = 0; i < todo.size(); i++) {
-                str.add(todo.get(i).getName());
-            }
+            addGroupNamesToArray(todo, groupNames);
 
-            str.add(addedValue);
+            groupNames.add(addedValue);
 
             try {
-                TodoGroup tdg = new TodoGroup();
-                tdg.setName(addedValue);
+                TodoGroup todoGroup = new TodoGroup();
+                todoGroup.setName(addedValue);
 
-                td.create(tdg);
+                td.create(todoGroup);
             } catch (DBException e) {
                 throw new ServletException(e);
             }
 
 
-            write(str, out, req, tdi);
+            write(groupNames, out, req, tdi);
         }
+    }
+
+    private void addGroupNamesToArray(List<TodoGroup> todo, List<String> str) {
+        for (int i = 0; i < todo.size(); i++) {
+            str.add(todo.get(i).getName());
+        }
+    }
+
+    private void deleteGroupIdFromArray(TodoGroupDAO td, long deletedLong) throws ServletException {
+        if(deletedLong != -1) {
+            try {
+                td.delete(deletedLong);
+            } catch (DBException e) {
+                throw new ServletException(e);
+            }
+        }
+    }
+
+    private long removeGroup(String deletedValue, List<TodoGroup> todo, long deletedLong) {
+        for(int i = 0; i < todo.size(); i++){
+            if(isNameEqualDeletedValue(deletedValue, todo, i)){
+                deletedLong = todo.get(i).getGroupId();
+                todo.remove(i);
+                break;
+            }
+        }
+        return deletedLong;
+    }
+
+    private boolean isNameEqualDeletedValue(String deletedValue, List<TodoGroup> todo, int i) {
+        return todo.get(i).getName().equals(deletedValue);
     }
 
 
