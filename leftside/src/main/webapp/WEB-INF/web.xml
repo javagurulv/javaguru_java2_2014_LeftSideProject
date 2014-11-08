@@ -36,6 +36,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>TodoItemCommentsServlet</servlet-name>
+        <servlet-class>lv.javaguru.java2.servlets.TodoItemCommentsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>TodoItemServlet</servlet-name>
         <servlet-class>lv.javaguru.java2.servlets.TodoItemServlet</servlet-class>
     </servlet>
@@ -58,6 +63,11 @@
     <servlet-mapping>
         <servlet-name>TodoItemServlet</servlet-name>
         <url-pattern>/todoItem</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>TodoItemCommentsServlet</servlet-name>
+        <url-pattern>/todoComments</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

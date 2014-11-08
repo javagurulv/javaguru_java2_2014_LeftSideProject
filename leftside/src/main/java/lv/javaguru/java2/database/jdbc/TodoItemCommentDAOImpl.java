@@ -199,7 +199,8 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName + " " +
-                    "where ItemID = ?");
+                    "where ItemID = ? " +
+                    "order by "+keyFieldName);
             preparedStatement.setLong(1, itemId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
