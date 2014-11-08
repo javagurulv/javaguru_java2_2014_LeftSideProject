@@ -4,7 +4,10 @@ import lv.javaguru.java2.core.Authentication;
 import lv.javaguru.java2.core.ConfigReader;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.TodoItemCommentDAO;
+import lv.javaguru.java2.database.TodoItemDAO;
 import lv.javaguru.java2.database.jdbc.TodoItemCommentDAOImpl;
+import lv.javaguru.java2.database.jdbc.TodoItemDAOImpl;
+import lv.javaguru.java2.domain.TodoItem;
 import lv.javaguru.java2.domain.TodoItemComment;
 import org.joda.time.DateTime;
 
@@ -21,6 +24,7 @@ import java.util.*;
  * Created by SM on 11/7/2014.
  */
 public class TodoItemCommentsServlet extends HttpServlet {
+    private static final TodoItemDAO todoItemDAO = new TodoItemDAOImpl();
     private static final TodoItemCommentDAO commentDAO = new TodoItemCommentDAOImpl();
     private static ConfigReader config = new ConfigReader();
     private static final String paramItemId = "item";
@@ -46,13 +50,16 @@ public class TodoItemCommentsServlet extends HttpServlet {
             }
         }
 
+        TodoItem todoItem = null;
         List<TodoItemComment> commentList = null;
         try {
+            todoItem = todoItemDAO.getById(itemId);
             commentList = commentDAO.getByItemId(itemId);
         } catch (DBException e) {
             throw new ServletException(e);
         }
 
+        printTodoItemInfo(out, todoItem);
         printCommentList(out, commentList, session);
         out.println("<br><br>");
         printNewCommentForm(out, itemId, inReplyTo);
@@ -112,6 +119,14 @@ public class TodoItemCommentsServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doDelete(req, resp);
+    }
+
+    private void printTodoItemInfo(PrintWriter out, TodoItem item) {
+        out.println("<br><b>Item</b> " + item.getItemId()
+                + " <br><b>Title:</b> " + item.getTitle()
+                + " <br><b>Description:</b> " + item.getDescription()
+                + " <br><b>Due Date::</b>" + item.getDueDate()
+                + " <br><hr><br>");
     }
 
     private void printCommentList(PrintWriter out, List<TodoItemComment> commentList, HttpSession srssion) {
