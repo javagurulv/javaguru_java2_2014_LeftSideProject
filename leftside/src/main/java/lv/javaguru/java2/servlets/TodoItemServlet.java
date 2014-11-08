@@ -44,7 +44,8 @@ public class TodoItemServlet extends HttpServlet {
                 out.println("<hr><br><b>Item</b> " + itemToken.getItemId()
                         + " <br><b>Title:</b> " + itemToken.getTitle()
                         + " <br><b>Description:</b> " + itemToken.getDescription()
-                        + " <br><b>Due Date::</b>" + itemToken.getDueDate());
+                        + " <br><b>Due Date::</b>" + itemToken.getDueDate()
+                        + " <br><a href='/todoComments?item="+itemToken.getItemId()+"'>Read comments</a>");
             }
 
 
