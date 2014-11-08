@@ -36,7 +36,7 @@ public class TodoGroupServlet extends HttpServlet{
         try {
             todo = td.getAll();
         } catch (DBException e) {
-            e.printStackTrace();
+            throw new ServletException(e);
         }
 
         List<String> str = new ArrayList<String>();
@@ -69,7 +69,7 @@ public class TodoGroupServlet extends HttpServlet{
         try {
             todo = td.getAll();
         } catch (DBException e) {
-            e.printStackTrace();
+            throw new ServletException(e);
         }
 
         List<String> str = new ArrayList<String>();
@@ -90,7 +90,7 @@ public class TodoGroupServlet extends HttpServlet{
                 try {
                     td.delete(deletedLong);
                 } catch (DBException e) {
-                    e.printStackTrace();
+                    throw new ServletException(e);
                 }
             }
 
@@ -112,7 +112,7 @@ public class TodoGroupServlet extends HttpServlet{
 
                 td.create(tdg);
             } catch (DBException e) {
-                e.printStackTrace();
+                throw new ServletException(e);
             }
 
 
@@ -121,7 +121,7 @@ public class TodoGroupServlet extends HttpServlet{
     }
 
 
-    private void write(List<String> str, PrintWriter out, HttpServletRequest req, TodoItemDAO tdi){
+    private void write(List<String> str, PrintWriter out, HttpServletRequest req, TodoItemDAO tdi) throws ServletException{
 
         out.println("<h1>" + "Remote User : " + req.getRemoteUser() + "</h1>");
 
@@ -130,7 +130,7 @@ public class TodoGroupServlet extends HttpServlet{
         try {
             todoItems = tdi.getAll();
         } catch (DBException e) {
-            e.printStackTrace();
+            throw new ServletException(e);
         }
         List<TodoItem> list1 = null;
         List<TodoItem> list2 = null;
@@ -155,7 +155,7 @@ public class TodoGroupServlet extends HttpServlet{
                         break;
                 }
             }catch(DBException dbe){
-                dbe.printStackTrace();
+                throw new ServletException(dbe);
             }
 
         }
