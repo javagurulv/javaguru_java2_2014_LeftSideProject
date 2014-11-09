@@ -8,7 +8,7 @@ public class MVCModel {
     private String view;
     private Object data;
 
-    public MVCModel(String view, Object data){
+    public MVCModel(String view, Object data) {
         this.view = view;
         this.data = data;
     }
@@ -21,5 +21,4 @@ public class MVCModel {
         return view;
     }
 
-    
 }

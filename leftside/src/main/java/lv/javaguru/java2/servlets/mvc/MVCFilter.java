@@ -36,7 +36,8 @@ public class MVCFilter implements Filter {
 
         MVCController controller = controllerMap.get(contextURI);
 
-        MVCModel model = controller.processRequest(req,resp);
+        MVCRequestParameters requestParameters = new MVCRequestParameters(req);
+        MVCModel model = controller.processRequest(requestParameters);
 
         req.setAttribute("model", model.getData());
         ServletContext context =  req.getServletContext();
