@@ -7,4 +7,11 @@ public interface MVCController {
 
     MVCModel processRequest(MVCRequestParameters requestParameters);
 
+    String getPath();
+
+    String getPageName();
+
+    String getDefaultViewPath();
+
+    boolean isVisible();
 }

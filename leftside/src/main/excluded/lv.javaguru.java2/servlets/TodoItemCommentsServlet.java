@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.Long;
+import java.lang.String;
 import java.util.*;
 
 /**
@@ -98,22 +100,22 @@ public class TodoItemCommentsServlet extends HttpServlet {
             }
 
             Long userId = Authentication.getUserId(session);
-            TodoItemComment comment = new TodoItemComment();
-            comment.setUserId(userId);
-            comment.setItemId(itemId);
-            comment.setReplyToID(replyTo);
-            comment.setDate(DateTime.now());
-            comment.setTitle(title);
-            comment.setMessage(msg);
-
-            try {
-                commentDAO.create(comment);
-            } catch (DBException e) {
-                throw new ServletException(e);
-            }
+            dbCreateComment(userId, itemId, replyTo, title, msg);
 
             resp.sendRedirect("todoComments?" + paramItemId + "=" + itemId);
         }
+    }
+
+    private void dbCreateComment(Long userId, Long itemId, Long replyTo, String title, String msg) {
+        TodoItemComment comment = new TodoItemComment();
+        comment.setUserId(userId);
+        comment.setItemId(itemId);
+        comment.setReplyToID(replyTo);
+        comment.setDate(DateTime.now());
+        comment.setTitle(title);
+        comment.setMessage(msg);
+
+        commentDAO.create(comment);
     }
 
     @Override
@@ -134,6 +136,7 @@ public class TodoItemCommentsServlet extends HttpServlet {
         Map<Long, CommentTree> hashCommentTrees = new HashMap<Long, CommentTree>();
         Map<Long, CommentTree> noRootTrees = new HashMap<Long, CommentTree>();
         hashCommentTrees.put(null, commRoot);
+
         for (TodoItemComment comment : commentList) {
             CommentTree tree = hashCommentTrees.get(comment.getReplyToID());
             if (null == tree) {

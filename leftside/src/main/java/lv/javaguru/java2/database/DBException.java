@@ -3,7 +3,7 @@ package lv.javaguru.java2.database;
 /**
  * Created by Viktor on 01/07/2014.
  */
-public class DBException extends Exception {
+public class DBException extends RuntimeException {
 
     public DBException(String message) {
         super(message);

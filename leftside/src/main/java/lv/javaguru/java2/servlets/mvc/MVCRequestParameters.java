@@ -1,6 +1,9 @@
 package lv.javaguru.java2.servlets.mvc;
 
+import lv.javaguru.java2.core.Authentication;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.Set;
 
@@ -8,6 +11,8 @@ import java.util.Set;
  * Created by SM on 11/9/2014.
  */
 public class MVCRequestParameters {
+    private Long userId;
+    private boolean userAuthenticated;
     private Map<String, String[]> parameters;
 
     private MVCRequestParameters() {
@@ -15,6 +20,9 @@ public class MVCRequestParameters {
     }
 
     public MVCRequestParameters(HttpServletRequest httpServletRequest) {
+        HttpSession session = httpServletRequest.getSession();
+        userId = Authentication.getUserId(session);
+        userAuthenticated = Authentication.isLoggedIn(session);
         parameters = httpServletRequest.getParameterMap();
     }
 
@@ -39,4 +47,11 @@ public class MVCRequestParameters {
         }
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public boolean isUserAuthenticated() {
+        return userAuthenticated;
+    }
 }
