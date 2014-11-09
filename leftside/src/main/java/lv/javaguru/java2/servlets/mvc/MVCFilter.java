@@ -16,12 +16,14 @@ public class MVCFilter implements Filter {
     ConfigReader config = new ConfigReader();
 
     private Map<String, MVCController> controllerMap;
-
+    private MVCController defaultController;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        defaultController = new HelloWorldController();
+
         controllerMap = new HashMap<String, MVCController>();
-        registerController(new HelloWorldController());
+        registerController(defaultController);
         registerController(new TodoItemCommentsController());
     }
 
@@ -36,7 +38,12 @@ public class MVCFilter implements Filter {
         String path = req.getRequestURI();
         System.out.println(path);
 
-        MVCController controller = controllerMap.get(contextURI);
+        MVCController controller;
+        if (controllerMap.containsKey(contextURI)) {
+            controller = controllerMap.get(contextURI);
+        } else {
+            controller = defaultController;
+        }
 
         MVCRequestParameters requestParameters = new MVCRequestParameters(req);
         MVCModel model = controller.processRequest(requestParameters);

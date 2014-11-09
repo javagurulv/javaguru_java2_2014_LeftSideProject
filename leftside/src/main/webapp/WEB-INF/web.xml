@@ -62,7 +62,7 @@
 
     <filter-mapping>
         <filter-name>MVCFilter</filter-name>
-        <url-pattern>/todoComments</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <!-- Page not found and other standard server error-codes -->
