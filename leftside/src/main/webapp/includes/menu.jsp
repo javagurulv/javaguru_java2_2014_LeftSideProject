@@ -1,9 +1,9 @@
-<%@ page import="lv.javaguru.java2.servlets.mvc.MVCController" %>
 <%@ page import="java.util.Collection" %>
+<%@ page import="lv.javaguru.java2.web.mvc.core.RegisteredController" %>
 <%
-    Collection<MVCController> controllers = (Collection<MVCController>) request.getAttribute("controllers");
+    Collection<RegisteredController> controllers = (Collection<RegisteredController>) request.getAttribute("controllers");
     boolean debug = (Boolean) request.getAttribute("debug");
-    for (MVCController controller : controllers) {
+    for (RegisteredController controller : controllers) {
         if (controller.isVisible() || debug) {
             %>
             <a href="<%=controller.getPath()%>"><%=controller.getPageName()%></a><br>

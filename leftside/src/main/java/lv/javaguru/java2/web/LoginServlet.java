@@ -1,10 +1,10 @@
-package lv.javaguru.java2.servlets;
+package lv.javaguru.java2.web;
 
-import lv.javaguru.java2.core.Authentication;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.UserDAO;
 import lv.javaguru.java2.database.jdbc.UserDAOImpl;
 import lv.javaguru.java2.domain.User;
+import lv.javaguru.java2.web.mvc.core.Authentication;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

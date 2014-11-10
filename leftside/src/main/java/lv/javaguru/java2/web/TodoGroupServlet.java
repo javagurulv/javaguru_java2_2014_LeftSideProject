@@ -1,4 +1,4 @@
-package lv.javaguru.java2.servlets;
+package lv.javaguru.java2.web;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.TodoGroupDAO;
@@ -14,12 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Emils on 2014.11.01..
  */
-public class TodoGroupServlet extends HttpServlet{
+public class TodoGroupServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req,
@@ -46,12 +47,11 @@ public class TodoGroupServlet extends HttpServlet{
         write(str, out, req, tdi);
 
 
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req,
-                          HttpServletResponse resp)throws javax.servlet.ServletException, java.io.IOException {
+                          HttpServletResponse resp) throws javax.servlet.ServletException, java.io.IOException {
 
         String addedValue = req.getParameter("add");
         String deletedValue = req.getParameter("delete");
@@ -74,14 +74,13 @@ public class TodoGroupServlet extends HttpServlet{
         PrintWriter out = resp.getWriter();
 
 
-
-        if(deletedValue != null){
+        if (deletedValue != null) {
             long deletedLong = -1;
             deletedLong = removeGroup(deletedValue, todo, deletedLong);
             deleteGroupIdFromArray(td, deletedLong);
             addGroupNamesToArray(todo, groupNames);
             write(groupNames, out, req, tdi);
-        }else if(addedValue != null) {
+        } else if (addedValue != null) {
 
             addGroupNamesToArray(todo, groupNames);
 
@@ -108,7 +107,7 @@ public class TodoGroupServlet extends HttpServlet{
     }
 
     private void deleteGroupIdFromArray(TodoGroupDAO td, long deletedLong) throws ServletException {
-        if(deletedLong != -1) {
+        if (deletedLong != -1) {
             try {
                 td.delete(deletedLong);
             } catch (DBException e) {
@@ -118,8 +117,8 @@ public class TodoGroupServlet extends HttpServlet{
     }
 
     private long removeGroup(String deletedValue, List<TodoGroup> todo, long deletedLong) {
-        for(int i = 0; i < todo.size(); i++){
-            if(isNameEqualDeletedValue(deletedValue, todo, i)){
+        for (int i = 0; i < todo.size(); i++) {
+            if (isNameEqualDeletedValue(deletedValue, todo, i)) {
                 deletedLong = todo.get(i).getGroupId();
                 todo.remove(i);
                 break;
@@ -133,7 +132,7 @@ public class TodoGroupServlet extends HttpServlet{
     }
 
 
-    private void write(List<String> str, PrintWriter out, HttpServletRequest req, TodoItemDAO tdi) throws ServletException{
+    private void write(List<String> str, PrintWriter out, HttpServletRequest req, TodoItemDAO tdi) throws ServletException {
 
         out.println("<h1>" + "Remote User : " + req.getRemoteUser() + "</h1>");
 
@@ -149,24 +148,24 @@ public class TodoGroupServlet extends HttpServlet{
         List<TodoItem> list3 = null;
         List<TodoItem> list4 = null;
 
-        for(int i = 0; i < todoItems.size(); i++){
+        for (int i = 0; i < todoItems.size(); i++) {
 
-            try{
+            try {
                 switch (i) {
                     case (0):
-                        list1 = tdi.getByGroupId((long)1);
+                        list1 = tdi.getByGroupId((long) 1);
                         break;
-                    case(1):
-                        list2 = tdi.getByGroupId((long)2);
+                    case (1):
+                        list2 = tdi.getByGroupId((long) 2);
                         break;
-                    case(2):
-                        list3 = tdi.getByGroupId((long)3);
+                    case (2):
+                        list3 = tdi.getByGroupId((long) 3);
                         break;
-                    case(3):
-                        list4 = tdi.getByGroupId((long)4);
+                    case (3):
+                        list4 = tdi.getByGroupId((long) 4);
                         break;
                 }
-            }catch(DBException dbe){
+            } catch (DBException dbe) {
                 throw new ServletException(dbe);
             }
 
@@ -175,34 +174,34 @@ public class TodoGroupServlet extends HttpServlet{
         int size = -1;
 
         breakPoint:
-        for(int i = 0; i < str.size(); i++){
-            int nr = i+1;
+        for (int i = 0; i < str.size(); i++) {
+            int nr = i + 1;
 
             switch (i) {
                 case (0):
-                    out.print("<h1>" + nr + ". "+ str.get(i) + " ");
-                    for(int j = 0; j < list1.size(); j++){
+                    out.print("<h1>" + nr + ". " + str.get(i) + " ");
+                    for (int j = 0; j < list1.size(); j++) {
                         out.print(" : " + list1.get(j).getTitle());
                     }
                     out.print(" --- Amount = " + list1.size() + "</h1>");
                     break;
-                case(1):
-                    out.print("<h1>" + nr + ". "+ str.get(i) + " ");
-                    for(int j = 0; j < list2.size(); j++){
+                case (1):
+                    out.print("<h1>" + nr + ". " + str.get(i) + " ");
+                    for (int j = 0; j < list2.size(); j++) {
                         out.print(" : " + list2.get(j).getTitle());
                     }
                     out.print(" --- Amount = " + list2.size() + "</h1>");
                     break;
-                case(2):
-                    out.print("<h1>" + nr + ". "+ str.get(i) + " ");
-                    for(int j = 0; j < list3.size(); j++){
+                case (2):
+                    out.print("<h1>" + nr + ". " + str.get(i) + " ");
+                    for (int j = 0; j < list3.size(); j++) {
                         out.print(" : " + list3.get(j).getTitle());
                     }
                     out.print(" --- Amount = " + list3.size() + "</h1>");
                     break;
-                case(3):
-                    out.print("<h1>" + nr + ". "+ str.get(i) + " ");
-                    for(int j = 0; j < list4.size(); j++){
+                case (3):
+                    out.print("<h1>" + nr + ". " + str.get(i) + " ");
+                    for (int j = 0; j < list4.size(); j++) {
                         out.print(" : " + list4.get(j).getTitle());
                     }
                     out.print(" --- Amount = " + list4.size() + "</h1>");
@@ -214,10 +213,10 @@ public class TodoGroupServlet extends HttpServlet{
 
         }
 
-        if(size < str.size() && size != -1){
-            for(int i = size; i < str.size(); i++){
+        if (size < str.size() && size != -1) {
+            for (int i = size; i < str.size(); i++) {
                 int nr = i + 1;
-                out.print("<h1>" + nr + ". "+ str.get(i) + " --- Amount = 0 </h1>");
+                out.print("<h1>" + nr + ". " + str.get(i) + " --- Amount = 0 </h1>");
             }
         }
 

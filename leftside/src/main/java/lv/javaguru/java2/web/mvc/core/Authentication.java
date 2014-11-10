@@ -1,4 +1,4 @@
-package lv.javaguru.java2.core;
+package lv.javaguru.java2.web.mvc.core;
 
 import lv.javaguru.java2.domain.User;
 
@@ -22,6 +22,7 @@ public final class Authentication {
         Long userId = getUserId(session);
         return null != userId;
     }
+
     public static final void invalidate(HttpSession session) {
         session.removeAttribute(sessionUserId);
     }

@@ -1,12 +1,9 @@
-package lv.javaguru.java2.servlets.mvc;
-
-import lv.javaguru.java2.core.ConfigReader;
+package lv.javaguru.java2.web.mvc.core;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,16 +12,14 @@ import java.util.Map;
 public class MVCFilter implements Filter {
     ConfigReader config = new ConfigReader();
 
-    private Map<String, MVCController> controllerMap;
-    private MVCController defaultController;
+    private Map<String, RegisteredController> processorMap;
+    private RegisteredController defaultController;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        defaultController = new HelloWorldController();
-
-        controllerMap = new HashMap<String, MVCController>();
-        registerController(defaultController);
-        registerController(new TodoItemCommentsController());
+        MVCControllerRegistrator registrator = new MVCControllerRegistrator();
+        processorMap = registrator.registerAll();
+        defaultController = registrator.getDefaultController(processorMap.values());
     }
 
     @Override
@@ -38,37 +33,30 @@ public class MVCFilter implements Filter {
         String path = req.getRequestURI();
         System.out.println(path);
 
-        MVCController controller;
-        if (controllerMap.containsKey(contextURI)) {
-            controller = controllerMap.get(contextURI);
+        RegisteredController controller;
+        if (processorMap.containsKey(contextURI)) {
+            controller = processorMap.get(contextURI);
         } else {
             controller = defaultController;
         }
 
         MVCRequestParameters requestParameters = new MVCRequestParameters(req);
-        MVCModel model = controller.processRequest(requestParameters);
+        MVCModel model = controller.getProcessor().processRequest(requestParameters);
 
-        req.setAttribute("title", model.getTitle());
         req.setAttribute("model", model.getData());
         req.setAttribute("errorList", model.getErrorList());
-        req.setAttribute("controllers", controllerMap.values());
+        req.setAttribute("controllers", processorMap.values());
+        req.setAttribute("title", controller.getPageName());
         req.setAttribute("debug", config.isDebugMode());
 
-        ServletContext context =  req.getServletContext();
+        ServletContext context = req.getServletContext();
         System.out.println("View: " + model.getView());
         RequestDispatcher requestDispatcher =
                 context.getRequestDispatcher(model.getView());
-        requestDispatcher.forward(req,resp);
+        requestDispatcher.forward(req, resp);
     }
 
     @Override
     public void destroy() {
-    }
-
-    private void registerController(MVCController controller) {
-        if (controllerMap.containsKey(controller.getPath())) {
-            throw new RuntimeException("Controller mapping: path clash occurred");
-        }
-        controllerMap.put(controller.getPath(), controller);
     }
 }

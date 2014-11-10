@@ -1,7 +1,7 @@
-<%@ page import="lv.javaguru.java2.servlets.mvc.TodoItemCommentsModel" %>
+<%@ page import="lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsModel" %>
 <%@ page import="lv.javaguru.java2.domain.TodoItem" %>
-<%@ page import="lv.javaguru.java2.servlets.mvc.TodoItemCommentsTree" %>
-<%@ page import="lv.javaguru.java2.core.Authentication" %>
+<%@ page import="lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsTree" %>
+<%@ page import="lv.javaguru.java2.web.mvc.core.Authentication" %>
 <%@ page import="lv.javaguru.java2.domain.TodoItemComment" %>
 <jsp:include page="/includes/header.jsp" />
 <%

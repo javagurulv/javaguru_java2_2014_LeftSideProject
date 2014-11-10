@@ -1,6 +1,6 @@
-package lv.javaguru.java2.filters;
+package lv.javaguru.java2.web.filters;
 
-import lv.javaguru.java2.core.ConfigReader;
+import lv.javaguru.java2.web.mvc.core.ConfigReader;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -78,7 +78,7 @@ public class HtmlWrapperFilter implements Filter {
                 }
             }
         }
-        
+
         out.println("</td></tr></table>");
     }
 
