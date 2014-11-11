@@ -28,11 +28,11 @@
         <h2>Request parameters:</h2><%
         Enumeration<String> parameterNames = request.getParameterNames();
         if (parameterNames.hasMoreElements()) {
-            %>"<table><thead><tr><td>Name</td><td>Value</td></tr></thead><tbody><%
+            %><table><thead><tr><td>Name</td><td>Value</td></tr></thead><tbody><%
             while (parameterNames.hasMoreElements()) {
                 String name = parameterNames.nextElement();
                 String value = request.getParameter(name);
-                %><tr><td>" + name + "</td><td>" + value + "</td></tr><%
+                %><tr><td><%=name%></td><td><%=value%></td></tr><%
             }
             %></tbody></table><br><%
         } else {
