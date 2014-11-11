@@ -12,7 +12,7 @@
     Long responseTo = model.getReplyCommentId();
 
     String commentForm;
-            if (null != item) {
+            if (null != item && isAuthenticated) {
                 commentForm = "<h3 id='comment' name=;comment'>New comment:</h3>" +
                         "<form method='POST' action='todoComments'>" +
                         "<input type='hidden' name='act' value='create'/>";
