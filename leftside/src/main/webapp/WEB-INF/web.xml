@@ -31,11 +31,6 @@
     </servlet>
 
     <servlet>
-        <servlet-name>TodoItemServlet</servlet-name>
-        <servlet-class>lv.javaguru.java2.web.TodoItemServlet</servlet-class>
-    </servlet>
-
-    <servlet>
         <servlet-name>FileServlet</servlet-name>
         <servlet-class>lv.javaguru.java2.web.FileServlet</servlet-class>
     </servlet>
@@ -43,11 +38,6 @@
     <servlet-mapping>
         <servlet-name>TodoGroupServlet</servlet-name>
         <url-pattern>/todoGroup</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>TodoItemServlet</servlet-name>
-        <url-pattern>/todoItem</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
