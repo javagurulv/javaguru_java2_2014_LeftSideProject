@@ -1,6 +1,4 @@
-package lv.javaguru.java2.servlets.mvc;
-
-import lv.javaguru.java2.core.ConfigReader;
+package lv.javaguru.java2.web.mvc.core;
 
 import java.util.List;
 
@@ -10,25 +8,18 @@ import java.util.List;
 public class MVCModel {
 
     private String view;
-    private String title;
     private Object data;
     private List<String> errorList;
 
 
-    public MVCModel(String view, String title, Object data, List<String> errorList) {
-        this(view, title, data);
-        this.errorList = errorList;
-    }
-
-    public MVCModel(String view, String title, Object data) {
+    public MVCModel(String view, Object data, List<String> errorList) {
         this(view, data);
-        this.title = title;
+        this.errorList = errorList;
     }
 
     public MVCModel(String view, Object data) {
         this.view = view;
         this.data = data;
-        this.title = "MVC page";
     }
 
     public Object getData() {
@@ -37,10 +28,6 @@ public class MVCModel {
 
     public String getView() {
         return view;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public List<String> getErrorList() {

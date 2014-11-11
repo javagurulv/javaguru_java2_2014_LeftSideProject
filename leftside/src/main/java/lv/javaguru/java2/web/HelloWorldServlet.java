@@ -1,4 +1,4 @@
-package lv.javaguru.java2.servlets;
+package lv.javaguru.java2.web;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,15 +38,14 @@ public class HelloWorldServlet extends HttpServlet {
         // Prepare output html
         PrintWriter out = resp.getWriter();
         out.println("<h1>" + "Hello WWW world from Java!" + "</h1>");
-        if(str != null) {
+        if (str != null) {
             out.println("<h2>" + str + "</h2>");
-        }else{
+        } else {
             out.println("<h2>" + i + "</h2>");
         }
 
 
     }
-
 
 
 }

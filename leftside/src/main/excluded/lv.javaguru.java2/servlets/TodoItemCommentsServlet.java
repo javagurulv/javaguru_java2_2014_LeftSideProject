@@ -1,7 +1,7 @@
-package lv.javaguru.java2.servlets;
+package lv.javaguru.java2.web;
 
-import lv.javaguru.java2.core.Authentication;
-import lv.javaguru.java2.core.ConfigReader;
+import lv.javaguru.java2.web.mvc.core.Authentication;
+import lv.javaguru.java2.web.mvc.core.ConfigReader;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.TodoItemCommentDAO;
 import lv.javaguru.java2.database.TodoItemDAO;

@@ -1,6 +1,4 @@
-package lv.javaguru.java2.servlets.mvc;
-
-import lv.javaguru.java2.core.Authentication;
+package lv.javaguru.java2.web.mvc.core;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,10 +12,6 @@ public class MVCRequestParameters {
     private Long userId;
     private boolean userAuthenticated;
     private Map<String, String[]> parameters;
-
-    private MVCRequestParameters() {
-        // Way to restrict default constructor usage
-    }
 
     public MVCRequestParameters(HttpServletRequest httpServletRequest) {
         HttpSession session = httpServletRequest.getSession();

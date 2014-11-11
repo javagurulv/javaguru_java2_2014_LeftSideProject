@@ -7,12 +7,12 @@
 
     <filter>
         <filter-name>MVCFilter</filter-name>
-        <filter-class>lv.javaguru.java2.servlets.mvc.MVCFilter</filter-class>
+        <filter-class>lv.javaguru.java2.web.mvc.core.MVCFilter</filter-class>
     </filter>
 
     <servlet>
         <servlet-name>ErrorHandlerServlet</servlet-name>
-        <servlet-class>lv.javaguru.java2.servlets.ErrorHandlerServlet</servlet-class>
+        <servlet-class>lv.javaguru.java2.web.ErrorHandlerServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -22,22 +22,22 @@
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>lv.javaguru.java2.servlets.LoginServlet</servlet-class>
+        <servlet-class>lv.javaguru.java2.web.LoginServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>TodoGroupServlet</servlet-name>
-        <servlet-class>lv.javaguru.java2.servlets.TodoGroupServlet</servlet-class>
+        <servlet-class>lv.javaguru.java2.web.TodoGroupServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>TodoItemServlet</servlet-name>
-        <servlet-class>lv.javaguru.java2.servlets.TodoItemServlet</servlet-class>
+        <servlet-class>lv.javaguru.java2.web.TodoItemServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>FileServlet</servlet-name>
-        <servlet-class>lv.javaguru.java2.servlets.FileServlet</servlet-class>
+        <servlet-class>lv.javaguru.java2.web.FileServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

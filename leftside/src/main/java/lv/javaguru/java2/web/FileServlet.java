@@ -1,4 +1,4 @@
-package lv.javaguru.java2.servlets;
+package lv.javaguru.java2.web;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.FileDAO;

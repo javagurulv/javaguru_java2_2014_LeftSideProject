@@ -1,4 +1,4 @@
-package lv.javaguru.java2.servlets;
+package lv.javaguru.java2.web;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.TodoItemDAO;
@@ -45,7 +45,7 @@ public class TodoItemServlet extends HttpServlet {
                         + " <br><b>Title:</b> " + itemToken.getTitle()
                         + " <br><b>Description:</b> " + itemToken.getDescription()
                         + " <br><b>Due Date::</b>" + itemToken.getDueDate()
-                        + " <br><a href='/todoComments?item="+itemToken.getItemId()+"'>Read comments</a>");
+                        + " <br><a href='/todoComments?item=" + itemToken.getItemId() + "'>Read comments</a>");
             }
 
 

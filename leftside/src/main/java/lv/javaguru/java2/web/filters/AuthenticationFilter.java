@@ -1,6 +1,6 @@
-package lv.javaguru.java2.filters;
+package lv.javaguru.java2.web.filters;
 
-import lv.javaguru.java2.core.Authentication;
+import lv.javaguru.java2.web.mvc.core.Authentication;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

@@ -1,24 +1,49 @@
-package lv.javaguru.java2.servlets.mvc;
+package lv.javaguru.java2.web.mvc.todoItemCommentServlet;
 
-import lv.javaguru.java2.core.Authentication;
 import lv.javaguru.java2.database.TodoItemCommentDAO;
 import lv.javaguru.java2.database.TodoItemDAO;
 import lv.javaguru.java2.database.jdbc.TodoItemCommentDAOImpl;
 import lv.javaguru.java2.database.jdbc.TodoItemDAOImpl;
 import lv.javaguru.java2.domain.TodoItem;
 import lv.javaguru.java2.domain.TodoItemComment;
+import lv.javaguru.java2.web.mvc.core.MVCController;
+import lv.javaguru.java2.web.mvc.core.MVCModel;
+import lv.javaguru.java2.web.mvc.core.MVCProcessor;
+import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.joda.time.DateTime;
 
 import java.util.*;
 
-import static lv.javaguru.java2.servlets.mvc.TodoItemCommentsController.Action.*;
+import static lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsController.Action.VIEW;
 
 /**
  * Created by SM on 11/9/2014.
  */
-public class TodoItemCommentsController implements MVCController {
+@MVCController(path = "/todoComments",
+        pageName = "ToDo Comments",
+        isVisible = true)
+public class TodoItemCommentsController implements MVCProcessor {
+    private static final String DEFAULT_VIEW = "/TodoItemComments.jsp";
     private static final TodoItemDAO todoItemDAO = new TodoItemDAOImpl();
     private static final TodoItemCommentDAO commentDAO = new TodoItemCommentDAOImpl();
+
+    public static Long tryParseLong(String txt) {
+        try {
+            return Long.parseLong(txt);
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+    }
+
+    public static Action tryParseAction(String txt) {
+        try {
+            return Action.valueOf(txt.toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            return VIEW;
+        } catch (NullPointerException ex) {
+            return VIEW;
+        }
+    }
 
     @Override
     public MVCModel processRequest(MVCRequestParameters parameters) {
@@ -29,14 +54,15 @@ public class TodoItemCommentsController implements MVCController {
 
         if (!parametersValidation(itemId)) {
             errList.add("No value set or formatting issues for param itemId");
-            return new MVCModel(getDefaultViewPath(), getPageName(),
+            return new MVCModel(DEFAULT_VIEW,
                     new TodoItemCommentsModel(null, null, null), errList);
         }
 
         TodoItem todoItem = todoItemDAO.getById(itemId);
 
         switch (action) {
-            case CREATE : createComment(itemId, inReplyTo, parameters, errList);
+            case CREATE:
+                createComment(itemId, inReplyTo, parameters, errList);
                 break;
             case DELETE: //ToDo: implement comment deletion with safety check
                 break;
@@ -46,13 +72,13 @@ public class TodoItemCommentsController implements MVCController {
 
         TodoItemCommentsTree commRoot = new TodoItemCommentsTree(null);
         List<Long> commentsOutOfSync = constructTree(commentList, commRoot);
-        if (0<commentsOutOfSync.size()) {
+        if (0 < commentsOutOfSync.size()) {
             errList.add("Please check data consistency for TodoItemComments : "
                     + implodeList(commentsOutOfSync));
         }
 
         TodoItemCommentsModel model = new TodoItemCommentsModel(todoItem, commRoot, inReplyTo);
-        return new MVCModel(getDefaultViewPath(), getPageName(), model, errList);
+        return new MVCModel(DEFAULT_VIEW, model, errList);
     }
 
     private void createComment(Long itemId, Long replyTo, MVCRequestParameters parameters, List<String> errList) {
@@ -141,44 +167,6 @@ public class TodoItemCommentsController implements MVCController {
 
     private boolean parametersValidation(Long itemId) {
         return null != itemId;
-    }
-
-    @Override
-    public String getPath() {
-        return "/todoComments";
-    }
-
-    @Override
-    public String getPageName() {
-        return "ToDo Comments";
-    }
-
-    @Override
-    public String getDefaultViewPath() {
-        return "/TodoItemComments.jsp";
-    }
-
-    @Override
-    public boolean isVisible() {
-        return true;
-    }
-
-    public static Long tryParseLong(String txt) {
-        try {
-            return Long.parseLong(txt);
-        } catch (NumberFormatException ex) {
-            return null;
-        }
-    }
-
-    public static Action tryParseAction(String txt) {
-        try {
-            return Action.valueOf(txt.toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            return VIEW;
-        } catch (NullPointerException ex) {
-            return VIEW;
-        }
     }
 
     enum Action {

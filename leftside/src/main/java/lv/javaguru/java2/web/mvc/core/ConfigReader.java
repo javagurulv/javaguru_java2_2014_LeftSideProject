@@ -1,4 +1,4 @@
-package lv.javaguru.java2.core;
+package lv.javaguru.java2.web.mvc.core;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -11,12 +11,12 @@ public final class ConfigReader {
     Properties properties = new Properties();
 
     public ConfigReader() {
-     try {
-        properties.load(ConfigReader.class.getClassLoader().getResourceAsStream(CONFIG_FILE));
-    } catch (IOException e) {
-        System.out.println("Exception while reading configuration from file = " + CONFIG_FILE);
-        e.printStackTrace();
-    }
+        try {
+            properties.load(ConfigReader.class.getClassLoader().getResourceAsStream(CONFIG_FILE));
+        } catch (IOException e) {
+            System.out.println("Exception while reading configuration from file = " + CONFIG_FILE);
+            e.printStackTrace();
+        }
     }
 
     public boolean isDebugMode() {
