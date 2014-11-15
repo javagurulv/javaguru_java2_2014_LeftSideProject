@@ -11,6 +11,8 @@ import lv.javaguru.java2.web.mvc.core.MVCModel;
 import lv.javaguru.java2.web.mvc.core.MVCProcessor;
 import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -19,13 +21,16 @@ import static lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsC
 /**
  * Created by SM on 11/9/2014.
  */
+@Component
 @MVCController(path = "/todoComments",
         pageName = "ToDo Comments",
         isVisible = true)
 public class TodoItemCommentsController implements MVCProcessor {
     private static final String DEFAULT_VIEW = "/TodoItemComments.jsp";
-    private static final TodoItemDAO todoItemDAO = new TodoItemDAOImpl();
-    private static final TodoItemCommentDAO commentDAO = new TodoItemCommentDAOImpl();
+    @Autowired
+    private TodoItemDAO todoItemDAO;
+    @Autowired
+    private TodoItemCommentDAO commentDAO;
 
     public static Long tryParseLong(String txt) {
         try {

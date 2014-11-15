@@ -1,10 +1,12 @@
 package lv.javaguru.java2.web.mvc.helloServlet;
 
 import lv.javaguru.java2.web.mvc.core.*;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Emils on 2014.11.08..
  */
+@Component
 @MVCController(path = "/hello",
         pageName = "HelloWorld",
         isVisible = true)

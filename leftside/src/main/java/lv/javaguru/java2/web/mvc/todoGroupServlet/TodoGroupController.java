@@ -7,18 +7,22 @@ import lv.javaguru.java2.web.mvc.core.MVCController;
 import lv.javaguru.java2.web.mvc.core.MVCModel;
 import lv.javaguru.java2.web.mvc.core.MVCProcessor;
 import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by Emils on 2014.11.15..
  */
+@Component
 @MVCController(path = "/todoGroup",
         pageName = "ToDo Group",
         isVisible = true)
 public class TodoGroupController implements MVCProcessor {
     private static final String DEFAULT_VIEW = "/TodoGroup.jsp";
-    private static final TodoGroupDAO todoGroupDAO = new TodoGroupDAOImpl();
+    @Autowired
+    private TodoGroupDAO todoGroupDAO;
 
 
     @Override

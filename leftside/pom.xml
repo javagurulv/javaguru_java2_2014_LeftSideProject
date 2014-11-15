@@ -17,13 +17,6 @@
             <name>MVNRepository</name>
             <url>http://mvnrepository.com</url>
         </repository>
-        <!--
-        <repository>
-            <id>reflections-repo</id>
-            <name>Reflections Maven2 Repository</name>
-            <url>http://reflections.googlecode.com/svn/repo</url>
-        </repository>
-        -->
     </repositories>
 
     <dependencies>
@@ -64,6 +57,12 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.1.2.RELEASE</version>
         </dependency>
 
     </dependencies>

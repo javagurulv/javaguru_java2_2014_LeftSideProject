@@ -3,6 +3,7 @@ package lv.javaguru.java2.database.jdbc;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.FileExtensionDAO;
 import lv.javaguru.java2.domain.FileExtension;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * Created by SM on 10/18/2014.
  */
+@Component
 public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
     private static String tableName = "fileExtensions";
     private static String keyFieldName = "ExtensionID";

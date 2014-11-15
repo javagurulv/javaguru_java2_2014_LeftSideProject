@@ -6,6 +6,7 @@ import lv.javaguru.java2.domain.File;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * Created by SM on 10/18/2014.
  */
+@Component
 public class FileDAOImpl extends DAOImpl implements FileDAO {
     private static DateTimeFormatter dateFormat = DateTimeFormat.forPattern("YYYY-MM-dd HH:mm:ss.0");
     private static String tableName = "files";

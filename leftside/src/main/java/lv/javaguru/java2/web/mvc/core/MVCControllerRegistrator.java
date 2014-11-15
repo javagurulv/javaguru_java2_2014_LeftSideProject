@@ -2,6 +2,7 @@ package lv.javaguru.java2.web.mvc.core;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.TypeAnnotationsScanner;
+import org.springframework.context.ApplicationContext;
 
 import java.util.*;
 
@@ -11,39 +12,34 @@ import java.util.*;
 public class MVCControllerRegistrator {
 
     private static final String PREFIX = "lv.javaguru.java2.web.mvc";
+    private ApplicationContext applicationContext;
+
+    public MVCControllerRegistrator(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
     public Map<String, RegisteredController> registerAll() {
         MVCController annotation = null;
-        try {
-            final Reflections reflections = new Reflections(PREFIX, new TypeAnnotationsScanner());
-            Set<Class<?>> allControllers = reflections.getTypesAnnotatedWith(MVCController.class);
+        final Reflections reflections = new Reflections(PREFIX, new TypeAnnotationsScanner());
+        Set<Class<?>> allControllers = reflections.getTypesAnnotatedWith(MVCController.class);
 
-            HashMap mappedControllers = new HashMap<String, RegisteredController>();
+        HashMap mappedControllers = new HashMap<String, RegisteredController>();
 
-            for (Class<?> controller : allControllers) {
-                annotation = controller.getAnnotation(MVCController.class);
-                MVCProcessor processor = (MVCProcessor) controller.newInstance();
-                RegisteredController reg = new RegisteredController(annotation.path(),
-                        annotation.pageName(),
-                        annotation.isVisible(),
-                        processor);
+        for (Class<?> controller : allControllers) {
+            annotation = controller.getAnnotation(MVCController.class);
+            MVCProcessor processor = getBean(controller);
+            RegisteredController reg = new RegisteredController(annotation.path(),
+                    annotation.pageName(),
+                    annotation.isVisible(),
+                    processor);
 
-                if (mappedControllers.containsKey(reg.getPath())) {
-                    throw new RuntimeException("Controller mapping: path clash occurred, search by " + reg.getPath());
-                }
-                mappedControllers.put(reg.getPath(), reg);
+            if (mappedControllers.containsKey(reg.getPath())) {
+                throw new RuntimeException("Controller mapping: path clash occurred, search by " + reg.getPath());
             }
-
-            return mappedControllers;
-        } catch (InstantiationException e) {
-            if (null != annotation) {
-                throw new RuntimeException("Cannot instantiate controller for path " + annotation.path(), e);
-            } else {
-                throw new RuntimeException(e);
-            }
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+            mappedControllers.put(reg.getPath(), reg);
         }
+
+        return mappedControllers;
     }
 
     public RegisteredController getDefaultController(Collection<RegisteredController> controllers) {
@@ -70,6 +66,9 @@ public class MVCControllerRegistrator {
         return defaultController;
     }
 
+    private MVCProcessor getBean(Class classToLoad) {
+        return (MVCProcessor) applicationContext.getBean(classToLoad);
+    }
     private String implodeSet(Set<Class<?>> cList) {
         Iterator<Class<?>> iter = cList.iterator();
         StringBuilder stringBuilder = new StringBuilder(iter.next().getClass().getName());
