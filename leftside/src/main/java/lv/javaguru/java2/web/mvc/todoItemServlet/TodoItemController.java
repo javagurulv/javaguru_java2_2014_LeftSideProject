@@ -24,6 +24,8 @@ public class TodoItemController implements MVCProcessor {
 
     @Override
     public MVCModel processRequest(MVCRequestParameters req) {
+        //FixMe: Current code has no value.
+        //ToDo: Use authentication for filtering what to show
         return new MVCModel(DEFAULT_VIEW, "Object Data from new MVC model in TodoItem Controller");
     }
 }

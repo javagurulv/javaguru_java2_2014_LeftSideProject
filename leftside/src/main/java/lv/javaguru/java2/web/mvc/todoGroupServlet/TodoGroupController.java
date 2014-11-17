@@ -27,6 +27,7 @@ public class TodoGroupController implements MVCProcessor {
 
     @Override
     public MVCModel processRequest(MVCRequestParameters req) {
+        //ToDo: Use authentication for filtering what to show
 
         List<TodoGroup> todoGroups = todoGroupDAO.getAll();
 

@@ -20,36 +20,6 @@
         <url-pattern>/ErrorHandler</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>lv.javaguru.java2.web.LoginServlet</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>TodoGroupServlet</servlet-name>
-        <servlet-class>lv.javaguru.java2.web.TodoGroupServlet</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>FileServlet</servlet-name>
-        <servlet-class>lv.javaguru.java2.web.FileServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>TodoGroupServlet</servlet-name>
-        <url-pattern>/todoGroup</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>FileServlet</servlet-name>
-        <url-pattern>/file</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-
     <filter-mapping>
         <filter-name>MVCFilter</filter-name>
         <url-pattern>/*</url-pattern>
