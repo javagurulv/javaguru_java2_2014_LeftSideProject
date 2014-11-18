@@ -1,6 +1,8 @@
 package lv.javaguru.java2.web.mvc.core;
 
 import lv.javaguru.java2.web.spring.SpringAppConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -15,6 +17,7 @@ import java.util.Map;
  */
 public class MVCFilter implements Filter {
     ConfigReader config = new ConfigReader();
+    Logger logger = LogManager.getLogger(this.getClass());
 
     private ApplicationContext applicationContext;
 
@@ -38,7 +41,8 @@ public class MVCFilter implements Filter {
         String contextURI = req.getServletPath();
 
         String path = req.getRequestURI();
-        System.out.println(path);
+        logger.info(path);
+        //FixMe: skip static resource requests
 
         RegisteredController controller;
         if (processorMap.containsKey(contextURI)) {
@@ -57,7 +61,7 @@ public class MVCFilter implements Filter {
         req.setAttribute("debug", config.isDebugMode());
 
         ServletContext context = req.getServletContext();
-        System.out.println("View: " + model.getView());
+        logger.info("View: " + model.getView());
         RequestDispatcher requestDispatcher =
                 context.getRequestDispatcher(model.getView());
         requestDispatcher.forward(req, resp);
