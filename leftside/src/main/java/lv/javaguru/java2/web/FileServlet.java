@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Created by Sergey on 07.11.14.
  */
+//Todo: Move to MVC
 public class FileServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req,

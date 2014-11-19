@@ -13,8 +13,7 @@
 %>
 <%!
     String writeGroupsAndItems(TodoGroupModel model, TodoItemDAO todoItems) {
-        String groups;
-        StringBuilder stringBuilder = new StringBuilder();
+        String groups = "";
         int todoGroupAmount = model.getTodoGroupAmount();
         for(int i = 0; i < todoGroupAmount; i++) {
             int number = i + 1;
@@ -22,23 +21,19 @@
             List<TodoItem> todoItemList = todoItems.getByGroupId((long)i + 1);
 
 
-            stringBuilder.append(number + " " + model.getTodoGroup(i).getName() + " : " + getGroupItems(todoItemList) + "<br>");
+            groups = groups + number + " " + model.getTodoGroup(i).getName() + " : " + getGroupItems(todoItemList) + "<br>";
         }
-        groups = stringBuilder.toString();
         return groups;
     }
 %>
 
 <%!
   String getGroupItems(List<TodoItem> todoItemList){
-      String itemNames;
-      StringBuilder stringBuilder = new StringBuilder();
+      String itemNames = "";
 
       for(int j = 0 ; j < todoItemList.size(); j++){
-          stringBuilder.append(todoItemList.get(j).getTitle() + " ; ");
+          itemNames = itemNames + todoItemList.get(j).getTitle() + " ; ";
       }
-
-      itemNames = stringBuilder.toString();
 
       return itemNames;
   }

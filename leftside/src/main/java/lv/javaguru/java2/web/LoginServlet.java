@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 /**
  * Created by SM on 11/2/2014.
  */
+//Todo: Move to MVC
 public class LoginServlet extends HttpServlet {
     private static final String paramUser = "user";
     private static final String paramPass = "pwd";
