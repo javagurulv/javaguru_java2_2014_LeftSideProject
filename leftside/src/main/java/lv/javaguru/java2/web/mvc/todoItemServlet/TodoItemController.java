@@ -1,6 +1,7 @@
 package lv.javaguru.java2.web.mvc.todoItemServlet;
 
 import lv.javaguru.java2.database.TodoItemDAO;
+import lv.javaguru.java2.domain.TodoItem;
 import lv.javaguru.java2.web.mvc.core.MVCController;
 import lv.javaguru.java2.web.mvc.core.MVCModel;
 import lv.javaguru.java2.web.mvc.core.MVCProcessor;
@@ -32,13 +33,13 @@ public class TodoItemController implements MVCProcessor {
         List<String> errList = new ArrayList<String>();
         errList.add("User is not Authenticated");
 
-        if (!req.isUserAuthenticated()) {
+/*        if (!req.isUserAuthenticated()) {
             return new MVCModel(DEFAULT_VIEW, null, errList);
-        }
+        }*/
 
-        req.getParameterNames();
+        List<TodoItem> todoItems = todoItemDAO.getAll();
 
-        return new MVCModel(DEFAULT_VIEW, "Object Data from new MVC model in TodoItem Controller");
+        return new MVCModel(DEFAULT_VIEW, new TodoItemModel(todoItems));
     }
 
 }
