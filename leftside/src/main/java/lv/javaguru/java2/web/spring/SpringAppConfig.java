@@ -10,6 +10,5 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = {"lv.javaguru.java2"})
 public class SpringAppConfig {
 
-
-
+    
 }

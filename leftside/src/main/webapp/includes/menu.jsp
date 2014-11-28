@@ -1,5 +1,5 @@
-<%@ page import="java.util.Collection" %>
 <%@ page import="lv.javaguru.java2.web.mvc.core.RegisteredController" %>
+<%@ page import="java.util.Collection" %>
 <%
     Collection<RegisteredController> controllers = (Collection<RegisteredController>) request.getAttribute("controllers");
     boolean debug = (Boolean) request.getAttribute("debug");

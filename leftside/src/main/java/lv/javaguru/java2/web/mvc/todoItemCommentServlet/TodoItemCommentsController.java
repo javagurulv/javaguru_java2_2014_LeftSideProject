@@ -2,8 +2,6 @@ package lv.javaguru.java2.web.mvc.todoItemCommentServlet;
 
 import lv.javaguru.java2.database.TodoItemCommentDAO;
 import lv.javaguru.java2.database.TodoItemDAO;
-import lv.javaguru.java2.database.jdbc.TodoItemCommentDAOImpl;
-import lv.javaguru.java2.database.jdbc.TodoItemDAOImpl;
 import lv.javaguru.java2.domain.TodoItem;
 import lv.javaguru.java2.domain.TodoItemComment;
 import lv.javaguru.java2.web.mvc.core.MVCController;

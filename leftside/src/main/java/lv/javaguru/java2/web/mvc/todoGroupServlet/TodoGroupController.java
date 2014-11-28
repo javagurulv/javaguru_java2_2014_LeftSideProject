@@ -1,7 +1,6 @@
 package lv.javaguru.java2.web.mvc.todoGroupServlet;
 
 import lv.javaguru.java2.database.TodoGroupDAO;
-import lv.javaguru.java2.database.jdbc.TodoGroupDAOImpl;
 import lv.javaguru.java2.domain.TodoGroup;
 import lv.javaguru.java2.web.mvc.core.MVCController;
 import lv.javaguru.java2.web.mvc.core.MVCModel;

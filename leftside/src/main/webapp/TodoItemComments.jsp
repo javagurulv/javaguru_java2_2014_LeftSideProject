@@ -1,8 +1,8 @@
-<%@ page import="lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsModel" %>
 <%@ page import="lv.javaguru.java2.domain.TodoItem" %>
-<%@ page import="lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsTree" %>
-<%@ page import="lv.javaguru.java2.web.mvc.core.Authentication" %>
 <%@ page import="lv.javaguru.java2.domain.TodoItemComment" %>
+<%@ page import="lv.javaguru.java2.web.mvc.core.Authentication" %>
+<%@ page import="lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsModel" %>
+<%@ page import="lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsTree" %>
 <jsp:include page="/includes/header.jsp" />
 <%
     boolean isAuthenticated = Authentication.isLoggedIn(session);
