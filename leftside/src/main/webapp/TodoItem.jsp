@@ -32,11 +32,12 @@
 
 <% String htmlAddItemForm;
     htmlAddItemForm = "";
-    htmlAddItemForm += "<form action='TodoItem.jsp' method='post'>" +
-            "Title: <input type='text' name='Title'><br>" +
-            "Description: <input type='text' name='Description'><br>" +
+    htmlAddItemForm += "<p><form action='/TodoItem.jsp' method='post' >" +
+            "<fieldset><legend>Add new ToDo item</legend>" +
+            "Title:<br> <input type='text' name='Title'><br>" +
+            "Description:<br> <input type='text' name='Description'><br>" +
             "<input type='submit' value='Submit'>" +
-            "</form>";
+            "</fieldset></form></p>";
 
 %>
 
@@ -53,6 +54,8 @@
     //ToDo: AM: reverse when login will be set
     if (!isAuthenticated) {%> <%=htmlTable%> <%
 } else %> <h1>You are authorized</h1>
+
+
 
 <%= htmlAddItemForm %>
 
