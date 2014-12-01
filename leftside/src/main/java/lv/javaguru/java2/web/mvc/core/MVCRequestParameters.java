@@ -18,6 +18,7 @@ public class MVCRequestParameters {
         userId = Authentication.getUserId(session);
         userAuthenticated = Authentication.isLoggedIn(session);
         parameters = httpServletRequest.getParameterMap();
+
     }
 
     public Set<String> getParameterNames() {

@@ -9,7 +9,6 @@ import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,26 +19,53 @@ import java.util.List;
         pageName = "ToDo Item",
         isVisible = true)
 public class TodoItemController implements MVCProcessor {
-    private static final String DEFAULT_VIEW = "/TodoItem.jsp";
+
+    private static final String INSERT_OR_EDIT = "/TodoItemList.jsp";
+    private static final String LIST_TODOITEM = "/TodoItemList.jsp";
+
+    String forward;
+
     @Autowired
     private TodoItemDAO todoItemDAO;
 
-
     @Override
     public MVCModel processRequest(MVCRequestParameters req) {
-        //FixMe: Current code has no value.
-        //ToDo: Use authentication for filtering what to show
 
-        List<String> errList = new ArrayList<String>();
-        errList.add("User is not Authenticated");
+        String action = req.getValue("action");
+        //TodoItem todoItemList = null;
 
-/*        if (!req.isUserAuthenticated()) {
-            return new MVCModel(DEFAULT_VIEW, null, errList);
-        }*/
+        if (action.equals("list")) {
 
-        List<TodoItem> todoItems = todoItemDAO.getAll();
+            forward = LIST_TODOITEM;
 
-        return new MVCModel(DEFAULT_VIEW, new TodoItemModel(todoItems));
+            List<TodoItem> itemList = todoItemDAO.getAll();
+            return new MVCModel(forward,new TodoItemModel(itemList));
+
+        } else if (action.equals("edit")) {
+
+            forward = INSERT_OR_EDIT;
+
+            String id = req.getValue("itemId");
+            TodoItem todoItem = todoItemDAO.getById(Long.parseLong(id));
+            return new MVCModel(forward, new TodoItemModel(todoItem));
+
+        } else if (action.equals("delete")) {
+
+            forward = INSERT_OR_EDIT;
+
+            String id = req.getValue("itemId");
+            todoItemDAO.delete(Long.parseLong(id));
+
+        } else {
+            forward = INSERT_OR_EDIT;
+        }
+
+        return new MVCModel(forward, "Controller after else");
     }
 
 }
+
+
+
+
+
