@@ -9,6 +9,7 @@ import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,44 +24,40 @@ public class TodoItemController implements MVCProcessor {
     private static final String INSERT_OR_EDIT = "/TodoItemList.jsp";
     private static final String LIST_TODOITEM = "/TodoItemList.jsp";
 
-    String forward;
+    List<String> errList = new ArrayList<String>();
 
     @Autowired
     private TodoItemDAO todoItemDAO;
 
     @Override
     public MVCModel processRequest(MVCRequestParameters req) {
+/* Todo: add check of authentication and user id to list specific items only
+        if (!req.isUserAuthenticated() ) {
+            errList.add("User is not authenticated! ");
+            return new MVCModel(LIST_TODOITEM, null, errList);
+        }*/
 
         String action = req.getValue("action");
-        //TodoItem todoItemList = null;
 
         if (action.equals("list")) {
 
-            forward = LIST_TODOITEM;
-
             List<TodoItem> itemList = todoItemDAO.getAll();
-            return new MVCModel(forward,new TodoItemModel(itemList));
+            return new MVCModel(LIST_TODOITEM, new TodoItemModel(itemList));
 
         } else if (action.equals("edit")) {
 
-            forward = INSERT_OR_EDIT;
-
             String id = req.getValue("itemId");
             TodoItem todoItem = todoItemDAO.getById(Long.parseLong(id));
-            return new MVCModel(forward, new TodoItemModel(todoItem));
+            return new MVCModel(INSERT_OR_EDIT, new TodoItemModel(todoItem));
 
         } else if (action.equals("delete")) {
-
-            forward = INSERT_OR_EDIT;
 
             String id = req.getValue("itemId");
             todoItemDAO.delete(Long.parseLong(id));
 
-        } else {
-            forward = INSERT_OR_EDIT;
         }
 
-        return new MVCModel(forward, "Controller after else");
+        return new MVCModel(INSERT_OR_EDIT, "any other action requested");
     }
 
 }
