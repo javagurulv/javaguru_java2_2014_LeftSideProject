@@ -1,25 +1,21 @@
 package lv.javaguru.java2.web.mvc.fileServlet;
 
 import lv.javaguru.java2.database.FileDAO;
-import lv.javaguru.java2.database.TodoItemDAO;
 import lv.javaguru.java2.database.jdbc.FileDAOImpl;
-import lv.javaguru.java2.database.jdbc.TodoItemDAOImpl;
 import lv.javaguru.java2.domain.File;
-import lv.javaguru.java2.domain.TodoItem;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 /**
  * Created by Sergey on 13.11.14.
  */
 public class FileModel {
 
     private static final FileDAO fileDAO = new FileDAOImpl();
-    private static final TodoItemDAO todoItemDAO = new TodoItemDAOImpl();
+    //private static final TodoItemDAO todoItemDAO = new TodoItemDAOImpl();
 
     private List<File> files = fileDAO.getAll();
-    private List<TodoItem> todoItems = todoItemDAO.getAll();
+    //private List<TodoItem> todoItems = todoItemDAO.getAll();
     private List<Long> itemList = obtainItemList();
 
     public List<Long> obtainItemList() {
@@ -41,9 +37,9 @@ public class FileModel {
         return files.get(i);
     }
 
-    public TodoItem getTodoItem(int i) {
+ /*   public TodoItem getTodoItem(int i) {
         return todoItems.get(i);
-    }
+    }*/
 
     public int getFileAmount() {
         return files.size();

@@ -2,14 +2,27 @@ package lv.javaguru.java2.domain;
 
 import org.joda.time.DateTime;
 
+import javax.persistence.*;
+
 /**
  * Created by SM on 10/23/2014.
  */
+
+@Entity
+@Table(name="todoitems")
 public class TodoItem {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ItemID")
     private long itemId;
+    @Column(name="StateID")
     private long stateId;
+    @Column(name="Title")
     private String title;
+    @Column(name="Description")
     private String description;
+    @Column(name="DueDate")
     private DateTime dueDate;
 
     public long getItemId() {

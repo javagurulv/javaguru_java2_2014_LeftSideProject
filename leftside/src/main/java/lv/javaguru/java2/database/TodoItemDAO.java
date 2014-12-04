@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Created by SM on 10/23/2014.
  */
+
 public interface TodoItemDAO {
 
     void create(TodoItem todoItem) throws DBException;
