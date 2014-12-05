@@ -14,15 +14,19 @@ public class TodoItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ItemID")
+    @Column(name="ItemID", columnDefinition = "int(11)")
     private long itemId;
-    @Column(name="StateID")
+
+    @Column(name="StateID", columnDefinition = "int(2)")
     private long stateId;
-    @Column(name="Title")
+
+    @Column(name="Title", columnDefinition = "varchar(100)")
     private String title;
-    @Column(name="Description")
+
+    @Column(name="Description", columnDefinition = "varchar(2000)")
     private String description;
-    @Column(name="DueDate")
+
+    @Column(name="DueDate", columnDefinition="datetime")
     private DateTime dueDate;
 
     public long getItemId() {

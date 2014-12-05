@@ -7,30 +7,20 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * Created by alekmiku on 2014.12.04..
  */
-
-@Repository(value = "TodoItemDAO")
+@Component("ORM_TodoItemDAO")
 @Transactional
 public class TodoItemDAOImpl implements TodoItemDAO{
 
     @Autowired
-    @Qualifier("sessionFactory")
     private SessionFactory sessionFactory;
-
-    protected Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
-    @Autowired
-    TodoItemDAO todoItemDAO;
 
     @Override
     public void create(TodoItem todoItem) throws DBException {
@@ -54,7 +44,7 @@ public class TodoItemDAOImpl implements TodoItemDAO{
 
     @Override
     public List<TodoItem> getAll() throws DBException {
-        Session session = getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(TodoItem.class);
         return criteria.list();
     }
@@ -63,6 +53,8 @@ public class TodoItemDAOImpl implements TodoItemDAO{
 
     @Override
     public List<TodoItem> getByUserId(Long userId) throws DBException {
+//        Session session = getCurrentSession();
+//        Criteria criteria = session.createCriteria(TodoItem.class);
         return null;
     }
 

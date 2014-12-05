@@ -8,6 +8,9 @@ import lv.javaguru.java2.web.mvc.core.MVCProcessor;
 import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,7 @@ import java.util.List;
 @MVCController(path = "/todoItem",
         pageName = "ToDo Item",
         isVisible = true)
-public class TodoItemController implements MVCProcessor {
+public class TodoItemController  implements MVCProcessor  {
 
     private static final String INSERT_OR_EDIT = "/TodoItemList.jsp";
     private static final String LIST_TODOITEM = "/TodoItemList.jsp";
@@ -30,37 +33,48 @@ public class TodoItemController implements MVCProcessor {
     private TodoItemDAO todoItemDAO;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW,
+            isolation = Isolation.REPEATABLE_READ)
     public MVCModel processRequest(MVCRequestParameters req) {
 /* Todo: add check of authentication and user id to list specific items only
         if (!req.isUserAuthenticated() ) {
             errList.add("User is not authenticated! ");
             return new MVCModel(LIST_TODOITEM, null, errList);
         }*/
-
+/*
         String action = req.getValue("action");
 
         if (action.equals("list")) {
-
+            System.out.println("Hello11");
             List<TodoItem> itemList = todoItemDAO.getAll();
+            System.out.println("Hello22");
             return new MVCModel(LIST_TODOITEM, new TodoItemModel(itemList));
 
         } else if (action.equals("edit")) {
 
-            String id = req.getValue("itemId");
-            TodoItem todoItem = todoItemDAO.getById(Long.parseLong(id));
-            return new MVCModel(INSERT_OR_EDIT, new TodoItemModel(todoItem));
+//            String id = req.getValue("itemId");
+//            TodoItem todoItem = todoItemDAO.getById(Long.parseLong(id));
+//            return new MVCModel(INSERT_OR_EDIT, new TodoItemModel(todoItem));
 
         } else if (action.equals("delete")) {
 
-            String id = req.getValue("itemId");
-            todoItemDAO.delete(Long.parseLong(id));
+//            String id = req.getValue("itemId");
+//            todoItemDAO.delete(Long.parseLong(id));
 
         }
+*/
 
-        return new MVCModel(INSERT_OR_EDIT, "any other action requested");
+
+        System.out.println("Hello11");
+        List<TodoItem> itemList = todoItemDAO.getAll();
+        System.out.println("Hello22");
+        return new MVCModel(LIST_TODOITEM, new TodoItemModel(itemList));
+//        return new MVCModel(INSERT_OR_EDIT, "any other action requested");
     }
 
+
 }
+
 
 
 
