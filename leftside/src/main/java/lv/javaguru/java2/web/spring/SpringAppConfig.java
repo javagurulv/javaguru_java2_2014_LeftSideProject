@@ -24,7 +24,7 @@ import java.util.Properties;
  */
 
 @Configuration
-@ComponentScan(basePackages = {"lv.javaguru.java2"})
+@ComponentScan("lv.javaguru.java2")
 @EnableTransactionManagement
 public class SpringAppConfig {
 

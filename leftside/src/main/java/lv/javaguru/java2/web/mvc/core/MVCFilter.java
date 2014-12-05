@@ -3,7 +3,6 @@ package lv.javaguru.java2.web.mvc.core;
 import lv.javaguru.java2.web.spring.SpringAppConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.*;
@@ -19,7 +18,7 @@ public class MVCFilter implements Filter {
     ConfigReader config = new ConfigReader();
     Logger logger = LogManager.getLogger(this.getClass());
 
-    private ApplicationContext applicationContext;
+    private AnnotationConfigApplicationContext applicationContext;
 
     private Map<String, RegisteredController> processorMap;
     private RegisteredController defaultController;

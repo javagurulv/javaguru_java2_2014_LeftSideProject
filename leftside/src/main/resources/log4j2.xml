@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="info">
+<Configuration status="debug">
     <Properties>
         <Property name="log-path">logs</Property>
     </Properties>
@@ -21,11 +21,11 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="lv.javaguru.java2" level="info" additivity="false">
+        <Logger name="lv.javaguru.java2" level="debug" additivity="false">
             <appender-ref ref="console"/>
         </Logger>
 
-        <Root level="error" additivity="false">
+        <Root level="debug" additivity="false">
             <appender-ref ref="console"/>
         </Root>
     </Loggers>

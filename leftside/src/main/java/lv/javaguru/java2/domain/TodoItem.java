@@ -1,8 +1,8 @@
 package lv.javaguru.java2.domain;
 
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by SM on 10/23/2014.
@@ -27,7 +27,7 @@ public class TodoItem {
     private String description;
 
     @Column(name="DueDate", columnDefinition="datetime")
-    private DateTime dueDate;
+    private Date dueDate;
 
     public long getItemId() {
         return itemId;
@@ -61,11 +61,11 @@ public class TodoItem {
         this.description = description;
     }
 
-    public DateTime getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(DateTime dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 

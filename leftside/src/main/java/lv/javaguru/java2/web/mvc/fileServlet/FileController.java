@@ -11,28 +11,28 @@ import org.springframework.stereotype.Component;
 /**
  * Created by Sergey on 13.11.14.
  */
-    @Component
-    @MVCController(path = "/file",
-            pageName = "Files",
-            isVisible = true)
+@Component
+@MVCController(path = "/file",
+        pageName = "Files",
+        isVisible = true)
 
 
-    public class FileController implements MVCProcessor {
-        private static final String DEFAULT_VIEW = "/file.jsp";
+public class FileController implements MVCProcessor {
+    private static final String DEFAULT_VIEW = "/file.jsp";
 
     @Autowired
     private FileDAO fileDAO;
 
 
-        @Override
-        public MVCModel processRequest(MVCRequestParameters req) {
+    @Override
+    public MVCModel processRequest(MVCRequestParameters req) {
 
-            FileModel fileModel = new FileModel();
+        FileModel fileModel = new FileModel();
 
-            return new MVCModel(DEFAULT_VIEW, fileModel);
-        }
-
+        return new MVCModel(DEFAULT_VIEW, fileModel);
     }
+
+}
 
 
 

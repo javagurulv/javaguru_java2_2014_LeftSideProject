@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by alekmiku on 2014.12.04..
  */
-@Component("ORM_TodoItemDAO")
+@Component
 @Transactional
 public class TodoItemDAOImpl implements TodoItemDAO{
 
