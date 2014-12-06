@@ -1,6 +1,7 @@
 package lv.javaguru.java2.database.jdbc;
 
 import lv.javaguru.java2.database.DBException;
+import lv.javaguru.java2.database.jdbc.DAOImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

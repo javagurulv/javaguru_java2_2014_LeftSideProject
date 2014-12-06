@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -67,7 +68,7 @@ public class TodoItemCommentDAOImplTest {
 
         itemComment.setUserId(userId);
         itemComment.setItemId(itemId);
-        itemComment.setDate(DateTime.now().withMillisOfSecond(0));
+        itemComment.setDate(Calendar.getInstance());
         itemComment.setTitle(title);
         itemComment.setMessage(message);
         return itemComment;

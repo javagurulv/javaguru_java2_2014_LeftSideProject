@@ -1,17 +1,20 @@
 package lv.javaguru.java2.web.mvc.fileServlet;
 
 import lv.javaguru.java2.database.FileDAO;
-import lv.javaguru.java2.database.jdbc.FileDAOImpl;
 import lv.javaguru.java2.domain.File;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 /**
  * Created by Sergey on 13.11.14.
  */
 public class FileModel {
 
-    private static final FileDAO fileDAO = new FileDAOImpl();
+    @Autowired
+    private FileDAO fileDAO;
     //private static final TodoItemDAO todoItemDAO = new TodoItemDAOImpl();
 
     private List<File> files = fileDAO.getAll();

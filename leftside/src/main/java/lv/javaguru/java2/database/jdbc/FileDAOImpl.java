@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by SM on 10/18/2014.
  */
-@Component
+@Component("JDBC_FileDAO")
 public class FileDAOImpl extends DAOImpl implements FileDAO {
     private static DateTimeFormatter dateFormat = DateTimeFormat.forPattern("YYYY-MM-dd HH:mm:ss.0");
     private static String tableName = "files";

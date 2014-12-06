@@ -1,6 +1,7 @@
 package lv.javaguru.java2.web.mvc.todoItemServlet;
 
 import lv.javaguru.java2.domain.TodoItem;
+
 import java.util.List;
 
 /**
@@ -10,11 +11,11 @@ public class TodoItemModel {
     private List<TodoItem> todoItemList;
     private TodoItem todoItem;
 
-    public TodoItemModel(List<TodoItem> todoItemList){
+    public TodoItemModel(List<TodoItem> todoItemList) {
         this.todoItemList = todoItemList;
     }
 
-    public TodoItemModel(TodoItem todoItem){
+    public TodoItemModel(TodoItem todoItem) {
         this.todoItem = todoItem;
     }
 
@@ -26,7 +27,7 @@ public class TodoItemModel {
         return todoItemList;
     }
 
-    public int getTodoItemSize(){
+    public int getTodoItemSize() {
         return this.todoItemList.size();
     }
 }

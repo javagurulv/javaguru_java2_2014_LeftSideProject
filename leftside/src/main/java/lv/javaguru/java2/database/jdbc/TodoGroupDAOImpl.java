@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by SM on 10/18/2014.
  */
-@Component
+@Component("JDBC_TodoGroupDAO")
 public class TodoGroupDAOImpl extends DAOImpl implements TodoGroupDAO {
     private static String tableName = "todoGroups";
     private static String keyFieldName = "GroupID";

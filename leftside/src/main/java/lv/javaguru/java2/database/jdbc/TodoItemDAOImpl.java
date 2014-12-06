@@ -3,7 +3,6 @@ package lv.javaguru.java2.database.jdbc;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.TodoItemDAO;
 import lv.javaguru.java2.domain.TodoItem;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
@@ -17,8 +16,10 @@ import java.util.List;
 
 /**
  * Created by SM on 10/18/2014.
+ * <p/>
+ * Joda DateTime-related things broken due my laziness
  */
-@Component
+@Component("JDBC_TodoItemDAO")
 public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
     private static DateTimeFormatter dateFormat = DateTimeFormat.forPattern("YYYY-MM-dd");
     private static String tableName = "todoItems";
@@ -41,7 +42,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
             preparedStatement.setString(2, todoItem.getTitle());
             preparedStatement.setString(3, todoItem.getDescription());
             if (null != todoItem.getDueDate()) {
-                preparedStatement.setString(4, todoItem.getDueDate().toString(dateFormat));
+                // preparedStatement.setString(4, todoItem.getDueDate().toString(dateFormat));
             } else {
                 preparedStatement.setString(4, null);
             }
@@ -178,7 +179,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
                 todoItem.setDescription(resultSet.getString("Description"));
                 String dateString = resultSet.getString("DueDate");
                 if (null != dateString) {
-                    todoItem.setDueDate(DateTime.parse(dateString, dateFormat));
+                    //todoItem.setDueDate(DateTime.parse(dateString, dateFormat));
                 }
                 todoItems.add(todoItem);
             }
@@ -278,7 +279,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
             preparedStatement.setString(2, todoItem.getTitle());
             preparedStatement.setString(3, todoItem.getDescription());
             if (null != todoItem.getDueDate()) {
-                preparedStatement.setString(4, todoItem.getDueDate().toString(dateFormat));
+                //preparedStatement.setString(4, todoItem.getDueDate().toString(dateFormat));
             } else {
                 preparedStatement.setString(4, null);
             }
@@ -301,7 +302,7 @@ public class TodoItemDAOImpl extends DAOImpl implements TodoItemDAO {
         todoItem.setDescription(resultSet.getString("Description"));
         String dateString = resultSet.getString("DueDate");
         if (null != dateString) {
-            todoItem.setDueDate(DateTime.parse(dateString, dateFormat));
+            //todoItem.setDueDate(DateTime.parse(dateString, dateFormat));
         }
         return todoItem;
     }

@@ -3,6 +3,7 @@
 <%@ page import="lv.javaguru.java2.web.mvc.core.Authentication" %>
 <%@ page import="lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsModel" %>
 <%@ page import="lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsTree" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <jsp:include page="/includes/header.jsp" />
 <%
     boolean isAuthenticated = Authentication.isLoggedIn(session);
@@ -10,7 +11,6 @@
     TodoItem item = model.getTodoItem();
     TodoItemCommentsTree commentsTree = model.getCommentTree();
     Long responseTo = model.getReplyCommentId();
-
     String commentForm;
             if (null != item && isAuthenticated) {
                 commentForm = "<h3 id='comment' name=;comment'>New comment:</h3>" +
@@ -31,12 +31,14 @@
 %>
 
 <%!
+    SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm");
     String printCommTree(TodoItemCommentsTree commentsTree, boolean isAuthenticated, Long responseTo, String commForm) {
         if (null == commentsTree) return "No data to display.";
         String html = "";
         TodoItemComment comment = commentsTree.comment;
         if (null != comment) {
             html += comment.getCommentId()+" Left by UserId: " + comment.getUserId() + "<br>" +
+                    "Date: " + (comment.getDate()!=null ? formatter.format(comment.getDate().getTime()) : "") + "<br>" +
                     "Title: " + comment.getTitle() + "<br>" +
                     "Message: " + comment.getMessage() + "<br>" +
                     "Actions: ";

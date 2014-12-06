@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -82,10 +83,10 @@ public class TodoItemDAOImplTest {
     }
 
     private TodoItem createTodoItem(String title, String description) {
-        return createTodoItem(TodoItem.State.CREATED.value, title, description, DateTime.now().withTime(0, 0, 0, 0));
+        return createTodoItem(TodoItem.State.CREATED.value, title, description, Calendar.getInstance());
     }
 
-    private TodoItem createTodoItem(Long stateId, String title, String description, DateTime dueDate) {
+    private TodoItem createTodoItem(Long stateId, String title, String description, Calendar dueDate) {
         TodoItem todoItem = new TodoItem();
         todoItem.setStateId(stateId);
         todoItem.setTitle(title);

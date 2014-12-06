@@ -2,9 +2,9 @@ package lv.javaguru.java2.web;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.UserDAO;
-import lv.javaguru.java2.database.jdbc.UserDAOImpl;
 import lv.javaguru.java2.domain.User;
 import lv.javaguru.java2.web.mvc.core.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +28,8 @@ public class LoginServlet extends HttpServlet {
             "<input type=\"submit\" value=\"Login\">" +
             "<br><br><br>Hint: Easiest combination is freddy:rock";
 
-    private static final UserDAO userDAO = new UserDAOImpl();
+    @Autowired
+    private UserDAO userDAO;
 
     @Override
     protected void doPost(HttpServletRequest req,

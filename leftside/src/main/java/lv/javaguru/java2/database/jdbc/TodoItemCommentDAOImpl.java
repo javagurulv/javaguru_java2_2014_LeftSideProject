@@ -3,7 +3,6 @@ package lv.javaguru.java2.database.jdbc;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.TodoItemCommentDAO;
 import lv.javaguru.java2.domain.TodoItemComment;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
@@ -17,8 +16,10 @@ import java.util.List;
 
 /**
  * Created by SM on 11/1/2014.
+ * <p/>
+ * Joda DateTime-related things broken due my laziness
  */
-@Component
+@Component("JDBC_TodoItemCommentDAO")
 public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDAO {
     private static DateTimeFormatter dateFormat = DateTimeFormat.forPattern("YYYY-MM-dd HH:mm:ss.0");
     private static String tableName = "todoItemComments";
@@ -45,7 +46,7 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
                 preparedStatement.setString(3, null);
             }
             if (null != itemComment.getDate()) {
-                preparedStatement.setString(4, itemComment.getDate().toString(dateFormat));
+                //preparedStatement.setString(4, itemComment.getDate().toString(dateFormat));
             } else {
                 preparedStatement.setString(4, null);
             }
@@ -129,7 +130,7 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
                 preparedStatement.setString(3, null);
             }
             if (null != itemComment.getDate()) {
-                preparedStatement.setString(4, itemComment.getDate().toString(dateFormat));
+                //preparedStatement.setString(4, itemComment.getDate().toString(dateFormat));
             } else {
                 preparedStatement.setString(4, null);
             }
@@ -202,7 +203,7 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
             connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("select * from " + tableName + " " +
                     "where ItemID = ? " +
-                    "order by "+keyFieldName);
+                    "order by " + keyFieldName);
             preparedStatement.setLong(1, itemId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -232,7 +233,7 @@ public class TodoItemCommentDAOImpl extends DAOImpl implements TodoItemCommentDA
         }
         String dateString = resultSet.getString("Date");
         if (null != dateString) {
-            itemComment.setDate(DateTime.parse(dateString, dateFormat));
+            //itemComment.setDate(DateTime.parse(dateString, dateFormat));
         }
         itemComment.setTitle(resultSet.getString("Title"));
         itemComment.setMessage(resultSet.getString("Message"));

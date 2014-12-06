@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by SM on 10/18/2014.
  */
-@Component
+@Component("JDBC_FileExtensionDAO")
 public class FileExtensionDAOImpl extends DAOImpl implements FileExtensionDAO {
     private static String tableName = "fileExtensions";
     private static String keyFieldName = "ExtensionID";

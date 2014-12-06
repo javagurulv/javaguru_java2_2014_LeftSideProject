@@ -7,7 +7,9 @@ import lv.javaguru.java2.web.mvc.core.MVCModel;
 import lv.javaguru.java2.web.mvc.core.MVCProcessor;
 import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,14 +17,15 @@ import java.util.List;
  * Created by Emils on 2014.11.15..
  */
 @Component
+@Transactional
 @MVCController(path = "/todoGroup",
         pageName = "ToDo Group",
         isVisible = true)
 public class TodoGroupController implements MVCProcessor {
     private static final String DEFAULT_VIEW = "/TodoGroup.jsp";
     @Autowired
+    @Qualifier("ORM_TodoGroupDAO")
     private TodoGroupDAO todoGroupDAO;
-
 
     @Override
     public MVCModel processRequest(MVCRequestParameters req) {

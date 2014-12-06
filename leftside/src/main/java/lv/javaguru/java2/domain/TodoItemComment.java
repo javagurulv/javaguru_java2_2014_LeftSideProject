@@ -1,17 +1,29 @@
 package lv.javaguru.java2.domain;
 
-import org.joda.time.DateTime;
+import javax.persistence.*;
+import java.util.Calendar;
 
 /**
  * Created by SM on 11/1/2014.
  */
+@Entity
+@Table(name = "todoItemComments")
 public class TodoItemComment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CommentID", columnDefinition = "int(11)")
     private long commentId;
+    @Column(name = "UserID", columnDefinition = "int(11)")
     private long userId;
+    @Column(name = "ItemID", columnDefinition = "int(11)")
     private long itemId;
+    @Column(name = "ReplyToID", columnDefinition = "int(11)", nullable = true)
     private Long ReplyToID;
-    private DateTime date;
+    @Column(name = "Date", columnDefinition = "TIMESTAMP")
+    private Calendar date;
+    @Column(name = "Title")
     private String title;
+    @Column(name = "Message")
     private String message;
 
     public long getCommentId() {
@@ -46,11 +58,11 @@ public class TodoItemComment {
         ReplyToID = replyToID;
     }
 
-    public DateTime getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 

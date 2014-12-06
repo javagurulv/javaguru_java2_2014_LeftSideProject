@@ -2,32 +2,32 @@ package lv.javaguru.java2.domain;
 
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Created by SM on 10/23/2014.
  */
 
 @Entity
-@Table(name="todoitems")
+@Table(name = "todoitems")
 public class TodoItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ItemID", columnDefinition = "int(11)")
+    @Column(name = "ItemID", columnDefinition = "int(11)")
     private long itemId;
 
-    @Column(name="StateID", columnDefinition = "int(2)")
+    @Column(name = "StateID", columnDefinition = "int(2)")
     private long stateId;
 
-    @Column(name="Title", columnDefinition = "varchar(100)")
+    @Column(name = "Title", columnDefinition = "varchar(100)")
     private String title;
 
-    @Column(name="Description", columnDefinition = "varchar(2000)")
+    @Column(name = "Description", columnDefinition = "varchar(2000)")
     private String description;
 
-    @Column(name="DueDate", columnDefinition="datetime")
-    private Date dueDate;
+    @Column(name = "DueDate", columnDefinition = "datetime")
+    private Calendar dueDate;
 
     public long getItemId() {
         return itemId;
@@ -61,11 +61,11 @@ public class TodoItem {
         this.description = description;
     }
 
-    public Date getDueDate() {
+    public Calendar getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(Calendar dueDate) {
         this.dueDate = dueDate;
     }
 

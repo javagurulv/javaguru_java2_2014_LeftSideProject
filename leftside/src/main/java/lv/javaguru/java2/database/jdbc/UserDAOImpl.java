@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Viktor on 01/07/2014.
  */
-@Component
+@Component("JDBC_UserDAO")
 public class UserDAOImpl extends DAOImpl implements UserDAO {
     private static String tableName = "users";
     private static String keyFieldName = "UserID";
