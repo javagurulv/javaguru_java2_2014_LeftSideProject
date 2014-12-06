@@ -2,9 +2,7 @@ package lv.javaguru.java2.database.hibernate;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.TodoItemDAO;
-import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.domain.TodoItem;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,15 +16,9 @@ import static org.junit.Assert.assertNotNull;
 
 public class TodoItemDAOImplTest extends SpringIntegrationTest {
 
-    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
     @Autowired
     @Qualifier("ORM_TodoItemDAO")
     private TodoItemDAO todoItemDAO;
-
-    @Before
-    public void setUp() throws Exception {
-        databaseCleaner.cleanDatabase();
-    }
 
     @Test
     @Transactional
