@@ -1,7 +1,6 @@
 package lv.javaguru.java2.database.jdbc;
 
 import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.database.jdbc.DAOImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,7 +45,7 @@ public class DatabaseCleaner extends DAOImpl {
             }
         } catch (Throwable e) {
             System.out.println("DatabaseCleaner: Exception while execute cleanDatabase()" +
-                    (null == processingTable ? "": " for table " + processingTable.tableName ));
+                    (null == processingTable ? "" : " for table " + processingTable.tableName));
             e.printStackTrace();
             throw new DBException(e);
         } finally {

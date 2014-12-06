@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements DomainObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "UserID", columnDefinition = "int(11)")
@@ -69,5 +69,10 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public void setId(Long id) {
+        setUserId(id);
     }
 }

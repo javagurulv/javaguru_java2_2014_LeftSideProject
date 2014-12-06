@@ -10,7 +10,7 @@ import java.util.Calendar;
 
 @Entity
 @Table(name = "todoitems")
-public class TodoItem {
+public class TodoItem implements DomainObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -67,6 +67,11 @@ public class TodoItem {
 
     public void setDueDate(Calendar dueDate) {
         this.dueDate = dueDate;
+    }
+
+    @Override
+    public void setId(Long id) {
+        setItemId(id);
     }
 
     public enum State {

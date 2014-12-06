@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "fileExtensions")
-public class FileExtension {
+public class FileExtension implements DomainObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ExtensionID", columnDefinition = "int(11)")
@@ -29,5 +29,10 @@ public class FileExtension {
 
     public void setExtension(String extension) {
         this.extension = extension;
+    }
+
+    @Override
+    public void setId(Long id) {
+        setExtensionId(id.byteValue());
     }
 }

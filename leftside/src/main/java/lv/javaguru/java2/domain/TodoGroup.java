@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "todoGroups")
-public class TodoGroup {
+public class TodoGroup implements DomainObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "GroupID", columnDefinition = "int(11)")
@@ -29,5 +29,10 @@ public class TodoGroup {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void setId(Long id) {
+        setGroupId(id);
     }
 }

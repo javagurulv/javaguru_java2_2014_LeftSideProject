@@ -8,18 +8,7 @@ import java.util.List;
  * Created by SM on 10/23/2014.
  */
 
-public interface TodoItemDAO {
-
-    void create(TodoItem todoItem) throws DBException;
-
-    TodoItem getById(Long id) throws DBException;
-
-    void delete(Long id) throws DBException;
-
-    void update(TodoItem todoItem) throws DBException;
-
-    List<TodoItem> getAll() throws DBException;
-
+public interface TodoItemDAO extends CrudDAO<TodoItem> {
     List<TodoItem> getByUserId(Long userId) throws DBException;
 
     List<TodoItem> getByTodoUserAndGroupId(Long userId, Long groupId) throws DBException;

@@ -4,7 +4,6 @@ import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.TodoItemDAO;
 import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.domain.TodoItem;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,7 +47,7 @@ public class TodoItemDAOImplTest {
         List<TodoItem> allTodoItems = todoItemDAO.getAll();
         assertEquals(allTodoItems.size(), 1 + todoItemsBefore.size());
 
-        todoItemDAO.delete(todoItem.getItemId());
+        todoItemDAO.delete(todoItem);
         allTodoItems = todoItemDAO.getAll();
         assertEquals(allTodoItems.size(), todoItemsBefore.size());
     }

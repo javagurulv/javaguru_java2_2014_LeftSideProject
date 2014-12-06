@@ -8,7 +8,7 @@ import java.util.Calendar;
  */
 @Entity
 @Table(name = "todoItemComments")
-public class TodoItemComment {
+public class TodoItemComment implements DomainObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CommentID", columnDefinition = "int(11)")
@@ -80,5 +80,10 @@ public class TodoItemComment {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public void setId(Long id) {
+        setCommentId(id);
     }
 }

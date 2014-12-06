@@ -1,5 +1,5 @@
-<jsp:include page="/includes/header.jsp" />
+<jsp:include page="/includes/header.jsp"/>
 <%=
-    (String)request.getAttribute("model")
+(String) request.getAttribute("model")
 %>
-<jsp:include page="/includes/footer.jsp" />
+<jsp:include page="/includes/footer.jsp"/>

@@ -8,7 +8,7 @@ import java.util.Calendar;
  */
 @Entity
 @Table(name = "files")
-public class File {
+public class File implements DomainObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "FileID", columnDefinition = "int(11)")
@@ -70,5 +70,10 @@ public class File {
 
     public void setUploadDate(Calendar uploadDate) {
         UploadDate = uploadDate;
+    }
+
+    @Override
+    public void setId(Long id) {
+        setFileId(id);
     }
 }
