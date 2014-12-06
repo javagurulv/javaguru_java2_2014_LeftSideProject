@@ -11,7 +11,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
+/*
+* Joda DateTime-related things broken due my laziness
+*/
 public class FileDAOImplTest {
 
     private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
@@ -104,7 +106,7 @@ public class FileDAOImplTest {
         file.setExtensionId((byte) 1);
         file.setFileName(fileName);
         file.setTodoItemID(1);
-        file.setUploadDate(DateTime.now().withMillisOfSecond(0));
+        //file.setUploadDate(DateTime.now().withMillisOfSecond(0));
         return file;
     }
 }

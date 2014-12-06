@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface FileExtensionDAO {
 
-    void create(FileExtension user) throws DBException;
+    void create(FileExtension fileExtension) throws DBException;
 
     FileExtension getById(byte id) throws DBException;
 
     void delete(byte id) throws DBException;
 
-    void update(FileExtension user) throws DBException;
+    void update(FileExtension fileExtension) throws DBException;
 
     List<FileExtension> getAll() throws DBException;
 }

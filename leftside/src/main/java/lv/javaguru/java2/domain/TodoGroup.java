@@ -1,11 +1,19 @@
 package lv.javaguru.java2.domain;
 
+import javax.persistence.*;
+
 /**
  * Created by SM on 10/23/2014.
  */
+@Entity
+@Table(name = "todoGroups")
 public class TodoGroup {
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "GroupID", columnDefinition = "int(11)")
     private long groupId;
+    @Column(name = "Name", length = 40)
+    private String name;
 
     public long getGroupId() {
         return groupId;

@@ -25,6 +25,8 @@ public class MVCFilter implements Filter {
         knownStaticTypes.add("ico");
         knownStaticTypes.add("html");
         knownStaticTypes.add("jsp");
+        knownStaticTypes.add("cgi");
+        knownStaticTypes.add("js");
     }
 
     ConfigReader config = new ConfigReader();
@@ -51,7 +53,6 @@ public class MVCFilter implements Filter {
 
         String path = req.getRequestURI();
         logger.info(path);
-        //FixMe: skip static resource requests
 
         RegisteredController controller;
         if (!staticResource(path)) {
@@ -75,7 +76,10 @@ public class MVCFilter implements Filter {
             RequestDispatcher requestDispatcher =
                     context.getRequestDispatcher(model.getView());
             requestDispatcher.forward(req, resp);
-        } else filterChain.doFilter(request, response);
+        } else {
+            logger.info("Static resource request.");
+            filterChain.doFilter(request, response);
+        }
     }
 
     private boolean staticResource(String path) {

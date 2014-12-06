@@ -20,13 +20,13 @@ public class TodoItem {
     @Column(name = "StateID", columnDefinition = "int(2)")
     private long stateId;
 
-    @Column(name = "Title", columnDefinition = "varchar(100)")
+    @Column(name = "Title", length = 100)
     private String title;
 
-    @Column(name = "Description", columnDefinition = "varchar(2000)")
+    @Column(name = "Description", length = 2000)
     private String description;
 
-    @Column(name = "DueDate", columnDefinition = "datetime")
+    @Column(name = "DueDate", columnDefinition = "date")
     private Calendar dueDate;
 
     public long getItemId() {

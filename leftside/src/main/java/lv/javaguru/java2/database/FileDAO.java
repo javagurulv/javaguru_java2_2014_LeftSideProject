@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface FileDAO {
 
-    void create(File user) throws DBException;
+    void create(File file) throws DBException;
 
     File getById(Long id) throws DBException;
 
     void delete(Long id) throws DBException;
 
-    void update(File user) throws DBException;
+    void update(File file) throws DBException;
 
     List<File> getAll() throws DBException;
 

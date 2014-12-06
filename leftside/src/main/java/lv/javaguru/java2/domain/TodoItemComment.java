@@ -21,9 +21,9 @@ public class TodoItemComment {
     private Long ReplyToID;
     @Column(name = "Date", columnDefinition = "TIMESTAMP")
     private Calendar date;
-    @Column(name = "Title")
+    @Column(name = "Title", length = 100)
     private String title;
-    @Column(name = "Message")
+    @Column(name = "Message", length = 1000)
     private String message;
 
     public long getCommentId() {

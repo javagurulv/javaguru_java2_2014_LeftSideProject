@@ -17,7 +17,9 @@ import java.util.List;
 
 /**
  * Created by SM on 10/18/2014.
- */
+ *
+ * Joda DateTime-related things broken due my laziness
+*/
 @Component("JDBC_FileDAO")
 public class FileDAOImpl extends DAOImpl implements FileDAO {
     private static DateTimeFormatter dateFormat = DateTimeFormat.forPattern("YYYY-MM-dd HH:mm:ss.0");
@@ -45,7 +47,7 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
                 preparedStatement.setString(3, null);
             }
             preparedStatement.setLong(4, file.getTodoItemID());
-            preparedStatement.setString(5, file.getUploadDate().toString(dateFormat));
+            //preparedStatement.setString(5, file.getUploadDate().toString(dateFormat));
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -147,7 +149,7 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
                 preparedStatement.setString(3, null);
             }
             preparedStatement.setLong(4, file.getTodoItemID());
-            preparedStatement.setString(5, file.getUploadDate().toString(dateFormat));
+            //preparedStatement.setString(5, file.getUploadDate().toString(dateFormat));
             preparedStatement.setLong(6, file.getFileId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
@@ -171,7 +173,7 @@ public class FileDAOImpl extends DAOImpl implements FileDAO {
         file.setTodoItemID(resultSet.getLong("TodoItemID"));
         String dateString = resultSet.getString("UploadDate");
         if (null != dateString) {
-            file.setUploadDate(DateTime.parse(dateString, dateFormat));
+            //file.setUploadDate(DateTime.parse(dateString, dateFormat));
         }
         return file;
     }
