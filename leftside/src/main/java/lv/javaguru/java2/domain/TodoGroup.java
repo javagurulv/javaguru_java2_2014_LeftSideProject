@@ -1,6 +1,11 @@
 package lv.javaguru.java2.domain;
 
+import lv.javaguru.java2.database.TodoGroupDAO;
+import lv.javaguru.java2.database.hibernate.TodoGroupDAOImpl;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SM on 10/23/2014.
@@ -30,6 +35,15 @@ public class TodoGroup implements DomainObject {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<TodoItem> getItemsInGroup(){
+        List<TodoItem> items = new ArrayList<TodoItem>();
+        TodoGroupDAO todoGroupDAO = new TodoGroupDAOImpl();
+        items = todoGroupDAO.getByGroupId(groupId);
+
+        return items;
+    }
+
 
     @Override
     public void setId(Long id) {

@@ -25,15 +25,8 @@ public class TodoGroupDAOImpl extends DAOImpl<TodoGroup> implements TodoGroupDAO
     @Override
     public List<TodoItem> getByGroupId(Long number)throws DBException {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM TodoGroup WHERE GroupID = :number");
-        query.setParameter("number", number);
-        return query.list();
-    }
-
-    @Override
-    public List<TodoGroup> getGroups() throws DBException{
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("SELECT distinct FROM TodoGroup");
+        Query query = session.createQuery("FROM TodoGroup WHERE GroupID = :group_id");
+        query.setParameter("group_id", number);
         return query.list();
     }
 }

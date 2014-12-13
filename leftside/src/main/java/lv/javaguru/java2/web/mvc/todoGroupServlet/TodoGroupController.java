@@ -32,6 +32,9 @@ public class TodoGroupController implements MVCProcessor {
         //ToDo: Use authentication for filtering what to show
 
         List<TodoGroup> todoGroups = todoGroupDAO.getAll();
+        //for(int i = 1; i < todoGroups.size(); i++){
+        //    todoGroupDAO.getByGroupId((long)i);
+        //}
 
         return new MVCModel(DEFAULT_VIEW, new TodoGroupModel(todoGroups));
     }

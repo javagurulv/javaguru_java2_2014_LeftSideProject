@@ -11,6 +11,5 @@ import java.util.List;
 public interface TodoGroupDAO extends CrudDAO<TodoGroup> {
 
     List<TodoItem> getByGroupId(Long number)throws DBException;
-    List<TodoGroup> getGroups() throws DBException;
 
 }

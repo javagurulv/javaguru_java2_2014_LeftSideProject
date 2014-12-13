@@ -2,25 +2,29 @@
 <%@ page import="lv.javaguru.java2.domain.TodoItem" %>
 <%@ page import="lv.javaguru.java2.web.mvc.todoGroupServlet.TodoGroupModel" %>
 <%@ page import="java.util.List" %>
-<%@ page import="lv.javaguru.java2.database.TodoGroupDAO" %>
-<%@ page import="lv.javaguru.java2.database.hibernate.TodoGroupDAOImpl" %>
 <%@ page import="lv.javaguru.java2.domain.TodoGroup" %>
+<%@ page import="java.util.ArrayList" %>
+@Autowired
+TodoGroupDAO todoItems;
 <%
     TodoGroupModel model = (TodoGroupModel) request.getAttribute("model");
-
-    TodoGroupDAO todoItems = new TodoGroupDAOImpl();
+    List<TodoGroup> todoGroups = new ArrayList<TodoGroup>();
+    int groupAmount = model.getTodoGroupAmount();
+    for(int i = 1; i < groupAmount; i++){
+        todoGroups.add(model.getTodoGroup(i));
+    }
 %>
+
 <%=
-    writeGroupsAndItems(model, todoItems)
+    writeGroupsAndItems(model, todoGroups)
 %>
 <%!
-    String writeGroupsAndItems(TodoGroupModel model, TodoGroupDAO todoItems) {
+    String writeGroupsAndItems(TodoGroupModel model, List<TodoGroup> todoGroups) {
         String groups = "";
         int todoGroupAmount = model.getTodoGroupAmount();
         for (int i = 0; i < todoGroupAmount; i++) {
             int number = i + 1;
-
-            List<TodoItem> todoItemList = todoItems.getByGroupId((long) i + 1);
+            List<TodoItem> todoItemList = todoGroups.get(i).getItemsInGroup();
             groups = groups + number + " " + model.getTodoGroup(i).getName() + " : " + getGroupItems(todoItemList) + "<br>";
         }
         return groups;
