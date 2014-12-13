@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItems` (
   `Title`       VARCHAR(100)  NOT NULL,
   `Description` VARCHAR(2000) NOT NULL,
   `DueDate`     DATE          NULL,
+  `todoGroupId` INT(11)       NOT NULL,
   PRIMARY KEY (`ItemID`),
   FOREIGN KEY (`StateID`)
   REFERENCES todoStates (`StateID`)

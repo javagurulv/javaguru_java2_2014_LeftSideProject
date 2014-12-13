@@ -3,16 +3,9 @@
 <%@ page import="lv.javaguru.java2.web.mvc.todoGroupServlet.TodoGroupModel" %>
 <%@ page import="java.util.List" %>
 <%@ page import="lv.javaguru.java2.domain.TodoGroup" %>
-<%@ page import="java.util.ArrayList" %>
-@Autowired
-TodoGroupDAO todoItems;
 <%
     TodoGroupModel model = (TodoGroupModel) request.getAttribute("model");
-    List<TodoGroup> todoGroups = new ArrayList<TodoGroup>();
-    int groupAmount = model.getTodoGroupAmount();
-    for(int i = 1; i < groupAmount; i++){
-        todoGroups.add(model.getTodoGroup(i));
-    }
+    List<TodoGroup> todoGroups = model.getAllTodoGroups();
 %>
 
 <%=
@@ -21,7 +14,7 @@ TodoGroupDAO todoItems;
 <%!
     String writeGroupsAndItems(TodoGroupModel model, List<TodoGroup> todoGroups) {
         String groups = "";
-        int todoGroupAmount = model.getTodoGroupAmount();
+        int todoGroupAmount = todoGroups.size();
         for (int i = 0; i < todoGroupAmount; i++) {
             int number = i + 1;
             List<TodoItem> todoItemList = todoGroups.get(i).getItemsInGroup();

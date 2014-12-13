@@ -2,6 +2,9 @@ package lv.javaguru.java2.domain;
 
 import lv.javaguru.java2.database.TodoGroupDAO;
 import lv.javaguru.java2.database.hibernate.TodoGroupDAOImpl;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,6 +23,18 @@ public class TodoGroup implements DomainObject {
     @Column(name = "Name", length = 40)
     private String name;
 
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "todoGroup")
+    private List<TodoItem> todoItems;
+
+    public void setTodoItems(List<TodoItem> todoItems){
+        this.todoItems = todoItems;
+    }
+
+    public List<TodoItem> getItemsInGroup(){
+        return todoItems;
+    }
+
     public long getGroupId() {
         return groupId;
     }
@@ -35,15 +50,6 @@ public class TodoGroup implements DomainObject {
     public void setName(String name) {
         this.name = name;
     }
-
-    public List<TodoItem> getItemsInGroup(){
-        List<TodoItem> items = new ArrayList<TodoItem>();
-        TodoGroupDAO todoGroupDAO = new TodoGroupDAOImpl();
-        items = todoGroupDAO.getByGroupId(groupId);
-
-        return items;
-    }
-
 
     @Override
     public void setId(Long id) {

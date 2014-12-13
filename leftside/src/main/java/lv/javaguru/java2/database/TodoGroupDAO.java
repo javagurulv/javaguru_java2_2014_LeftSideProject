@@ -12,4 +12,5 @@ public interface TodoGroupDAO extends CrudDAO<TodoGroup> {
 
     List<TodoItem> getByGroupId(Long number)throws DBException;
 
+    List<TodoGroup> getAllGroups() throws DBException;
 }

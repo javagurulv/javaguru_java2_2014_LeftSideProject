@@ -1,6 +1,10 @@
 package lv.javaguru.java2.domain;
 
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -28,6 +32,18 @@ public class TodoItem implements DomainObject {
 
     @Column(name = "DueDate", columnDefinition = "date")
     private Calendar dueDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "todoGroupId", nullable = false)
+    private TodoGroup todoGroup;
+
+    public void setTodoGroup(TodoGroup todoGroup){
+        this.todoGroup = todoGroup;
+    }
+
+    public TodoGroup getTodoGroup(){
+        return todoGroup;
+    }
 
     public long getItemId() {
         return itemId;
