@@ -21,7 +21,9 @@
     </thead>
     <tbody>
 
-    <c:forEach items="${model.getTodoItemList()}" var="i">
+    <c:forEach items="${model}" var="i">
+
+
         <tr>
 
             <td><c:out value="${i.getItemId()}"/></td>
