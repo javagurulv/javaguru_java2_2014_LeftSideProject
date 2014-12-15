@@ -1,36 +1,37 @@
 package lv.javaguru.java2.web.mvc.fileServlet;
 
 import lv.javaguru.java2.database.FileDAO;
-import lv.javaguru.java2.web.mvc.core.MVCController;
-import lv.javaguru.java2.web.mvc.core.MVCModel;
-import lv.javaguru.java2.web.mvc.core.MVCProcessor;
-import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Sergey on 13.11.14.
  */
-@Component
+@Controller
 @Transactional
-@MVCController(path = "/file",
-        pageName = "Files",
-        isVisible = true)
-public class FileController implements MVCProcessor {
+public class FileController {
     private static final String DEFAULT_VIEW = "/file.jsp";
 
     @Autowired
     @Qualifier("ORM_FileDAO")
     private FileDAO fileDAO;
 
-    @Override
-    public MVCModel processRequest(MVCRequestParameters req) {
+    @RequestMapping(value = "file", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView processRequest(HttpServletRequest request,
+                                       HttpServletResponse response) {
 
-        FileModel fileModel = new FileModel();
+        ModelAndView model = new ModelAndView();
+        model.setViewName("file");
 
-        return new MVCModel(DEFAULT_VIEW, fileModel);
+        return model;
     }
 
 }

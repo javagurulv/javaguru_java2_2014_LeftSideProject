@@ -4,15 +4,16 @@ import lv.javaguru.java2.database.TodoItemCommentDAO;
 import lv.javaguru.java2.database.TodoItemDAO;
 import lv.javaguru.java2.domain.TodoItem;
 import lv.javaguru.java2.domain.TodoItemComment;
-import lv.javaguru.java2.web.mvc.core.MVCController;
-import lv.javaguru.java2.web.mvc.core.MVCModel;
-import lv.javaguru.java2.web.mvc.core.MVCProcessor;
-import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 import static lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsController.Action.VIEW;
@@ -22,10 +23,7 @@ import static lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsC
  */
 @Component
 @Transactional
-@MVCController(path = "/todoComments",
-        pageName = "ToDo Comments",
-        isVisible = true)
-public class TodoItemCommentsController implements MVCProcessor {
+public class TodoItemCommentsController  {
     private static final String DEFAULT_VIEW = "/TodoItemComments.jsp";
     @Autowired
     @Qualifier("ORM_TodoItemDAO")
@@ -52,24 +50,27 @@ public class TodoItemCommentsController implements MVCProcessor {
         }
     }
 
-    @Override
-    public MVCModel processRequest(MVCRequestParameters parameters) {
-        Action action = tryParseAction(parameters.getValue("act"));
-        Long itemId = tryParseLong(parameters.getValue("item"));
-        Long inReplyTo = tryParseLong(parameters.getValue("replyTo"));
+    @RequestMapping(value = "todoComments", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView processRequest(HttpServletRequest request,
+                                       HttpServletResponse response) {
+        Action action = tryParseAction(request.getParameter("act"));
+        Long itemId = tryParseLong(request.getParameter("item"));
+        Long inReplyTo = tryParseLong(request.getParameter("replyTo"));
         List<String> errList = new ArrayList<String>();
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("TodoItemComments");
 
         if (!parametersValidation(itemId)) {
             errList.add("No value set or formatting issues for param itemId");
-            return new MVCModel(DEFAULT_VIEW,
-                    new TodoItemCommentsModel(null, null, null), errList);
+            return model;
         }
 
         TodoItem todoItem = todoItemDAO.getById(itemId);
 
         switch (action) {
             case CREATE:
-                createComment(itemId, inReplyTo, parameters, errList);
+                //createComment(itemId, inReplyTo, parameters, errList);
                 break;
             case DELETE: //ToDo: implement comment deletion with safety check
                 break;
@@ -84,10 +85,13 @@ public class TodoItemCommentsController implements MVCProcessor {
                     + implodeList(commentsOutOfSync));
         }
 
-        TodoItemCommentsModel model = new TodoItemCommentsModel(todoItem, commRoot, inReplyTo);
-        return new MVCModel(DEFAULT_VIEW, model, errList);
+
+        TodoItemCommentsModel model_ = new TodoItemCommentsModel(todoItem, commRoot, inReplyTo);
+        model.addObject("model", model_);
+        return model;
     }
 
+    /*
     private void createComment(Long itemId, Long replyTo, MVCRequestParameters parameters, List<String> errList) {
         if (!parameters.isUserAuthenticated()) {
             errList.add("User is not authenticated.");
@@ -102,7 +106,7 @@ public class TodoItemCommentsController implements MVCProcessor {
             dbCreateComment(userId, itemId, replyTo, title, msg);
         }
     }
-
+*/
     private void dbCreateComment(Long userId, Long itemId, Long replyTo, String title, String msg) {
         TodoItemComment comment = new TodoItemComment();
         comment.setUserId(userId);

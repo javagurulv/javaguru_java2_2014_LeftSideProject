@@ -2,27 +2,25 @@ package lv.javaguru.java2.web.mvc.todoItemServlet;
 
 import lv.javaguru.java2.database.TodoItemDAO;
 import lv.javaguru.java2.domain.TodoItem;
-import lv.javaguru.java2.web.mvc.core.MVCController;
-import lv.javaguru.java2.web.mvc.core.MVCModel;
-import lv.javaguru.java2.web.mvc.core.MVCProcessor;
-import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by alekmiku on 2014.11.11..
  */
-@Component
+@Controller
 @Transactional
-@MVCController(path = "/todoItem",
-        pageName = "ToDo Item",
-        isVisible = true)
-public class TodoItemController implements MVCProcessor {
+public class TodoItemController {
 
     private static final String INSERT_OR_EDIT = "/TodoItemList.jsp";
     private static final String LIST_TODOITEM = "/TodoItemList.jsp";
@@ -33,8 +31,12 @@ public class TodoItemController implements MVCProcessor {
     @Qualifier("ORM_TodoItemDAO")
     private TodoItemDAO todoItemDAO;
 
-    @Override
-    public MVCModel processRequest(MVCRequestParameters req) {
+    @RequestMapping(value = "todoItem", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView processRequest(HttpServletRequest request,
+                                       HttpServletResponse response) {
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("TodoItem");
 /* Todo: add check of authentication and user id to list specific items only
         if (!req.isUserAuthenticated() ) {
             errList.add("User is not authenticated! ");
@@ -67,7 +69,9 @@ public class TodoItemController implements MVCProcessor {
         System.out.println("Hello11");
         List<TodoItem> itemList = todoItemDAO.getAll();
         System.out.println("Hello22");
-        return new MVCModel(LIST_TODOITEM, new TodoItemModel(itemList));
+        model.addObject("model", new TodoItemModel(itemList));
+
+        return model;
 //        return new MVCModel(INSERT_OR_EDIT, "any other action requested");
     }
 

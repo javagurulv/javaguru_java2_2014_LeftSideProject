@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
-    <title><%=(String) request.getAttribute("title")%>
+    <title>${pageContext.request.servletPath}
     </title>
 </head>
 <body>
