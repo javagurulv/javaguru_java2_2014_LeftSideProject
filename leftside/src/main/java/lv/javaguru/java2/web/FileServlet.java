@@ -2,8 +2,8 @@ package lv.javaguru.java2.web;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.FileDAO;
-import lv.javaguru.java2.database.jdbc.FileDAOImpl;
 import lv.javaguru.java2.domain.File;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,19 +19,20 @@ import java.util.List;
 //Todo: Move to MVC
 public class FileServlet extends HttpServlet {
 
+    @Autowired
+    private FileDAO fileDAO;
+
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp) throws ServletException, IOException {
 
         resp.setContentType("text/html");
-
-        FileDAO file = new FileDAOImpl();
 
         PrintWriter out = resp.getWriter();
 
         out.print("<h1>File page</h1><br>");
 
         try {
-            List<File> fileList = file.getAll();
+            List<File> fileList = fileDAO.getAll();
             out.println("File list size: " + fileList.size());
 
             for (File fileToken : fileList) {

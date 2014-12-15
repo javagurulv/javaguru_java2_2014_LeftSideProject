@@ -40,10 +40,10 @@ public class DAOImpl {
         try {
             properties.load(DAOImpl.class.getClassLoader().getResourceAsStream(DB_CONFIG_FILE));
 
-            dbUrl = properties.getProperty("dbUrl");
-            userName = properties.getProperty("userName");
-            password = properties.getProperty("password");
-            driverClass = properties.getProperty("driverClass");
+            dbUrl = properties.getProperty("database.url");
+            userName = properties.getProperty("database.userName");
+            password = properties.getProperty("database.password");
+            driverClass = properties.getProperty("database.driverClass");
         } catch (IOException e) {
             System.out.println("Exciption while reading JDBC configuration from file = " + DB_CONFIG_FILE);
             e.printStackTrace();

@@ -9,17 +9,19 @@ import java.util.List;
  */
 public class TodoGroupModel {
 
-        private List<TodoGroup> todoGroups;
+    private List<TodoGroup> todoGroups;
 
-        public TodoGroupModel(List<TodoGroup> todoGroups){
-            this.todoGroups = todoGroups;
-        }
+    public TodoGroupModel(List<TodoGroup> todoGroups) {
+        this.todoGroups = todoGroups;
+    }
 
-        public TodoGroup getTodoGroup(int i) {
-            return todoGroups.get(i);
-        }
+    public TodoGroup getTodoGroup(int i) {
+        return todoGroups.get(i);
+    }
 
-        public int getTodoGroupAmount(){ return this.todoGroups.size(); }
+    public int getTodoGroupAmount() {
+        return this.todoGroups.size();
+    }
 }
 
 

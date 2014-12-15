@@ -7,9 +7,8 @@ import lv.javaguru.java2.web.mvc.core.MVCModel;
 import lv.javaguru.java2.web.mvc.core.MVCProcessor;
 import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -19,10 +18,11 @@ import java.util.List;
  * Created by alekmiku on 2014.11.11..
  */
 @Component
+@Transactional
 @MVCController(path = "/todoItem",
         pageName = "ToDo Item",
         isVisible = true)
-public class TodoItemController  implements MVCProcessor  {
+public class TodoItemController implements MVCProcessor {
 
     private static final String INSERT_OR_EDIT = "/TodoItemList.jsp";
     private static final String LIST_TODOITEM = "/TodoItemList.jsp";
@@ -30,11 +30,10 @@ public class TodoItemController  implements MVCProcessor  {
     List<String> errList = new ArrayList<String>();
 
     @Autowired
+    @Qualifier("ORM_TodoItemDAO")
     private TodoItemDAO todoItemDAO;
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW,
-            isolation = Isolation.REPEATABLE_READ)
     public MVCModel processRequest(MVCRequestParameters req) {
 /* Todo: add check of authentication and user id to list specific items only
         if (!req.isUserAuthenticated() ) {

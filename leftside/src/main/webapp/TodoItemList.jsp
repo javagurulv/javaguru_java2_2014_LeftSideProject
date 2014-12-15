@@ -21,14 +21,14 @@
     </thead>
     <tbody>
 
-   <c:forEach items="${model.getTodoItemList()}" var="i">
+    <c:forEach items="${model.getTodoItemList()}" var="i">
         <tr>
 
-            <td><c:out value="${i.getItemId()}" /></td>
-            <td><c:out value="${i.getStateId()}" /></td>
-            <td><c:out value="${i.getTitle()}" /></td>
-            <td><c:out value="${i.getDescription()}" /></td>
-            <td><c:out value="${i.getDueDate()}" /></td>
+            <td><c:out value="${i.getItemId()}"/></td>
+            <td><c:out value="${i.getStateId()}"/></td>
+            <td><c:out value="${i.getTitle()}"/></td>
+            <td><c:out value="${i.getDescription()}"/></td>
+            <td><c:out value="${i.getDueDate()}"/></td>
 
             <td><a href="/todoItem?action=edit&itemId=<c:out value="${i.getItemId()}"/>">Update</a></td>
             <td><a href="/todoItem?action=delete&itemId=<c:out value="${i.getItemId()}"/>">Delete</a></td>

@@ -45,7 +45,7 @@ public class DatabaseCleaner extends DAOImpl {
             }
         } catch (Throwable e) {
             System.out.println("DatabaseCleaner: Exception while execute cleanDatabase()" +
-                    (null == processingTable ? "": " for table " + processingTable.tableName ));
+                    (null == processingTable ? "" : " for table " + processingTable.tableName));
             e.printStackTrace();
             throw new DBException(e);
         } finally {

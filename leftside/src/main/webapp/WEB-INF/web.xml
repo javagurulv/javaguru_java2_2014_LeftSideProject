@@ -33,7 +33,7 @@
 
     <!-- unhandled error catcher -->
     <error-page>
-        <exception-type>java.lang.Throwable</exception-type >
+        <exception-type>java.lang.Throwable</exception-type>
         <location>/ErrorHandler</location>
     </error-page>
 

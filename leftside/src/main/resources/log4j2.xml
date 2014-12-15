@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="debug">
+<Configuration status="info">
     <Properties>
         <Property name="log-path">logs</Property>
     </Properties>
 
     <Appenders>
-<!--
-        <RollingFile name="file-log" fileName="${log-path}/log.log"
-                     filePattern="${log-path}/log-%d{yyyy-MM-dd}.log">
-            <PatternLayout>
-                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
-            </PatternLayout>
-            <Policies>
-                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
-            </Policies>
-        </RollingFile>
--->
+        <!--
+                <RollingFile name="file-log" fileName="${log-path}/log.log"
+                             filePattern="${log-path}/log-%d{yyyy-MM-dd}.log">
+                    <PatternLayout>
+                        <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+                    </PatternLayout>
+                    <Policies>
+                        <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                    </Policies>
+                </RollingFile>
+        -->
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="lv.javaguru.java2" level="debug" additivity="false">
+        <Logger name="lv.javaguru.java2" level="info" additivity="false">
             <appender-ref ref="console"/>
         </Logger>
 
-        <Root level="debug" additivity="false">
+        <Root level="error" additivity="false">
             <appender-ref ref="console"/>
         </Root>
     </Loggers>

@@ -1,17 +1,28 @@
 package lv.javaguru.java2.domain;
 
-import org.joda.time.DateTime;
+import javax.persistence.*;
+import java.util.Calendar;
 
 /**
  * Created by SM on 10/18/2014.
  */
-public class File {
+@Entity
+@Table(name = "files")
+public class File implements DomainObject {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "FileID", columnDefinition = "int(11)")
     private long fileId;
+    @Column(name = "Path", length = 500)
     private String path;
+    @Column(name = "FileName", length = 40)
     private String fileName;
+    @Column(name = "ExtensionID", columnDefinition = "TINYINT", nullable = true)
     private Byte extensionId;
+    @Column(name = "TodoItemID", columnDefinition = "int(11)")
     private long todoItemID;
-    private DateTime UploadDate;
+    @Column(name = "UploadDate", columnDefinition = "TIMESTAMP")
+    private Calendar UploadDate;
 
     public long getFileId() {
         return fileId;
@@ -53,11 +64,16 @@ public class File {
         this.todoItemID = todoItemID;
     }
 
-    public DateTime getUploadDate() {
+    public Calendar getUploadDate() {
         return UploadDate;
     }
 
-    public void setUploadDate(DateTime uploadDate) {
+    public void setUploadDate(Calendar uploadDate) {
         UploadDate = uploadDate;
+    }
+
+    @Override
+    public void setId(Long id) {
+        setFileId(id);
     }
 }

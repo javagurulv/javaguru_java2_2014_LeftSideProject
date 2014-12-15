@@ -58,9 +58,11 @@ VALUES (3, 1, 1, 1, '2013-11-01 01:02:00', 'boo', 'foobar');
 INSERT INTO `java2_leftside`.`todoItemComments` (`CommentID`, `UserID`, `ItemID`, `ReplyToID`, `Date`, `Title`, `Message`)
 VALUES (4, 1, 1, 2, '2013-11-01 01:03:00', 'tar', 'gzip');
 INSERT INTO `java2_leftside`.`todoItemComments` (`CommentID`, `UserID`, `ItemID`, `ReplyToID`, `Date`, `Title`, `Message`)
-VALUES (5, 1, 1, 1, '2013-11-01 01:05:00', 'add some fish', '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+VALUES (5, 1, 1, 1, '2013-11-01 01:05:00', 'add some fish',
+        '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
 INSERT INTO `java2_leftside`.`todoItemComments` (`CommentID`, `UserID`, `ItemID`, `ReplyToID`, `Date`, `Title`, `Message`)
-VALUES (6, 2, 8, NULL, '2013-11-01 00:00:00', 'you might need that', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
+VALUES (6, 2, 8, NULL, '2013-11-01 00:00:00', 'you might need that',
+        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
 INSERT INTO `java2_leftside`.`todoItemComments` (`CommentID`, `UserID`, `ItemID`, `ReplyToID`, `Date`, `Title`, `Message`)
 VALUES (7, 1, 1, NULL, '2013-11-01 01:10:00', 'fantasy', '... is over');
 

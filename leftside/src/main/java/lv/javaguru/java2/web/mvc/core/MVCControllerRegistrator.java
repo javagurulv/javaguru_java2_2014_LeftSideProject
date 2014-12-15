@@ -4,6 +4,7 @@ import org.reflections.Reflections;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.springframework.context.ApplicationContext;
 
+import java.beans.Introspector;
 import java.util.*;
 
 /**
@@ -67,8 +68,13 @@ public class MVCControllerRegistrator {
     }
 
     private MVCProcessor getBean(Class classToLoad) {
-        return (MVCProcessor) applicationContext.getBean(classToLoad);
+        return (MVCProcessor) applicationContext.getBean(toCamelCase(classToLoad));
     }
+
+    private String toCamelCase(Class c) {
+        return Introspector.decapitalize(c.getSimpleName());
+    }
+
     private String implodeSet(Set<Class<?>> cList) {
         Iterator<Class<?>> iter = cList.iterator();
         StringBuilder stringBuilder = new StringBuilder(iter.next().getClass().getName());

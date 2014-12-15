@@ -1,10 +1,18 @@
 package lv.javaguru.java2.domain;
 
+import javax.persistence.*;
+
 /**
  * Created by SM on 10/18/2014.
  */
-public class FileExtension {
+@Entity
+@Table(name = "fileExtensions")
+public class FileExtension implements DomainObject {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ExtensionID", columnDefinition = "int(11)")
     private byte extensionId;
+    @Column(name = "Extension", length = 4)
     private String extension;
 
     public byte getExtensionId() {
@@ -21,5 +29,10 @@ public class FileExtension {
 
     public void setExtension(String extension) {
         this.extension = extension;
+    }
+
+    @Override
+    public void setId(Long id) {
+        setExtensionId(id.byteValue());
     }
 }

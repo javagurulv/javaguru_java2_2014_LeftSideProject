@@ -31,7 +31,7 @@ public class TodoItemCommentsControllerTest {
         doReturn("1").when(param).getValue("item");
 
 
-        MVCModel model =  controller.processRequest(param);
+        MVCModel model = controller.processRequest(param);
 
         verify(todoItemDAO, times(1)).getById(any(Long.class));
     }

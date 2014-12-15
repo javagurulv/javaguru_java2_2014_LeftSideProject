@@ -15,12 +15,12 @@ USE `Java2_leftside`;
 DROP TABLE IF EXISTS `java2_leftside`.`users`;
 
 CREATE TABLE IF NOT EXISTS `java2_leftside`.`users` (
-  `UserID`    INT(11)  NOT NULL AUTO_INCREMENT,
-  `Login`     VARCHAR(32) NOT NULL,
-  `Password`  VARCHAR(32) NOT NULL,
-  `FirstName` VARCHAR(32) NOT NULL,
-  `LastName`  VARCHAR(32) NOT NULL,
-  `Email`     VARCHAR (100) NOT NULL,
+  `UserID`    INT(11)      NOT NULL AUTO_INCREMENT,
+  `Login`     VARCHAR(32)  NOT NULL,
+  `Password`  VARCHAR(32)  NOT NULL,
+  `FirstName` VARCHAR(32)  NOT NULL,
+  `LastName`  VARCHAR(32)  NOT NULL,
+  `Email`     VARCHAR(100) NOT NULL,
   PRIMARY KEY (`UserID`)
 )
   ENGINE = InnoDB
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoStates` (
 CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItems` (
   `ItemID`      INT(11)       NOT NULL AUTO_INCREMENT,
   `StateID`     INT(11)       NOT NULL DEFAULT 0,
-  `Title`     VARCHAR(100)  NOT NULL,
+  `Title`       VARCHAR(100)  NOT NULL,
   `Description` VARCHAR(2000) NOT NULL,
   `DueDate`     DATE          NULL,
   PRIMARY KEY (`ItemID`),

@@ -5,9 +5,10 @@
     boolean debug = (Boolean) request.getAttribute("debug");
     for (RegisteredController controller : controllers) {
         if (controller.isVisible() || debug) {
-            %>
-            <a href="<%=controller.getPath()%>"><%=controller.getPageName()%></a><br>
-            <%
+%>
+<a href="<%=controller.getPath()%>"><%=controller.getPageName()%>
+</a><br>
+<%
         }
     }
 %>
