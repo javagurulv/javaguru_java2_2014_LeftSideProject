@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +21,6 @@ import java.util.List;
 @Transactional
 public class TodoItemController {
 
-    private static final String INSERT_OR_EDIT = "/TodoItemList.jsp";
-    private static final String LIST_TODOITEM = "/TodoItemList.jsp";
-
-    List<String> errList = new ArrayList<String>();
-
     @Autowired
     @Qualifier("ORM_TodoItemDAO")
     private TodoItemDAO todoItemDAO;
@@ -35,47 +29,14 @@ public class TodoItemController {
     public ModelAndView processRequest(HttpServletRequest request,
                                        HttpServletResponse response) {
 
-        ModelAndView model = new ModelAndView();
-        model.setViewName("TodoItem");
-/* Todo: add check of authentication and user id to list specific items only
-        if (!req.isUserAuthenticated() ) {
-            errList.add("User is not authenticated! ");
-            return new MVCModel(LIST_TODOITEM, null, errList);
-        }*/
-/*
-        String action = req.getValue("action");
-
-        if (action.equals("list")) {
-            System.out.println("Hello11");
-            List<TodoItem> itemList = todoItemDAO.getAll();
-            System.out.println("Hello22");
-            return new MVCModel(LIST_TODOITEM, new TodoItemModel(itemList));
-
-        } else if (action.equals("edit")) {
-
-//            String id = req.getValue("itemId");
-//            TodoItem todoItem = todoItemDAO.getById(Long.parseLong(id));
-//            return new MVCModel(INSERT_OR_EDIT, new TodoItemModel(todoItem));
-
-        } else if (action.equals("delete")) {
-
-//            String id = req.getValue("itemId");
-//            todoItemDAO.delete(Long.parseLong(id));
-
-        }
-*/
-
-
-        System.out.println("Hello11");
         List<TodoItem> itemList = todoItemDAO.getAll();
-        System.out.println("Hello22");
-        model.addObject("model", new TodoItemModel(itemList));
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("TodoItemList");
+        model.addObject("model", itemList);
 
         return model;
-//        return new MVCModel(INSERT_OR_EDIT, "any other action requested");
     }
-
-
 }
 
 
