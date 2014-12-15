@@ -17,26 +17,4 @@ import java.util.List;
  */
 @Component("ORM_TodoGroupDAO")
 public class TodoGroupDAOImpl extends DAOImpl<TodoGroup> implements TodoGroupDAO {
-
-    //@Autowired
-    //SessionFactory sessionFactory;
-
-    @Override
-    public List<TodoItem> getByGroupId(Long number)throws DBException {
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM TodoGroup WHERE GroupID = :group_id");
-        query.setParameter("group_id", number);
-
-        return query.list();
-    }
-
-    @Override
-    public List<TodoGroup> getAllGroups(){
-        List<TodoGroup> todoGroups;
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM TodoGroup");
-        todoGroups = query.list();
-
-        return todoGroups;
-    }
 }

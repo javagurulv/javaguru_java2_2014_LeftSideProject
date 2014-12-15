@@ -9,8 +9,4 @@ import java.util.List;
  * Created by SM on 10/23/2014.
  */
 public interface TodoGroupDAO extends CrudDAO<TodoGroup> {
-
-    List<TodoItem> getByGroupId(Long number)throws DBException;
-
-    List<TodoGroup> getAllGroups() throws DBException;
 }

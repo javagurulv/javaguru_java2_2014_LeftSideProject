@@ -30,8 +30,10 @@ public class TodoItem implements DomainObject {
     @Column(name = "DueDate", columnDefinition = "date")
     private Calendar dueDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "todoGroupId", nullable = false)
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinTable(name="todoItemsToGroups",
+            joinColumns={@JoinColumn(name="ItemID", referencedColumnName="ItemID")},
+            inverseJoinColumns={@JoinColumn(name="GroupID", referencedColumnName="GroupID")})
     private TodoGroup todoGroup;
 
     public void setTodoGroup(TodoGroup todoGroup){

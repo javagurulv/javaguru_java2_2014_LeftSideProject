@@ -2,6 +2,7 @@ package lv.javaguru.java2.web.mvc.todoGroupServlet;
 
 import lv.javaguru.java2.database.TodoGroupDAO;
 import lv.javaguru.java2.domain.TodoGroup;
+import lv.javaguru.java2.domain.TodoItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,16 @@ public class TodoGroupController {
 
         ModelAndView model = new ModelAndView();
         model.setViewName("TodoGroup");
-        List<TodoGroup> todoGroups = todoGroupDAO.getAllGroups();
+        List<TodoGroup> todoGroups = todoGroupDAO.getAll();
+
+        //PreLoad/Warmup (workaround for lazy loading)
+        for (TodoGroup todoGroup : todoGroups) {
+            List<TodoItem> todoItemList = todoGroup.getTodoItems();
+            for (TodoItem item : todoItemList) {
+                item.getTitle();
+            }
+        }
+
         model.addObject("model", new TodoGroupModel(todoGroups));
         return model;
     }

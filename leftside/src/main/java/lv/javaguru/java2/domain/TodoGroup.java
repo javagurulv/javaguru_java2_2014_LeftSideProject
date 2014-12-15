@@ -24,14 +24,14 @@ public class TodoGroup implements DomainObject {
     private String name;
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "todoGroup")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "todoGroup")
     private List<TodoItem> todoItems;
 
     public void setTodoItems(List<TodoItem> todoItems){
         this.todoItems = todoItems;
     }
 
-    public List<TodoItem> getItemsInGroup(){
+    public List<TodoItem> getTodoItems(){
         return todoItems;
     }
 
