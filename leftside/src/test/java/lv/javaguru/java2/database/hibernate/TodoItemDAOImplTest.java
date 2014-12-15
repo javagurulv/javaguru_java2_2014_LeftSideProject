@@ -2,6 +2,7 @@ package lv.javaguru.java2.database.hibernate;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.TodoItemDAO;
+import lv.javaguru.java2.domain.State;
 import lv.javaguru.java2.domain.TodoItem;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,11 +84,15 @@ public class TodoItemDAOImplTest extends SpringIntegrationTest {
         assertEquals(2 + todoItemsBefore.size(), todoItems.size());
     }
 
+
+
     private TodoItem createTodoItem(String title, String description) {
-        return createTodoItem(TodoItem.State.CREATED.value, title, description, Calendar.getInstance());
+        State state = new State();
+        state.setId(1L);
+        return createTodoItem(state, title, description, Calendar.getInstance());
     }
 
-    private TodoItem createTodoItem(Long stateId, String title, String description, Calendar dueDate) {
+    private TodoItem createTodoItem(State stateId, String title, String description, Calendar dueDate) {
         TodoItem todoItem = new TodoItem();
         todoItem.setStateId(stateId);
         todoItem.setTitle(title);

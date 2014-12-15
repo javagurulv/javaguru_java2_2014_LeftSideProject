@@ -1,18 +1,18 @@
 <%@ page import="lv.javaguru.java2.domain.TodoItem" %>
 <%@ page import="lv.javaguru.java2.domain.TodoItemComment" %>
-<%@ page import="lv.javaguru.java2.web.mvc.core.Authentication" %>
+<%--<%@ page import="lv.javaguru.java2.web.mvc.core.Authentication" %>--%>
 <%@ page import="lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsModel" %>
 <%@ page import="lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsTree" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <jsp:include page="/includes/header.jsp"/>
 <%
-    boolean isAuthenticated = Authentication.isLoggedIn(session);
+    //boolean isAuthenticated = Authentication.isLoggedIn(session);
     TodoItemCommentsModel model = (TodoItemCommentsModel) request.getAttribute("model");
     TodoItem item = model.getTodoItem();
     TodoItemCommentsTree commentsTree = model.getCommentTree();
     Long responseTo = model.getReplyCommentId();
     String commentForm;
-    if (null != item && isAuthenticated) {
+//    if (null != item && isAuthenticated) {
         commentForm = "<h3 id='comment' name=;comment'>New comment:</h3>" +
                 "<form method='POST' action='todoComments'>" +
                 "<input type='hidden' name='act' value='create'/>";
@@ -24,9 +24,9 @@
                 "Message: <textarea rows='5' name='msg'></textarea><br>" +
                 "<input type='submit'/>" +
                 "</form>";
-    } else {
-        commentForm = "You cannot leave comment.";
-    }
+//    } else {
+//        commentForm = "You cannot leave comment.";
+//    }
 
 %>
 
@@ -76,7 +76,7 @@ No data to display.
 <br>
 
 <h2>Comments</h2>
-<%=printCommTree(commentsTree, isAuthenticated, responseTo, commentForm)%>
+<%--<%=printCommTree(commentsTree, isAuthenticated, responseTo, commentForm)%>--%>
 
 <%
     if (null == responseTo) {

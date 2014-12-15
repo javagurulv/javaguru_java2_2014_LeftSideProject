@@ -1,10 +1,6 @@
 package lv.javaguru.java2.domain;
 
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -21,8 +17,9 @@ public class TodoItem implements DomainObject {
     @Column(name = "ItemID", columnDefinition = "int(11)")
     private long itemId;
 
-    @Column(name = "StateID", columnDefinition = "int(2)")
-    private long stateId;
+    @ManyToOne
+    @JoinColumn(name = "StateID")
+    private State stateId;
 
     @Column(name = "Title", length = 100)
     private String title;
@@ -53,11 +50,11 @@ public class TodoItem implements DomainObject {
         this.itemId = itemId;
     }
 
-    public long getStateId() {
+    public State getStateId() {
         return stateId;
     }
 
-    public void setStateId(long stateId) {
+    public void setStateId(State stateId) {
         this.stateId = stateId;
     }
 
@@ -90,12 +87,12 @@ public class TodoItem implements DomainObject {
         setItemId(id);
     }
 
-    public enum State {
-        CREATED(1l), PROCESSING(2l), DONE(3l), CANCELLED(4l);
-        public long value;
+//    public enum State {
+//        CREATED(1l), PROCESSING(2l), DONE(3l), CANCELLED(4l);
+//        public long value;
 
-        private State(long value) {
-            this.value = value;
-        }
-    }
+//        private State(long value) {
+//            this.value = value;
+//        }
+//    }
 }

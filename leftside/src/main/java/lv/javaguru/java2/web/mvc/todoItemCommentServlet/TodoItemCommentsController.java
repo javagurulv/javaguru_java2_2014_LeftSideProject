@@ -6,7 +6,7 @@ import lv.javaguru.java2.domain.TodoItem;
 import lv.javaguru.java2.domain.TodoItemComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,10 +21,10 @@ import static lv.javaguru.java2.web.mvc.todoItemCommentServlet.TodoItemCommentsC
 /**
  * Created by SM on 11/9/2014.
  */
-@Component
+@Controller
 @Transactional
 public class TodoItemCommentsController  {
-    private static final String DEFAULT_VIEW = "/TodoItemComments.jsp";
+    //private static final String DEFAULT_VIEW = "/TodoItemComments.jsp";
     @Autowired
     @Qualifier("ORM_TodoItemDAO")
     private TodoItemDAO todoItemDAO;
