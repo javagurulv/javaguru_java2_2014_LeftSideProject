@@ -1,26 +1,23 @@
 <jsp:include page="/includes/header.jsp"/>
-<%@ page import="lv.javaguru.java2.database.TodoItemDAO" %>
-<%@ page import="lv.javaguru.java2.database.jdbc.TodoItemDAOImpl" %>
 <%@ page import="lv.javaguru.java2.domain.TodoItem" %>
 <%@ page import="lv.javaguru.java2.web.mvc.todoGroupServlet.TodoGroupModel" %>
 <%@ page import="java.util.List" %>
+<%@ page import="lv.javaguru.java2.domain.TodoGroup" %>
 <%
     TodoGroupModel model = (TodoGroupModel) request.getAttribute("model");
-    TodoItemDAO todoItems = new TodoItemDAOImpl();
+    List<TodoGroup> todoGroups = model.getAllTodoGroups();
 %>
+
 <%=
-writeGroupsAndItems(model, todoItems)
+    writeGroupsAndItems(model, todoGroups)
 %>
 <%!
-    String writeGroupsAndItems(TodoGroupModel model, TodoItemDAO todoItems) {
+    String writeGroupsAndItems(TodoGroupModel model, List<TodoGroup> todoGroups) {
         String groups = "";
-        int todoGroupAmount = model.getTodoGroupAmount();
+        int todoGroupAmount = todoGroups.size();
         for (int i = 0; i < todoGroupAmount; i++) {
             int number = i + 1;
-
-            List<TodoItem> todoItemList = todoItems.getByGroupId((long) i + 1);
-
-
+            List<TodoItem> todoItemList = todoGroups.get(i).getItemsInGroup();
             groups = groups + number + " " + model.getTodoGroup(i).getName() + " : " + getGroupItems(todoItemList) + "<br>";
         }
         return groups;

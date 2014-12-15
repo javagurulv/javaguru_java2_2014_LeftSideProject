@@ -1,6 +1,14 @@
 package lv.javaguru.java2.domain;
 
+import lv.javaguru.java2.database.TodoGroupDAO;
+import lv.javaguru.java2.database.hibernate.TodoGroupDAOImpl;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SM on 10/23/2014.
@@ -14,6 +22,18 @@ public class TodoGroup implements DomainObject {
     private long groupId;
     @Column(name = "Name", length = 40)
     private String name;
+
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "todoGroup")
+    private List<TodoItem> todoItems;
+
+    public void setTodoItems(List<TodoItem> todoItems){
+        this.todoItems = todoItems;
+    }
+
+    public List<TodoItem> getItemsInGroup(){
+        return todoItems;
+    }
 
     public long getGroupId() {
         return groupId;

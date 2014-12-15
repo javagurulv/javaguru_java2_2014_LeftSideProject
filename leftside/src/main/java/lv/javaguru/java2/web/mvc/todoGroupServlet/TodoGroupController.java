@@ -9,7 +9,10 @@ import lv.javaguru.java2.web.mvc.core.MVCRequestParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -21,6 +24,9 @@ import java.util.List;
 @MVCController(path = "/todoGroup",
         pageName = "ToDo Group",
         isVisible = true)
+
+@Controller
+@RequestMapping(value = "TodoGroup", method = {RequestMethod.GET, RequestMethod.POST})
 public class TodoGroupController implements MVCProcessor {
     private static final String DEFAULT_VIEW = "/TodoGroup.jsp";
     @Autowired
@@ -31,8 +37,7 @@ public class TodoGroupController implements MVCProcessor {
     public MVCModel processRequest(MVCRequestParameters req) {
         //ToDo: Use authentication for filtering what to show
 
-        List<TodoGroup> todoGroups = todoGroupDAO.getAll();
-
+        List<TodoGroup> todoGroups = todoGroupDAO.getAllGroups();
         return new MVCModel(DEFAULT_VIEW, new TodoGroupModel(todoGroups));
     }
 }

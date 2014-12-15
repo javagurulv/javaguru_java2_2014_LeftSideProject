@@ -27,24 +27,24 @@ INSERT INTO `java2_leftside`.`todoStates` (`StateID`, `State`) VALUES (4, 'Cance
 -- -----------------------------------------------------
 -- Table `Java2_LeftSide`.`todoItems`
 -- -----------------------------------------------------
-INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`)
-VALUES (1, 4, 'testTitle', 'testDescription', NULL);
-INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`)
-VALUES (2, 3, 'Plant a tree', 'as part of Great Man''s plan', NULL);
-INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`)
-VALUES (3, 2, 'Build a house', 'as part of Great Man''s plan', NULL);
-INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`)
-VALUES (4, 1, 'Grow a son', 'as part of Great Man''s plan', NULL);
-INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`)
-VALUES (5, 3, 'Balance report!!!', '', '2014-10-01');
-INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`)
-VALUES (6, 1, 'Meet Joe', 'St. Jose park, blue jeans, solid black t-shirt, silver case', '2014-12-31');
-INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`)
-VALUES (7, 1, 'Horse ride', '', NULL);
-INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`)
-VALUES (8, 1, 'Hawaii trip', 'call Amily!', NULL);
-INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`)
-VALUES (9, 1, 'Bills', 'electricity, phone and water', '2014-10-25');
+INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`, `todoGroupId`)
+VALUES (1, 4, 'testTitle', 'testDescription', NULL, 1);
+INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`, `todoGroupId`)
+VALUES (2, 3, 'Plant a tree', 'as part of Great Man''s plan', NULL,1);
+INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`, `todoGroupId`)
+VALUES (3, 2, 'Build a house', 'as part of Great Man''s plan', NULL,1);
+INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`, `todoGroupId`)
+VALUES (4, 1, 'Grow a son', 'as part of Great Man''s plan', NULL,2);
+INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`, `todoGroupId`)
+VALUES (5, 3, 'Balance report!!!', '', '2014-10-01',3);
+INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`, `todoGroupId`)
+VALUES (6, 1, 'Meet Joe', 'St. Jose park, blue jeans, solid black t-shirt, silver case', '2014-12-31',3);
+INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`, `todoGroupId`)
+VALUES (7, 1, 'Horse ride', '', NULL,4);
+INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`, `todoGroupId`)
+VALUES (8, 1, 'Hawaii trip', 'call Amily!', NULL,4);
+INSERT INTO `java2_leftside`.`todoItems` (`ItemID`, `StateID`, `Title`, `Description`, `DueDate`, `todoGroupId`)
+VALUES (9, 1, 'Bills', 'electricity, phone and water', '2014-10-25',1);
 
 -- -----------------------------------------------------
 -- Table `Java2_LeftSide`.`todoItemComment`

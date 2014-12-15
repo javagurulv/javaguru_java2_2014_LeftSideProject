@@ -22,6 +22,8 @@ public class TodoGroupModel {
     public int getTodoGroupAmount() {
         return this.todoGroups.size();
     }
+
+    public List<TodoGroup> getAllTodoGroups() { return todoGroups; }
 }
 
 
