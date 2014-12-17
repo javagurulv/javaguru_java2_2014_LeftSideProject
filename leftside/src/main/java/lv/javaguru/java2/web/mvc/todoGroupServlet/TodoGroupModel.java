@@ -11,17 +11,6 @@ public class TodoGroupModel {
 
     private List<TodoGroup> todoGroups;
 
-    public void addTodoGroup(TodoGroup todoGroup){ this.todoGroups.add(todoGroup); }
-
-    public void removeTodoGroup(TodoGroup todoGroup){
-        for(int i = 0 ; i < todoGroups.size(); i++){
-            if(todoGroups.get(i).equals(todoGroup)){
-                todoGroups.remove(i);
-                break;
-            }
-        }
-    }
-
     public TodoGroupModel(List<TodoGroup> todoGroups) {
         this.todoGroups = todoGroups;
     }

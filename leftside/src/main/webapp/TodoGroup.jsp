@@ -3,13 +3,12 @@
 <%@ page import="lv.javaguru.java2.web.mvc.todoGroupServlet.TodoGroupModel" %>
 <%@ page import="java.util.List" %>
 <%@ page import="lv.javaguru.java2.domain.TodoGroup" %>
-<%@ page import="lv.javaguru.java2.database.TodoGroupDAO" %>
 
 <%
+    //TODO: fix logics.
     TodoGroupModel model = (TodoGroupModel) request.getAttribute("model");
     List<TodoGroup> todoGroups = model.getAllTodoGroups();
-    TodoGroupDAO databaseAccess = (TodoGroupDAO) request.getAttribute("database");
-    String buttonFunc = addButtonFunc(request, model, databaseAccess);
+    String buttonFunc = addButtonFunc(request, model);
     String groupsAndItems = writeGroupsAndItems(todoGroups);
     String buttons = addButtons();
 
@@ -37,7 +36,7 @@
 %>
 
 <%!
-    String addButtonFunc(HttpServletRequest request, TodoGroupModel model, TodoGroupDAO databaseAccess) {
+    String addButtonFunc(HttpServletRequest request, TodoGroupModel model) {
         String buttons = "";
         String add = request.getParameter("addedButtonName");
         String delete = request.getParameter("deletedButtonName");
@@ -46,11 +45,9 @@
         if(isGroupAdded == "Incorrect name" || isGroupDeleted == "Incorrect name"){
             buttons = isGroupAdded;
         }else if(isGroupAdded == "true"){
-            addGroupToDatabase(add, databaseAccess, model);
-            buttons += "Group Added";
+            //TODO: POST/GET request
         }else if(isGroupDeleted == "true"){
-            removeGroupFromDatabase(model, delete, databaseAccess);
-            buttons += "Group Deleted";
+            //TODO: POST/GET request
         }
         if(buttons == null){
             return " ";
@@ -60,26 +57,6 @@
     }
 
 
-%>
-
-<%!
-    void removeGroupFromDatabase(TodoGroupModel model, String delete, TodoGroupDAO databaseAccess){
-        //TODO If 2 groups have the same name ask which one to remove.
-        TodoGroup groupToDelete = model.getTodoGroupByName(delete);
-        String groupName = groupToDelete.getName();
-        databaseAccess.deleteGroupFromDatabase(groupName);
-        model.removeTodoGroup(groupToDelete);
-    }
-
-%>
-
-<%!
-    void addGroupToDatabase(String add, TodoGroupDAO databaseAccess, TodoGroupModel model){
-        TodoGroup todoGroup = new TodoGroup();
-        todoGroup.setName(add);
-        databaseAccess.addGroupToDatabase(todoGroup);
-        model.addTodoGroup(todoGroup);
-    }
 %>
 
 <%!

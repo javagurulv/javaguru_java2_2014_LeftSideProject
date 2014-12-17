@@ -10,8 +10,4 @@ import java.util.List;
  * Created by SM on 10/23/2014.
  */
 public interface TodoGroupDAO extends CrudDAO<TodoGroup> {
-
-    public void deleteGroupFromDatabase(String groupName) throws DBException;
-    public void addGroupToDatabase(TodoGroup todoGroup) throws DBException;
-
 }

@@ -23,7 +23,7 @@ import java.util.Properties;
  * Created by MuromcevS on 15/11/2014.
  */
 
-@Configuration("SpringAppConfig")
+@Configuration
 @ComponentScan(basePackages = {"lv.javaguru.java2"})
 @EnableTransactionManagement
 public class SpringAppConfig {

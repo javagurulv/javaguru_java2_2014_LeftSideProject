@@ -44,7 +44,6 @@ public class TodoGroupController {
         }
 
         model.addObject("model", new TodoGroupModel(todoGroups));
-        model.addObject("database", todoGroupDAO);
         return model;
     }
 }
