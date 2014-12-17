@@ -11,6 +11,17 @@ public class TodoGroupModel {
 
     private List<TodoGroup> todoGroups;
 
+    public void addTodoGroup(TodoGroup todoGroup){ this.todoGroups.add(todoGroup); }
+
+    public void removeTodoGroup(TodoGroup todoGroup){
+        for(int i = 0 ; i < todoGroups.size(); i++){
+            if(todoGroups.get(i).equals(todoGroup)){
+                todoGroups.remove(i);
+                break;
+            }
+        }
+    }
+
     public TodoGroupModel(List<TodoGroup> todoGroups) {
         this.todoGroups = todoGroups;
     }
@@ -24,6 +35,18 @@ public class TodoGroupModel {
     }
 
     public List<TodoGroup> getAllTodoGroups() { return todoGroups; }
+
+    public TodoGroup getTodoGroupByName(String name){
+        TodoGroup group = null;
+        for(int i = 0; i < todoGroups.size(); i++){
+            String groupName = todoGroups.get(i).getName().toLowerCase();
+            if(name != null && groupName.equals(name.toLowerCase())){
+                group = todoGroups.get(i);
+            }
+        }
+
+        return group;
+    }
 }
 
 
