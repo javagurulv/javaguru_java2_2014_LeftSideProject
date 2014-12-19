@@ -1,5 +1,6 @@
 package lv.javaguru.java2.domain;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -15,10 +16,12 @@ public class TodoItemComment implements DomainObject {
     private long commentId;
     @Column(name = "UserID", columnDefinition = "int(11)")
     private long userId;
-    @Column(name = "ItemID", columnDefinition = "int(11)")
-    private long itemId;
-    @Column(name = "ReplyToID", columnDefinition = "int(11)", nullable = true)
-    private Long ReplyToID;
+    @ManyToOne
+    @JoinColumn(name = "ItemID")
+    private TodoItem todoItem;
+    @ManyToOne
+    @JoinColumn(name = "ReplyToID", nullable = true)
+    private TodoItemComment replyToItemComment;
     @Column(name = "Date", columnDefinition = "TIMESTAMP")
     private Calendar date;
     @Column(name = "Title", length = 100)
@@ -42,20 +45,12 @@ public class TodoItemComment implements DomainObject {
         this.userId = userId;
     }
 
-    public long getItemId() {
-        return itemId;
+    public TodoItemComment getReplyToItemComment() {
+        return replyToItemComment;
     }
 
-    public void setItemId(long itemId) {
-        this.itemId = itemId;
-    }
-
-    public Long getReplyToID() {
-        return ReplyToID;
-    }
-
-    public void setReplyToID(Long replyToID) {
-        ReplyToID = replyToID;
+    public void setReplyToItemComment(TodoItemComment replyToItemComment) {
+        this.replyToItemComment = replyToItemComment;
     }
 
     public Calendar getDate() {
@@ -86,4 +81,13 @@ public class TodoItemComment implements DomainObject {
     public void setId(Long id) {
         setCommentId(id);
     }
+
+    public TodoItem getTodoItem() {
+        return todoItem;
+    }
+
+    public void setTodoItem(TodoItem todoItem) {
+        this.todoItem = todoItem;
+    }
+
 }

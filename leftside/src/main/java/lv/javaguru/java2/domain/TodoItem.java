@@ -3,6 +3,7 @@ package lv.javaguru.java2.domain;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by SM on 10/23/2014.
@@ -17,7 +18,7 @@ public class TodoItem implements DomainObject {
     @Column(name = "ItemID", columnDefinition = "int(11)")
     private long itemId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "StateID")
     private State stateId;
 
@@ -30,17 +31,29 @@ public class TodoItem implements DomainObject {
     @Column(name = "DueDate", columnDefinition = "date")
     private Calendar dueDate;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinTable(name="todoItemsToGroups",
-            joinColumns={@JoinColumn(name="ItemID", referencedColumnName="ItemID")},
-            inverseJoinColumns={@JoinColumn(name="GroupID", referencedColumnName="GroupID")})
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "todoItemsToGroups",
+            joinColumns = {@JoinColumn(name = "ItemID", referencedColumnName = "ItemID")},
+            inverseJoinColumns = {@JoinColumn(name = "GroupID", referencedColumnName = "GroupID")})
     private TodoGroup todoGroup;
 
-    public void setTodoGroup(TodoGroup todoGroup){
+    @OneToMany(mappedBy = "todoItem", cascade = CascadeType.REMOVE)
+    private List<TodoItemComment> todoItemComments;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "todoitemstousers",
+            joinColumns = {@JoinColumn(name = "ItemID", referencedColumnName = "ItemID")},
+            inverseJoinColumns = {@JoinColumn(name = "UserID", referencedColumnName = "UserID")})
+    private User user;
+
+
+
+    public void setTodoGroup(TodoGroup todoGroup) {
         this.todoGroup = todoGroup;
     }
 
-    public TodoGroup getTodoGroup(){
+    public TodoGroup getTodoGroup() {
         return todoGroup;
     }
 
@@ -87,6 +100,14 @@ public class TodoItem implements DomainObject {
     @Override
     public void setId(Long id) {
         setItemId(id);
+    }
+
+    public List<TodoItemComment> getTodoItemComments() {
+        return todoItemComments;
+    }
+
+    public void setTodoItemComments(List<TodoItemComment> todoItemComments) {
+        this.todoItemComments = todoItemComments;
     }
 
 //    public enum State {

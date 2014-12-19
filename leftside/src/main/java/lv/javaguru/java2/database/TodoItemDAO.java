@@ -18,4 +18,5 @@ public interface TodoItemDAO extends CrudDAO<TodoItem> {
     void setTodoGroup(Long todoItemId, Long todoGroupId) throws DBException;
 
     void setAuthor(Long todoItemId, Long userId) throws DBException;
+
 }

@@ -1,6 +1,7 @@
 package lv.javaguru.java2.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Viktor on 01/07/2014.
@@ -22,6 +23,9 @@ public class User implements DomainObject {
     private String lastName;
     @Column(name = "Email", length = 100)
     private String email;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<TodoItem> todoItems;
 
     public long getUserId() {
         return userId;
@@ -69,6 +73,14 @@ public class User implements DomainObject {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<TodoItem> getTodoItems() {
+        return todoItems;
+    }
+
+    public void setTodoItems(List<TodoItem> todoItems) {
+        this.todoItems = todoItems;
     }
 
     @Override

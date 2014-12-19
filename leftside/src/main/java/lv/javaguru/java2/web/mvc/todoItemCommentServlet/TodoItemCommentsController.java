@@ -107,11 +107,11 @@ public class TodoItemCommentsController  {
         }
     }
 */
-    private void dbCreateComment(Long userId, Long itemId, Long replyTo, String title, String msg) {
+    private void dbCreateComment(Long userId, TodoItem itemId, TodoItemComment replyTo, String title, String msg) {
         TodoItemComment comment = new TodoItemComment();
         comment.setUserId(userId);
-        comment.setItemId(itemId);
-        comment.setReplyToID(replyTo);
+        comment.setTodoItem(itemId);
+        comment.setReplyToItemComment(replyTo);
         comment.setDate(Calendar.getInstance());
         comment.setTitle(title);
         comment.setMessage(msg);
@@ -147,9 +147,9 @@ public class TodoItemCommentsController  {
         hashCommentTrees.put(null, commRoot);
 
         for (TodoItemComment comment : commentList) {
-            TodoItemCommentsTree tree = hashCommentTrees.get(comment.getReplyToID());
+            TodoItemCommentsTree tree = hashCommentTrees.get(comment.getReplyToItemComment().getCommentId());
             if (null == tree) {
-                tree = noRootTrees.get(comment.getReplyToID());
+                tree = noRootTrees.get(comment.getReplyToItemComment().getCommentId());
             }
             if (null == tree) {
                 noRootTrees.put(comment.getCommentId(), new TodoItemCommentsTree(comment));
@@ -162,9 +162,9 @@ public class TodoItemCommentsController  {
 
         List<Long> commentsOutOfSynch = new ArrayList<Long>();
         for (TodoItemCommentsTree t : noRootTrees.values()) {
-            TodoItemCommentsTree hashedTree = hashCommentTrees.get(t.comment.getReplyToID());
+            TodoItemCommentsTree hashedTree = hashCommentTrees.get(t.comment.getReplyToItemComment().getCommentId());
             if (null == hashedTree) {
-                hashedTree = noRootTrees.get(t.comment.getReplyToID());
+                hashedTree = noRootTrees.get(t.comment.getReplyToItemComment().getCommentId());
             }
             if (null == hashedTree) {
                 commentsOutOfSynch.add(t.comment.getCommentId());

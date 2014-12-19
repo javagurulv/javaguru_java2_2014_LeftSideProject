@@ -32,8 +32,8 @@
             <td><c:out value="${i.getDescription()}"/></td>
             <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${i.getDueDate().getTime()}"/></td>
 
-            <td><a href="/todoItem?action=edit&itemId=<c:out value="${i.getItemId()}"/>">Update</a></td>
-            <td><a href="/todoItem?action=delete&itemId=<c:out value="${i.getItemId()}"/>">Delete</a></td>
+            <td><a href="/todoItem?action=edit&itemID=<c:out value="${i.getItemId()}"/>">Update</a></td>
+            <td><a href="/todoItem?action=delete&itemID=<c:out value="${i.getItemId()}"/>">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>

@@ -39,4 +39,5 @@ public class TodoItemDAOImpl extends DAOImpl<TodoItem> implements TodoItemDAO {
     public void setAuthor(Long todoItemId, Long userId) throws DBException {
 
     }
+
 }

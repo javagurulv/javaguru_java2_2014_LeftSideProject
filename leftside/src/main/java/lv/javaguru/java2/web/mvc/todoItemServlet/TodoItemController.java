@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -26,8 +27,17 @@ public class TodoItemController {
     private TodoItemDAO todoItemDAO;
 
     @RequestMapping(value = "todoItem", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView processRequest(HttpServletRequest request,
+    public ModelAndView processRequestList (HttpServletRequest request,
                                        HttpServletResponse response) {
+
+        String action = request.getParameter("action");
+        if (action.equals("delete")) {
+
+            String itemID = request.getParameter("itemID");
+
+            TodoItem itemToDel = todoItemDAO.getById(Long.valueOf(itemID));
+            todoItemDAO.delete(itemToDel);
+        }
 
         List<TodoItem> itemList = todoItemDAO.getAll();
 
@@ -36,7 +46,9 @@ public class TodoItemController {
         model.addObject("model", itemList);
 
         return model;
+
     }
+
 }
 
 
