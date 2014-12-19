@@ -41,6 +41,19 @@ public class TodoItemController {
 
         List<TodoItem> itemList = todoItemDAO.getAll();
 
+//        TodoItem itemToEdit;
+//
+//        if (action.equals("edit")) {
+//            String itemID = request.getParameter("itemID");
+//            itemToEdit = todoItemDAO.getById(Long.valueOf(itemID));
+//        }
+//
+//        ModelAndView model = new ModelAndView();
+//        model.setViewName("TodoItemList");
+//        model.addObject("model", itemToEdit);
+
+
+
         ModelAndView model = new ModelAndView();
         model.setViewName("TodoItemList");
         model.addObject("model", itemList);
@@ -48,6 +61,25 @@ public class TodoItemController {
         return model;
 
     }
+
+
+//    @RequestMapping(value = "todoItem", method = {RequestMethod.GET, RequestMethod.POST})
+//    public ModelAndView processRequestEdit (HttpServletRequest request, HttpServletResponse response) {
+//
+//
+//        String action = request.getParameter("action");
+//        TodoItem itemToEdit = null;
+//        if (action.equals("edit")) {
+//            String itemID = request.getParameter("itemID");
+//            itemToEdit = todoItemDAO.getById(Long.valueOf(itemID));
+//        }
+//
+//        ModelAndView model = new ModelAndView();
+//        model.setViewName("TodoItemList");
+//        model.addObject("model", itemToEdit);
+//
+//        return model;
+//    }
 
 }
 

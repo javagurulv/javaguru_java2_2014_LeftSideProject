@@ -83,11 +83,14 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemComments` (
   `Message`   VARCHAR(1000) NOT NULL,
   PRIMARY KEY (`CommentID`),
   FOREIGN KEY (`UserID`)
-  REFERENCES users (`UserID`),
+  REFERENCES users (`UserID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   FOREIGN KEY (`ItemID`)
   REFERENCES todoItems (`ItemID`),
   FOREIGN KEY (`ReplyToID`)
   REFERENCES todoItemComments (`CommentID`)
+    ON DELETE SET NULL
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 10;
@@ -135,11 +138,13 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`files` (
 CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemsToGroups` (
   `ItemID`  INT(11) NOT NULL,
   `GroupID` INT(11) NOT NULL,
-  PRIMARY KEY (`ItemID`),
+#   PRIMARY KEY (`ItemID`),
   FOREIGN KEY (`ItemID`)
-  REFERENCES todoItems (`ItemID`),
+  REFERENCES todoItems (`ItemID`)
+    ON DELETE CASCADE,
   FOREIGN KEY (`GroupID`)
   REFERENCES todoGroups (`GroupID`)
+    ON DELETE CASCADE
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 10;
@@ -151,10 +156,12 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemsToUsers` (
   `ItemID` INT(11) NOT NULL,
   `UserID` INT(11) NOT NULL,
   PRIMARY KEY (`ItemID`),
-  FOREIGN KEY (`ItemID`)
-  REFERENCES todoItems (`ItemID`),
+#   FOREIGN KEY (`ItemID`)
+#   REFERENCES todoItems (`ItemID`),
   FOREIGN KEY (`UserID`)
   REFERENCES users (`UserID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 10;

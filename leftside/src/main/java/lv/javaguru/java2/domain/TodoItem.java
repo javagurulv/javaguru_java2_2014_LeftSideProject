@@ -18,7 +18,7 @@ public class TodoItem implements DomainObject {
     @Column(name = "ItemID", columnDefinition = "int(11)")
     private long itemId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "StateID")
     private State stateId;
 
@@ -31,17 +31,17 @@ public class TodoItem implements DomainObject {
     @Column(name = "DueDate", columnDefinition = "date")
     private Calendar dueDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinTable(name = "todoItemsToGroups",
             joinColumns = {@JoinColumn(name = "ItemID", referencedColumnName = "ItemID")},
             inverseJoinColumns = {@JoinColumn(name = "GroupID", referencedColumnName = "GroupID")})
     private TodoGroup todoGroup;
 
-    @OneToMany(mappedBy = "todoItem", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "todoItem", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<TodoItemComment> todoItemComments;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinTable(name = "todoitemstousers",
             joinColumns = {@JoinColumn(name = "ItemID", referencedColumnName = "ItemID")},
             inverseJoinColumns = {@JoinColumn(name = "UserID", referencedColumnName = "UserID")})

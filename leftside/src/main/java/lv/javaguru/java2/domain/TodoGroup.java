@@ -22,8 +22,6 @@ public class TodoGroup implements DomainObject {
     private long groupId;
     @Column(name = "Name", length = 40)
     private String name;
-
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "todoGroup")
     private List<TodoItem> todoItems;
 

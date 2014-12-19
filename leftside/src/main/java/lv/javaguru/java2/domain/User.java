@@ -23,7 +23,6 @@ public class User implements DomainObject {
     private String lastName;
     @Column(name = "Email", length = 100)
     private String email;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<TodoItem> todoItems;
 
