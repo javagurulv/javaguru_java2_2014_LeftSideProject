@@ -24,6 +24,18 @@ public class TodoGroupModel {
     }
 
     public List<TodoGroup> getAllTodoGroups() { return todoGroups; }
+
+    public TodoGroup getTodoGroupByName(String name){
+        TodoGroup group = null;
+        for(int i = 0; i < todoGroups.size(); i++){
+            String groupName = todoGroups.get(i).getName().toLowerCase();
+            if(name != null && groupName.equals(name.toLowerCase())){
+                group = todoGroups.get(i);
+            }
+        }
+
+        return group;
+    }
 }
 
 
