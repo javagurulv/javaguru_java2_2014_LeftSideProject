@@ -31,7 +31,7 @@ public class TodoItemController {
                                        HttpServletResponse response) {
 
         String action = request.getParameter("action");
-        if (action.equals("delete")) {
+        if (action != null && action.equals("delete")) {
 
             String itemID = request.getParameter("itemID");
 

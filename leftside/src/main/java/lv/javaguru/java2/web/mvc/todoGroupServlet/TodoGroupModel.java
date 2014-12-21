@@ -10,33 +10,31 @@ import java.util.List;
 public class TodoGroupModel {
 
     private List<TodoGroup> todoGroups;
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public TodoGroupModel(List<TodoGroup> todoGroups) {
         this.todoGroups = todoGroups;
     }
 
-    public TodoGroup getTodoGroup(int i) {
-        return todoGroups.get(i);
+    public List<TodoGroup> getTodoGroups() {
+        return todoGroups;
     }
 
-    public int getTodoGroupAmount() {
-        return this.todoGroups.size();
+    public void setTodoGroups(List<TodoGroup> todoGroups) {
+        this.todoGroups = todoGroups;
     }
 
-    public List<TodoGroup> getAllTodoGroups() { return todoGroups; }
-
-    public TodoGroup getTodoGroupByName(String name){
-        TodoGroup group = null;
-        for(int i = 0; i < todoGroups.size(); i++){
-            String groupName = todoGroups.get(i).getName().toLowerCase();
-            if(name != null && groupName.equals(name.toLowerCase())){
-                group = todoGroups.get(i);
-            }
-        }
-
-        return group;
-    }
 }
+
+
 
 
 
