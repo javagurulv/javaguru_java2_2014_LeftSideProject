@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Component("ORM_TodoItemDAO")
 public class TodoItemDAOImpl extends DAOImpl<TodoItem> implements TodoItemDAO {
+
     @Override
     public List<TodoItem> getByUserId(Long userId) throws DBException {
 //        Session session = getCurrentSession();
@@ -39,5 +40,6 @@ public class TodoItemDAOImpl extends DAOImpl<TodoItem> implements TodoItemDAO {
     public void setAuthor(Long todoItemId, Long userId) throws DBException {
 
     }
+
 
 }

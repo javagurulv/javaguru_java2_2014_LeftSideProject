@@ -17,5 +17,7 @@ public interface CrudDAO<T extends DomainObject> {
 
     void update(T file) throws DBException;
 
+    T merge(T obj) throws DBException;
+
     List<T> getAll() throws DBException;
 }

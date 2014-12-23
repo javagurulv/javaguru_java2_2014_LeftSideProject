@@ -1,6 +1,5 @@
 package lv.javaguru.java2.domain;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.Calendar;
 

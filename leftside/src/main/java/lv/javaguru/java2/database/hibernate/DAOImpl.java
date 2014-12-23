@@ -50,6 +50,12 @@ public abstract class DAOImpl<T extends DomainObject> implements CrudDAO<T> {
     }
 
     @Override
+    public T merge(T obj) throws DBException {
+        Session session = sessionFactory.getCurrentSession();
+        return (T) session.merge(obj);
+    }
+
+    @Override
     public List getAll() throws DBException {
         Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(getPersistentClass()).list();

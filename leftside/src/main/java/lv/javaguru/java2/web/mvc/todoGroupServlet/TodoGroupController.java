@@ -5,8 +5,6 @@ import lv.javaguru.java2.database.TodoItemDAO;
 import lv.javaguru.java2.domain.State;
 import lv.javaguru.java2.domain.TodoGroup;
 import lv.javaguru.java2.domain.TodoItem;
-import lv.javaguru.java2.domain.TodoItemComment;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**

@@ -6,14 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Enumeration;
-import java.util.List;
 
 /**
  * Created by alekmiku on 2014.11.11..
@@ -26,65 +23,46 @@ public class TodoItemController {
     @Qualifier("ORM_TodoItemDAO")
     private TodoItemDAO todoItemDAO;
 
-    @RequestMapping(value = "todoItem", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView processRequestList (HttpServletRequest request,
-                                       HttpServletResponse response) {
-
-        String action = request.getParameter("action");
-        if (action != null && action.equals("delete")) {
-
-            String itemID = request.getParameter("itemID");
-
-            TodoItem itemToDel = todoItemDAO.getById(Long.valueOf(itemID));
-            todoItemDAO.delete(itemToDel);
-        }
-
-        List<TodoItem> itemList = todoItemDAO.getAll();
-
-//        TodoItem itemToEdit;
-//
-//        if (action.equals("edit")) {
-//            String itemID = request.getParameter("itemID");
-//            itemToEdit = todoItemDAO.getById(Long.valueOf(itemID));
+//        @Autowired(required=true)
+//        @Qualifier(value="personService")
+//        public void setPersonService(PersonService ps){
+//            this.personService = ps;
 //        }
-//
-//        ModelAndView model = new ModelAndView();
-//        model.setViewName("TodoItemList");
-//        model.addObject("model", itemToEdit);
 
+    @RequestMapping(value = "/items", method = RequestMethod.GET)
+    public String listItems(Model model) {
+        model.addAttribute("item", new TodoItem());
+        model.addAttribute("listItems", todoItemDAO.getAll());
+        return "TodoItem";
+    }
 
+    //For add and update item
+    @RequestMapping(value = "/item/add", method = RequestMethod.POST)
+    public String addItem(@ModelAttribute("item") TodoItem tdi) {
 
-        ModelAndView model = new ModelAndView();
-        model.setViewName("TodoItemList");
-        model.addObject("model", itemList);
-
-        return model;
+        if (tdi.getItemId() == 0) {
+            //new item, add it
+            todoItemDAO.create(tdi);
+        } else {
+            //existing person, call update
+            todoItemDAO.merge(tdi);
+        }
+        return "redirect:/item";
 
     }
 
+    @RequestMapping("/item/remove/{itemID}")
+    public String removeItem(@PathVariable("itemID") int itemID) {
+        TodoItem itemToDel = todoItemDAO.getById((long) itemID);
+        todoItemDAO.delete(itemToDel);
+        return "redirect:/items";
+    }
 
-//    @RequestMapping(value = "todoItem", method = {RequestMethod.GET, RequestMethod.POST})
-//    public ModelAndView processRequestEdit (HttpServletRequest request, HttpServletResponse response) {
-//
-//
-//        String action = request.getParameter("action");
-//        TodoItem itemToEdit = null;
-//        if (action.equals("edit")) {
-//            String itemID = request.getParameter("itemID");
-//            itemToEdit = todoItemDAO.getById(Long.valueOf(itemID));
-//        }
-//
-//        ModelAndView model = new ModelAndView();
-//        model.setViewName("TodoItemList");
-//        model.addObject("model", itemToEdit);
-//
-//        return model;
-//    }
+    @RequestMapping("/item/edit/{itemID}")
+    public String editItem(@PathVariable("itemID") int itemID, Model model) {
+        model.addAttribute("item", todoItemDAO.getById(Long.valueOf(itemID)));
+        model.addAttribute("listItems", todoItemDAO.getAll());
+        return "TodoItem";
+    }
 
 }
-
-
-
-
-
-

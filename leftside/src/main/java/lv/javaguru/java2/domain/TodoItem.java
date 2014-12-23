@@ -2,7 +2,7 @@ package lv.javaguru.java2.domain;
 
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ public class TodoItem implements DomainObject {
     @Column(name = "ItemID", columnDefinition = "int(11)")
     private long itemId;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "StateID")
     private State stateId;
 
@@ -29,7 +29,7 @@ public class TodoItem implements DomainObject {
     private String description;
 
     @Column(name = "DueDate", columnDefinition = "date")
-    private Calendar dueDate;
+    private Date dueDate;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinTable(name = "todoItemsToGroups",
@@ -89,11 +89,11 @@ public class TodoItem implements DomainObject {
         this.description = description;
     }
 
-    public Calendar getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Calendar dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 

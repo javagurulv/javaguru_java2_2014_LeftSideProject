@@ -1,13 +1,6 @@
 package lv.javaguru.java2.domain;
 
-import lv.javaguru.java2.database.TodoGroupDAO;
-import lv.javaguru.java2.database.hibernate.TodoGroupDAOImpl;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

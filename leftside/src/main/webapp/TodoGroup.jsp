@@ -1,9 +1,9 @@
 <jsp:include page="/includes/header.jsp"/>
+<%@ page import="lv.javaguru.java2.domain.TodoGroup" %>
 <%@ page import="lv.javaguru.java2.domain.TodoItem" %>
 <%@ page import="lv.javaguru.java2.web.mvc.todoGroupServlet.TodoGroupModel" %>
-<%@ page import="java.util.List" %>
-<%@ page import="lv.javaguru.java2.domain.TodoGroup" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 
 <%
     TodoGroupModel model = (TodoGroupModel) request.getAttribute("model");
