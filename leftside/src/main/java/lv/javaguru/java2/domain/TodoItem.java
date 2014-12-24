@@ -47,7 +47,8 @@ public class TodoItem implements DomainObject {
             inverseJoinColumns = {@JoinColumn(name = "UserID", referencedColumnName = "UserID")})
     private User user;
 
-
+    @OneToMany(mappedBy = "ToDoItemID")
+    private List<File> files;
 
     public void setTodoGroup(TodoGroup todoGroup) {
         this.todoGroup = todoGroup;
@@ -108,6 +109,14 @@ public class TodoItem implements DomainObject {
 
     public void setTodoItemComments(List<TodoItemComment> todoItemComments) {
         this.todoItemComments = todoItemComments;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles (List<File> files) {
+        this.files = files;
     }
 
 //    public enum State {

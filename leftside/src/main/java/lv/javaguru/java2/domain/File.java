@@ -24,6 +24,10 @@ public class File implements DomainObject {
     @Column(name = "UploadDate", columnDefinition = "TIMESTAMP")
     private Calendar UploadDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ItemID", nullable = false)
+    private TodoItem todoItem;
+
     public long getFileId() {
         return fileId;
     }
@@ -70,6 +74,10 @@ public class File implements DomainObject {
 
     public void setUploadDate(Calendar uploadDate) {
         UploadDate = uploadDate;
+    }
+
+    public TodoItem getTodoItem() {
+        return this.todoItem;
     }
 
     @Override
