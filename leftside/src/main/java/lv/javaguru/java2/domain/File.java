@@ -19,13 +19,14 @@ public class File implements DomainObject {
     private String fileName;
     @Column(name = "ExtensionID", columnDefinition = "TINYINT", nullable = true)
     private Byte extensionId;
-    @Column(name = "TodoItemID", columnDefinition = "int(11)")
-    private long todoItemID;
     @Column(name = "UploadDate", columnDefinition = "TIMESTAMP")
     private Calendar UploadDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ItemID", nullable = false)
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "filesTotodoItems",
+            joinColumns = {@JoinColumn(name = "FileID", referencedColumnName = "FileID")},
+            inverseJoinColumns = {@JoinColumn(name = "ItemID", referencedColumnName = "ItemID")})
     private TodoItem todoItem;
 
     public long getFileId() {
@@ -58,14 +59,6 @@ public class File implements DomainObject {
 
     public void setExtensionId(Byte extensionId) {
         this.extensionId = extensionId;
-    }
-
-    public long getTodoItemID() {
-        return todoItemID;
-    }
-
-    public void setTodoItemID(long todoItemID) {
-        this.todoItemID = todoItemID;
     }
 
     public Calendar getUploadDate() {

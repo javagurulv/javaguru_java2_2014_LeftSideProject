@@ -4,8 +4,6 @@ import lv.javaguru.java2.database.FileDAO;
 import lv.javaguru.java2.domain.File;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,13 +11,15 @@ import java.util.List;
  */
 public class FileModel {
 
+    // TEMPORARY DISABLED TO BE CHANGED!
+
     @Autowired
     private FileDAO fileDAO;
     //private static final TodoItemDAO todoItemDAO = new TodoItemDAOImpl();
 
     private List<File> files = fileDAO.getAll();
     //private List<TodoItem> todoItems = todoItemDAO.getAll();
-    private List<Long> itemList = obtainItemList();
+ /*   private List<Long> itemList = obtainItemList();
 
     public List<Long> obtainItemList() {
         List<Long> itemList = new ArrayList<Long>();
@@ -34,7 +34,7 @@ public class FileModel {
         Collections.sort(itemList);
         return itemList;
     }
-
+*/
 
     public File getFile(int i) {
         return files.get(i);
@@ -48,6 +48,8 @@ public class FileModel {
         return files.size();
     }
 
+    /*
+
     public int getItemListAmount() {
         return itemList.size();
     }
@@ -55,7 +57,7 @@ public class FileModel {
     public List<Long> getItemList() {
         return itemList;
     }
-
+*/
 
 }
 

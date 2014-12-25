@@ -118,11 +118,11 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`files` (
   `Path`        VARCHAR(500) NOT NULL,
   `FileName`    VARCHAR(40)  NOT NULL,
   `ExtensionID` TINYINT      NULL,
-  `TodoItemID`  INT(11)      NOT NULL,
+#  `TodoItemID`  INT(11)      NOT NULL,
   `UploadDate`  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`FileID`),
-  FOREIGN KEY (`TodoItemID`)
-  REFERENCES todoItems (`ItemID`),
+#  FOREIGN KEY (`TodoItemID`)
+#  REFERENCES todoItems (`ItemID`),
   FOREIGN KEY (`ExtensionID`)
   REFERENCES fileExtensions (`ExtensionID`)
 )
@@ -165,3 +165,19 @@ CREATE TABLE IF NOT EXISTS `java2_leftside`.`todoItemsToUsers` (
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 10;
+  
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`filesTotodoItems`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `java2_leftside`.`filesTotodoItems` (
+  `FileID` INT(11) NOT NULL,
+  `ItemID` INT(11) NOT NULL,
+  PRIMARY KEY (`FileID`),
+  FOREIGN KEY (`ItemID`)
+  REFERENCES todoItems (`ItemID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 10;
+  

@@ -78,16 +78,16 @@ INSERT INTO `java2_leftside`.`fileExtensions` (`ExtensionID`, `Extension`) VALUE
 -- -----------------------------------------------------
 -- Table `Java2_LeftSide`.`files`
 -- -----------------------------------------------------
-INSERT INTO `java2_leftside`.`files` (`FileID`, `Path`, `FileName`, `ExtensionID`, `TodoItemID`, `UploadDate`)
-VALUES (1, 'C:\\Data\\Poesy.txt', 'Poesy', 1, 6, '2013-11-01 14:26:00');
-INSERT INTO `java2_leftside`.`files` (`FileID`, `Path`, `FileName`, `ExtensionID`, `TodoItemID`, `UploadDate`)
-VALUES (2, 'C:\\Data\\Thriller.dat', 'Thriller.dat', NULL, 5, '2013-10-01 10:00:35');
-INSERT INTO `java2_leftside`.`files` (`FileID`, `Path`, `FileName`, `ExtensionID`, `TodoItemID`, `UploadDate`)
-VALUES (3, 'C:\\Data\\Call.me', 'Call.me', NULL, 8, '2013-11-05 12:21:00');
-INSERT INTO `java2_leftside`.`files` (`FileID`, `Path`, `FileName`, `ExtensionID`, `TodoItemID`, `UploadDate`)
-VALUES (4, 'C:\\Data\\Maybe.doc', 'Maybe', 2, 6, '2013-10-02 12:10:00');
-INSERT INTO `java2_leftside`.`files` (`FileID`, `Path`, `FileName`, `ExtensionID`, `TodoItemID`, `UploadDate`)
-VALUES (5, 'C:\\Data\\Moon1.docx', 'Moon1', 3, 6, '2013-10-01 12:00:00');
+INSERT INTO `java2_leftside`.`files` (`FileID`, `Path`, `FileName`, `ExtensionID`,  `UploadDate`)
+VALUES (1, 'C:\\Data\\Poesy.txt', 'Poesy', 1, '2013-11-01 14:26:00');
+INSERT INTO `java2_leftside`.`files` (`FileID`, `Path`, `FileName`, `ExtensionID`,  `UploadDate`)
+VALUES (2, 'C:\\Data\\Thriller.dat', 'Thriller.dat', NULL, '2013-10-01 10:00:35');
+INSERT INTO `java2_leftside`.`files` (`FileID`, `Path`, `FileName`, `ExtensionID`,  `UploadDate`)
+VALUES (3, 'C:\\Data\\Call.me', 'Call.me', NULL, '2013-11-05 12:21:00');
+INSERT INTO `java2_leftside`.`files` (`FileID`, `Path`, `FileName`, `ExtensionID`, `UploadDate`)
+VALUES (4, 'C:\\Data\\Maybe.doc', 'Maybe', 2, '2013-10-02 12:10:00');
+INSERT INTO `java2_leftside`.`files` (`FileID`, `Path`, `FileName`, `ExtensionID`,  `UploadDate`)
+VALUES (5, 'C:\\Data\\Moon1.docx', 'Moon1', 3, '2013-10-01 12:00:00');
 
 -- -----------------------------------------------------
 -- Table `Java2_LeftSide`.`todoItemsToGroups`
@@ -114,3 +114,13 @@ INSERT INTO `java2_leftside`.`todoItemsToUsers` (`ItemID`, `UserID`) VALUES (6, 
 INSERT INTO `java2_leftside`.`todoItemsToUsers` (`ItemID`, `UserID`) VALUES (7, 2);
 INSERT INTO `java2_leftside`.`todoItemsToUsers` (`ItemID`, `UserID`) VALUES (8, 2);
 INSERT INTO `java2_leftside`.`todoItemsToUsers` (`ItemID`, `UserID`) VALUES (9, 2);
+
+-- -----------------------------------------------------
+-- Table `Java2_LeftSide`.`filesTotodoItems`
+-- -----------------------------------------------------
+INSERT INTO `java2_leftside`.`filesTotodoItems` (`FileID`, `ItemID`) VALUES (1, 6);
+INSERT INTO `java2_leftside`.`filesTotodoItems` (`FileID`, `ItemID`) VALUES (2, 5);
+INSERT INTO `java2_leftside`.`filesTotodoItems` (`FileID`, `ItemID`) VALUES (3, 8);
+INSERT INTO `java2_leftside`.`filesTotodoItems` (`FileID`, `ItemID`) VALUES (4, 6);
+INSERT INTO `java2_leftside`.`filesTotodoItems` (`FileID`, `ItemID`) VALUES (5, 6);
+
