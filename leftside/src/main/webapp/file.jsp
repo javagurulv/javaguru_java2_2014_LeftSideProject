@@ -1,39 +1,36 @@
-<%@ page import="lv.javaguru.java2.web.mvc.fileServlet.FileModel" %>
-<%@ page import="java.util.List" %>
-<jsp:include page="/includes/header.jsp"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
+<%@ page session="false" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<html>
+<head>
+    <title> :: File List :: </title>
+</head>
+<body>
 
-<%
-    FileModel model = (FileModel) request.getAttribute("model");
-%>
+<h3>File List</h3>
+<c:if test="${!empty listFiles}">
+    <table class="tg" border="1">
+        <tr>
+            <th width="80">File ID</th>
+            <th width="120">Path</th>
+            <th width="120">File name</th>
+            <th width="120">Upload date</th>
 
-<%=
-writeFiles(model)
-%>
+        </tr>
+        <c:forEach items="${listFiles}" var="item">
+            <tr>
+                <td>${item.getFileId()}</td>
+                <td>${item.getPath()}</td>
+                <td>${item.getFileName()}</td>
+                <td><time>${item.getUploadDate()}</time></td>
 
-<%!
-    String writeFiles(FileModel model) {
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
 
-        String files = "";
-        List<Long> itemList = model.getItemList();
-        int itemListAmount = model.getItemListAmount();
-        int fileAmount = model.getFileAmount();
-
-        for (int i = 0; i < itemListAmount; i++) {
-            long itemNumber = itemList.get(i);
-            files = files + (i + 1) + ". Item: " + "ID= " + itemNumber + ", Title= " + model.getTodoItem((int) itemNumber).getTitle() + "<br>";
-
-            int fileCounter = 1;
-            for (int j = 0; j < fileAmount; j++) {
-
-                if (model.getFile(j).getTodoItemID() == itemNumber) {
-                    files = files + "_ _ _ " + fileCounter + ". File" + "Name= " + model.getFile(j).getFileName() + ", Path= " + model.getFile(j).getPath() + ", UploadTime= " + model.getFile(j).getUploadDate() + "<br>";
-                    fileCounter++;
-                }
-            }
-        }
-        return files;
-    }
-%>
-
-<jsp:include page="/includes/footer.jsp"/>
+</body>
+</html>

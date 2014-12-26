@@ -1,7 +1,7 @@
 package lv.javaguru.java2.domain;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.sql.Timestamp;
 
 /**
  * Created by SM on 10/18/2014.
@@ -20,8 +20,7 @@ public class File implements DomainObject {
     @Column(name = "ExtensionID", columnDefinition = "TINYINT", nullable = true)
     private Byte extensionId;
     @Column(name = "UploadDate", columnDefinition = "TIMESTAMP")
-    private Calendar UploadDate;
-
+    private Timestamp UploadDate;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinTable(name = "filesTotodoItems",
@@ -61,11 +60,11 @@ public class File implements DomainObject {
         this.extensionId = extensionId;
     }
 
-    public Calendar getUploadDate() {
+    public Timestamp getUploadDate() {
         return UploadDate;
     }
 
-    public void setUploadDate(Calendar uploadDate) {
+    public void setUploadDate(Timestamp uploadDate) {
         UploadDate = uploadDate;
     }
 
